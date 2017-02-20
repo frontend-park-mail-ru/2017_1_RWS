@@ -8,7 +8,6 @@ var drawName = function(){
 	});
 };
 
-
 var img = pjs.tiles.newImage("assets/p1.png");
 var anim = img.getAnimation(0,0,72,97,11);
 var img = pjs.tiles.newImage("assets/p1f.png");
@@ -25,8 +24,6 @@ var obj = game.newAnimationObject({
 obj.name = "Player1";
 obj.drawName = drawName;
 obj.setDelay(5);
-
-
 
 var health = 10;
 
@@ -95,3 +92,10 @@ obj.collision = function(){
 	}
 };
 
+obj.do = function(){
+    obj.collision();
+    obj.control();
+    obj.drawName();
+    obj.move(point(obj.dx,obj.dy));
+    obj.draw();
+}

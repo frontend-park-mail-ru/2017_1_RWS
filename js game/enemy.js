@@ -25,6 +25,5 @@ setInterval(function(){
 
 var drawEnemy = function(){
     enemy.move(point(2,0));
-    enemy.draw();
-    
+    enemy.draw();  
 }

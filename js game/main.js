@@ -48,12 +48,11 @@ game.newLoop("l1", function()
 	
     drawEnemy();
 
-	obj.draw();
-	obj.drawName(); 
-    obj.control();
-	obj.collision();
-	obj.move(point(obj.dx,obj.dy));
+	obj.do();
+	
 	wall.draw();
+    
+    drawHP(obj);
 	
 	brush.drawLineAngle({
 		x: shotPoint.x,
