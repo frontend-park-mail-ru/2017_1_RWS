@@ -25,10 +25,6 @@ li {
 body {
     background-color: #01FF70;
     margin: 0
-    max-width: 100%;
-    overflow-x: hidden;
-    max-height: 100%;
-    overflow-y: hidden;
 }
 
 h1 {
@@ -37,6 +33,7 @@ h1 {
     padding-bottom: 20px;
     border: solid;
     border-color: #333;
+    font-size: 100px;
 }
 
 .ref {
@@ -157,7 +154,7 @@ dfn {
 
 h1 {
     margin: .67em 0;
-    font-size: 2em
+    
 }
 
 mark {
@@ -1671,11 +1668,6 @@ h5 small,
 h6 .small,
 h6 small {
     font-size: 75%
-}
-
-.h1,
-h1 {
-    font-size: 36px
 }
 
 .h2,
