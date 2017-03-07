@@ -5,7 +5,7 @@ const about = document.getElementById("about");
 
 rating.hidden = true;
 login.hidden = true;
-about.hidden = true;
+//about.hidden = true;
 
 function showRating(){
     ind.hidden = true;
