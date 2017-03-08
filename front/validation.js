@@ -53,7 +53,7 @@ $(document).ready(function () {
     });
     $("#login-submit").click(function(){
        if($("#login-form").valid()){
-           console.log($("#login-form").login);
+           console.log($("input[name=username]").val());
            const SiteService = window.SiteService;
            const siteService = new SiteService();
            siteService.login($("#login-form").login, $("#login-form").password);

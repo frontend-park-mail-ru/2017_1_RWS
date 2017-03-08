@@ -8,20 +8,21 @@
         }
 
         render() {
-            this._updateHtml()
-            this._installControls();
+            this._updateHtml();
         }
 
-        /* @return {
-         string
-         }*/
+        _getFields () {
+            let { fields = [] } = this.data;
+
+            return fields.map(field => { return `<p class="title"  onclick="${field.fun};">${field.name}</p>` }).join(' ');
+        }
 
         _updateHtml()
         {
             this.el.innerHTML = `
 				<div id="menu" class="mainmenu">
                     <h1>${this.data.title || 'default'}</h1>
-					${this._getFields()}
+					
                     <br>
                     <br>
                     <br>
@@ -29,13 +30,11 @@
                     <br>
                     <br>
                     <br>
-                    <p class="title"><a class="ref" href="game/index.html">Start</a></p>
-                    <p class="title" onclick="showRating();">Rating</p>
-                    <p class="title" onclick="showAbout();">About</p>
-                    <p class="title" onclick="showLogin();">Exit</p>
+                    ${this._getFields()}
                 </div>
 			`;
         }
 
     }
+    window.Menu = Menu;
 })();
