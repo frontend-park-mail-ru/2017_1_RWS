@@ -1,21 +1,24 @@
-(function(){
+(function () {
     class Menu {
-        constructor (options = { data: {} }) {
-			this.data = options.data;
-			this.el = options.el;
+        constructor(options = {data: {}}) {
+            this.data = options.data;
+            this.el = options.el;
 
-			this.render();
-		}
+            this.render();
+        }
 
-		render () {
-			this._updateHtml()
-			this._installControls();
-		}
-        
-        @return {string}
-    
-        _updateHtml () {
-			this.el.innerHTML = `
+        render() {
+            this._updateHtml()
+            this._installControls();
+        }
+
+       /* @return {
+        string
+    }*/
+
+    _updateHtml()
+    {
+        this.el.innerHTML = `
 				<div id="menu" class="mainmenu">
                     <h1>${this.data.title || 'default'}</h1>
 					${this._getFields()}
@@ -32,7 +35,7 @@
                     <p class="title" onclick="showLogin();">Exit</p>
                 </div>
 			`;
-		}
-        
     }
+
+}
 })();
