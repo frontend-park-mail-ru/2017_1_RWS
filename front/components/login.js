@@ -1,38 +1,42 @@
-(function(){
+(function () {
     class Login {
-        constructor (options = { data: {} }) {
-			this.data = options.data;
-			this.el = options.el;
+        constructor(options = {data: {}}) {
+            this.data = options.data;
+            this.el = options.el;
 
-			this.render();
-		}
+            this.render();
+        }
 
-		render () {
-			this._updateHtml()
-		}
-		
-		_getLogFields () {
-			let { logfields = [] } = this.data;
+        render() {
+            this._updateHtml()
+        }
 
-			return logfields.map(field => { return `
+        _getLogFields() {
+            let {logfields = []} = this.data;
+
+            return logfields.map(field => {
+                return `
 			<div class = "form-group" > 
 				<input type = "${field.input}"	name = "${field.name}" id = "${field.name}" tabindex = "${field.tabindex}" class = "form-control" placeholder = "${field.placeholder}"> 
 			</div>
-			`}).join(' ');
-		}
-		
-		_getRegFields () {
-			let { regfields = [] } = this.data;
+			`
+            }).join(' ');
+        }
 
-			return regfields.map(field => { return `
+        _getRegFields() {
+            let {regfields = []} = this.data;
+
+            return regfields.map(field => {
+                return `
 			<div class = "form-group" > 
 				<input type = "${field.input}"	name = "${field.name}" id = "${field.name}" tabindex = "${field.tabindex}" class = "form-control" placeholder = "${field.placeholder}"> 
 			</div>
-			`}).join(' ');
-		}
-    
-        _updateHtml () {
-			this.el.innerHTML = `
+			`
+            }).join(' ');
+        }
+
+        _updateHtml() {
+            this.el.innerHTML = `
 				<div class="mainmenu">
             		<h1>${this.data.title}</h1>
 				</div>
@@ -85,7 +89,11 @@
         </div>
     </div>
 			`;
-		}
+        }
+
+        on(type, callback) {
+            this.el.addEventListener(type, callback);
+        }
     }
- 	window.Login = Login;
+    window.Login = Login;
 })();

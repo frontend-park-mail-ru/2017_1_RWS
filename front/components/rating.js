@@ -12,7 +12,8 @@
 		}
     
         _updateHtml () {
-			this.el.innerHTML = `
+			//noinspection ProblematicWhitespace
+            this.el.innerHTML = `
 				<div id="rating" class="mainmenu">
 					<h1 style="font-size: 100px">Rating</h1>
 					<br>

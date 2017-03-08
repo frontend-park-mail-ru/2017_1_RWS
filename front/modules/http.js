@@ -19,10 +19,12 @@
             return this._baseURL;
         }
 
-        get(address, callback) {
+        get(address, callback = null) {
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', address, true);
+
             xhr.withCredentials = true;
+            let url = '${this._baseURL}${address}';
+            xhr.open('GET', url, true);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState !== 4) {
                     return;
@@ -34,11 +36,14 @@
             xhr.send(null);
         }
 
-        post(address, body, callback) {
+        post(address, body, callback = null) {
             const xhr = new XMLHttpRequest();
+            let url = '${this._baseURL}${address}';
             xhr.open('POST', address, true);
             xhr.withCredentials = true;
-            xhr.setRequestHeader('Content-Type', 'application/json, charset=utf-8');
+
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
             xhr.onreadystatechange = function () {
                 if (xhr.readyState !== 4) {
                     return;
@@ -47,8 +52,9 @@
                     callback(xhr);
                 }
             }
+            console.log(JSON.stringify(body));
             xhr.send(JSON.stringify(body));
-            //console.log('post is done');
+
         }
     }
     window.HTTP = HTTP;

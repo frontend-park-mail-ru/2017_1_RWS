@@ -1,3 +1,25 @@
+var back = game.newRoundRectObject({
+	x: 10,
+	y: 10,
+	w: 200,
+	h:40,
+	radius: 5,
+	fillColor: "gray",
+	strokeColor: "darkred",
+	strokeWidth: 3
+});
+
+var hpBar = game.newRoundRectObject({
+	x: obj.health * 9.4,
+	y: 10,
+	w: 100,
+	h:30,
+	radius: 5,
+	fillColor: "gray",
+	strokeColor: "darkred",
+	strokeWidth: 2
+});
+
 var drawHP = function(obj){
 	brush.drawRoundRect({
         w: 62,
@@ -17,4 +39,7 @@ var drawHP = function(obj){
         radius: 5,
 		fillColor: "red"
 	});
+	
+	back.setPositionS(point(30,30));
+	back.draw();
 }

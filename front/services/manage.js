@@ -7,24 +7,28 @@ const about = document.getElementById("about");
 //login.hidden = true;
 //about.hidden = true;
 
-function showRating(){
+function showRating() {
     ind.hidden = true;
     rating.hidden = false;
 }
 
-function showLogin(){
+function showLogin() {
     ind.hidden = true;
     login.hidden = false;
 }
 
-function showAbout(){
+function showAbout() {
     ind.hidden = true;
     about.hidden = false;
 }
 
-function showInd(){
+function showInd() {
     ind.hidden = false;
     rating.hidden = true;
     login.hidden = true;
     about.hidden = true;
+}
+
+function startGame() {
+    location.href = "game/index.html";
 }
