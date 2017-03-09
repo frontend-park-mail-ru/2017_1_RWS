@@ -3,6 +3,7 @@
     let indPage = document.querySelector("#ind");
     let ratPage = document.querySelector("#rat");
     let logPage = document.querySelector("#login");
+    let aboutPage = document.querySelector("#about");
 
     const SiteService = window.SiteService;
     const siteService = new SiteService();
@@ -107,13 +108,42 @@
         }
     });
 
-
+    let about = new About({
+        el: document.createElement('div'),
+        data: {
+            title: "Game title",
+            fields: [
+                {
+                    prof: "Fullstack",
+                    name: "Kuchaeva Karina"
+                },
+                {
+                    prof: "Fullstack",
+                    name: "Zlobina Svetlana"
+                },
+                {
+                    prof: "Teambuilding",
+                    name: "Bayramukov Yan"
+                },
+                {
+                    prof: "Producer",
+                    name: "Maschkin Egor"
+                },
+                {
+                    prof: "Designer",
+                    name: "Ovchinnikov Maksim"
+                }
+            ]
+        }
+    });
 
     indPage.appendChild(menu.el);
     ratPage.appendChild(rating.el);
     logPage.appendChild(login.el);
+    aboutPage.appendChild(about.el);
 
 
     ratPage.hidden = true;
     logPage.hidden = true;
+    aboutPage.hidden = true;
 })();

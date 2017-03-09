@@ -88,6 +88,9 @@
             </div>
         </div>
     </div>
+    <div class="mainmenu">
+          <p class="title" onclick="showInd();">Back</p>
+	</div>
 			`;
         }
 
