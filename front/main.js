@@ -18,19 +18,19 @@
             fields: [
                 {
                     name: "Start",
-                    fun: "game/index.html",
+                    fun: "showLogin()",
                 },
                 {
                     name: "Rating",
-                    fun: "showRating();",
+                    fun: "showRating()",
                 },
                 {
                     name: "About",
-                    fun: "showAbout();",
+                    fun: "showAbout()",
                 },
                 {
                     name: "Exit",
-                    fun: "showLogin();",
+                    fun: "showLogin()",
                 },
             ]
         }
@@ -96,14 +96,14 @@
             //console.log($("input[name=username_reg]").val());
             //console.log($("input[name=password1]").val());
             siteService.register($("input[name=username_reg]").val(), $("input[name=email]").val(), $("input[name=password1]").val());
-            showInd();
+            startGame();
         }
         if ($("#login-form").valid()) {
             event.preventDefault();
             //console.log($("input[name=username]").val());
             //console.log($("input[name=password]").val());
             siteService.login($("input[name=username]").val(), $("input[name=password]").val());
-            showInd();
+            startGame();
         }
     });
 
