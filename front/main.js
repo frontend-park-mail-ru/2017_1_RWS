@@ -90,14 +90,24 @@
         }
     });
     login.on("submit", (event) => {
+        if ($("#register-form").valid()) {
+            //console.log("registration");
+            event.preventDefault();
+            //console.log($("input[name=username_reg]").val());
+            //console.log($("input[name=password1]").val());
+            siteService.register($("input[name=username_reg]").val(), $("input[name=email]").val(), $("input[name=password1]").val());
+            showInd();
+        }
         if ($("#login-form").valid()) {
             event.preventDefault();
-            console.log($("input[name=username]").val());
-            console.log($("input[name=password]").val());
+            //console.log($("input[name=username]").val());
+            //console.log($("input[name=password]").val());
             siteService.login($("input[name=username]").val(), $("input[name=password]").val());
             showInd();
         }
     });
+
+
 
     indPage.appendChild(menu.el);
     ratPage.appendChild(rating.el);
