@@ -1,5 +1,5 @@
 (function(){
-    class Menu {
+    class About {
         constructor (options = { data: {} }) {
 			this.data = options.data;
 			this.el = options.el;
@@ -14,7 +14,7 @@
 		_getFields () {
 			let { fields = [] } = this.data;
 
-			return fields.map(field => { return `<p class="title"  onclick="${field.fun};">${field.name}</p>` }).join(' ');
+			return fields.map(field => { return `<h2>${field.prof}</h2><h3>${field.name}</h3>` }).join(' ');
 		}
     
         _updateHtml () {
@@ -23,15 +23,12 @@
                     <h1>${this.data.title || 'default'}</h1>
                     <br>
                     <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
 					${this._getFields()} 
+					<br>
+					<p class="title" onclick="showInd();">Back</p>
                 </div>
 			`;
 		}
     }
- 	window.Menu = Menu;
+ 	window.About = About;
 })();
