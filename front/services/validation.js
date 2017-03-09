@@ -1,3 +1,5 @@
+var lg = true;
+
 $(document).ready(function () {
     $('#login-form-link').click(function (e) {
         $("#login-form").delay(100).fadeIn(100);
@@ -5,6 +7,7 @@ $(document).ready(function () {
         $('#register-form-link').removeClass('active');
         $(this).addClass('active');
         e.preventDefault();
+        lg = true;
     });
     $('#register-form-link').click(function (e) {
         $("#register-form").delay(100).fadeIn(100);
@@ -12,6 +15,7 @@ $(document).ready(function () {
         $('#login-form-link').removeClass('active');
         $(this).addClass('active');
         e.preventDefault();
+        lg = false;
     });
 
     $(function () {

@@ -9,23 +9,22 @@
             this.http = new HTTP();
         }
 
-        login(login, password, callback = null) {
-            console.log('start login');
+        login(login, password, callback1 = null, callback2 = null) {
             const body = {
                 login, password
             }
             this.http.post('http://Rws-backend.herokuapp.com/api/session', body, function (xhr) {
+
                 const responseText = xhr.responseText;
                 const responseParsed = JSON.parse(responseText);
                 console.log(responseParsed);
-                if (typeof callback === 'function') {
-                    callback(xhr);
+                if (xhr.status === 200) {
+                    showInd();
                 }
             });
-            console.log('data is posted');
         }
 
-        register(login, email, password, callback = null) {
+        register(login, email, password, callback1 = null, callback2 = null) {
             const body = {
                 login, email, password
             }
@@ -33,10 +32,12 @@
                 const responseText = xhr.responseText;
                 const responseParsed = JSON.parse(responseText);
                 console.log(responseParsed);
-                if (typeof callback === 'function') {
-                    callback(xhr);
+                if (xhr.status === 200) {
+                    showInd();
                 }
-                console.log('data is posted');
+                /*if (typeof callback === 'function') {
+                    callback(xhr);
+                }*/
             });
         }
     }

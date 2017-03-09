@@ -91,20 +91,24 @@
         }
     });
     login.on("submit", (event) => {
-        if ($("#register-form").valid()) {
-            //console.log("registration");
+        if ($("#register-form").valid() && !lg) {
             event.preventDefault();
-            //console.log($("input[name=username_reg]").val());
-            //console.log($("input[name=password1]").val());
-            siteService.register($("input[name=username_reg]").val(), $("input[name=email]").val(), $("input[name=password1]").val());
-            startGame();
-        }
-        if ($("#login-form").valid()) {
+            siteService.register($("input[name=username_reg]").val(), $("input[name=email]").val(), $("input[name=password1]").val(), showInd(), showLogin());
+            $("#register-form").each(function () {
+                this.reset();
+            });
+
+
+        } else if ($("#login-form").valid()) {
+
             event.preventDefault();
-            //console.log($("input[name=username]").val());
-            //console.log($("input[name=password]").val());
-            siteService.login($("input[name=username]").val(), $("input[name=password]").val());
-            startGame();
+
+            siteService.login($("input[name=username]").val(), $("input[name=password]").val(),  showInd(), showLogin());
+            $("#login-form").each(function () {
+                this.reset();
+            });
+
+
         }
     });
 
