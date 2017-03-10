@@ -46,14 +46,8 @@ game.newLoop("l1", function()
 	wall.draw();
     
     drawHP(obj);
-	
-	/*brush.drawLineAngle({
-		x: shotPoint.x,
-		y: shotPoint.y,
-		length: 100,
-		angle: shotPoint.getAngle(),
-		strokeColor: "green"
-	});*/
+    
+    drawItems();
 	
 });
 
