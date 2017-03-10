@@ -61,3 +61,8 @@ function userLogout() {
     "use strict";
     siteService.logout();
 }
+
+function makeRating() {
+    "use strict";
+    siteService.makeRating();
+}

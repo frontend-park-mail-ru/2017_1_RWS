@@ -26,7 +26,7 @@
                 },
                 {
                     name: "Rating",
-                    fun: "showRating()",
+                    fun: "makeRating()",
                 },
                 {
                     name: "About",
