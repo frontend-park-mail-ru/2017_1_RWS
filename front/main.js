@@ -4,9 +4,12 @@
     let ratPage = document.querySelector("#rat");
     let logPage = document.querySelector("#login");
     let aboutPage = document.querySelector("#about");
+    let gamePage = document.querySelector("#game");
 
     const SiteService = window.SiteService;
     const siteService = new SiteService();
+
+    //const Game = window.Game;
 
     const HTTP = window.HTTP;
     const http = new HTTP();
@@ -19,7 +22,7 @@
             fields: [
                 {
                     name: "Start",
-                    fun: "showLogin()",
+                    fun: "auth()",
                 },
                 {
                     name: "Rating",
@@ -30,8 +33,8 @@
                     fun: "showAbout()",
                 },
                 {
-                    name: "Exit",
-                    fun: "showLogin()",
+                    name: "Logout",
+                    fun: "userLogout()",
                 },
             ]
         }
@@ -41,6 +44,13 @@
         el: document.createElement('div'),
         data: {
             title: "Rating",
+        }
+    });
+
+    let game = new Game({
+        el: document.createElement('div'),
+        data: {
+            title: "Game",
         }
     });
 
@@ -145,9 +155,11 @@
     ratPage.appendChild(rating.el);
     logPage.appendChild(login.el);
     aboutPage.appendChild(about.el);
+    gamePage.appendChild(game.el);
 
 
     ratPage.hidden = true;
     logPage.hidden = true;
     aboutPage.hidden = true;
+    gamePage.hidden = true;
 })();
