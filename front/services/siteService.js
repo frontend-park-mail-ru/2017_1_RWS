@@ -76,6 +76,11 @@
                 console.log("start making rating");
                 const responseText = xhr.responseText;
                 const responseParsed = JSON.parse(responseText);
+                let data = responseParsed;
+                for (var i in data) {
+                    var row = data[i];
+                    console.log(row.login);
+                }
                 console.log(responseParsed);
                 if (xhr.status === 200) {
                     showGame();
