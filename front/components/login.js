@@ -88,7 +88,7 @@
             </div>
         </div>
     </div>
-    <div class="mainmenu">
+    <div class="mainmenu" style="padding-top: 0px">
           <p class="title" onclick="showInd();">Back</p>
 	</div>
 			`;
