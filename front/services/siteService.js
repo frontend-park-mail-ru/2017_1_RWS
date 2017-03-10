@@ -76,15 +76,16 @@
                 console.log("start making rating");
                 const responseText = xhr.responseText;
                 const responseParsed = JSON.parse(responseText);
-                let data = responseParsed;
+                /*let data = responseParsed;
                 for (var i in data) {
                     var row = data[i];
                     console.log(row.login);
-                }
+                }*/
+                for(let i = 0; i < responseParsed.length; i++) playerNames.push(responseParsed[i].login);
                 console.log(responseParsed);
-                if (xhr.status === 200) {
+                /*if (xhr.status === 200) {
                     showGame();
-                }
+                }*/
             });
         }
     }

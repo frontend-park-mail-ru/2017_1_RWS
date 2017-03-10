@@ -7,6 +7,8 @@ const game = document.getElementById("game");
 const SiteService = window.SiteService;
 const siteService = new SiteService();
 
+var playerNames = [""];
+
 
 //rating.hidden = true;
 //login.hidden = true;
