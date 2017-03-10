@@ -7,12 +7,14 @@ const game = document.getElementById("game");
 const SiteService = window.SiteService;
 const siteService = new SiteService();
 
-var playerNames = [""];
+var playerNames = ["TeeNik", "DronVachevsky"];
 
 
 //rating.hidden = true;
 //login.hidden = true;
 //about.hidden = true;
+
+
 
 function showRating() {
     ind.hidden = true;
@@ -68,3 +70,5 @@ function makeRating() {
     "use strict";
     siteService.makeRating();
 }
+
+makeRating();

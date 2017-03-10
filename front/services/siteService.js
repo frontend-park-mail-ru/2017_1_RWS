@@ -81,7 +81,7 @@
                     var row = data[i];
                     console.log(row.login);
                 }*/
-                for(let i = 0; i < responseParsed.length; i++) playerNames.push(responseParsed[i].login);
+                //for(let i = 0; i < responseParsed.length; i++) playerNames.push(responseParsed[i].login);
                 console.log(responseParsed);
                 /*if (xhr.status === 200) {
                     showGame();
