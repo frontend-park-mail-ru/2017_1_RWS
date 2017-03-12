@@ -1,5 +1,5 @@
 const ind = document.getElementById("ind");
-const login = document.getElementById("login");
+const login = document.getElementById("log");
 const rating = document.getElementById("rat");
 const about = document.getElementById("about");
 const game = document.getElementById("game");
