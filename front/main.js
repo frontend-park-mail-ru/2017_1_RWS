@@ -2,15 +2,25 @@
 
     let indPage = document.querySelector("#ind");
     let ratPage = document.querySelector("#rat");
+<<<<<<< HEAD
     let logPage = document.querySelector("#login");
     let aboutPage = document.querySelector("#about");
+=======
+    let logPage = document.querySelector("#log");
+    let aboutPage = document.querySelector("#about");
+    let gamePage = document.querySelector("#game");
+>>>>>>> f512665a54a90dd01e16e14c83f214acaeb4dd92
 
     /*const SiteService = window.SiteService;
     const siteService = new SiteService();
 
     const HTTP = window.HTTP;
+<<<<<<< HEAD
     const http = new HTTP();*/
     //http.BaseURL = 'http://Rws-backend.herokuapp.com/api';
+=======
+    const http = new HTTP();
+>>>>>>> f512665a54a90dd01e16e14c83f214acaeb4dd92
 
     let menu = new Menu({
         el: document.createElement('div'),
@@ -19,19 +29,19 @@
             fields: [
                 {
                     name: "Start",
-                    fun: "game/index.html",
+                    fun: "auth()",
                 },
                 {
                     name: "Rating",
-                    fun: "showRating();",
+                    fun: "showRating()",
                 },
                 {
                     name: "About",
-                    fun: "showAbout();",
+                    fun: "showAbout()",
                 },
                 {
-                    name: "Exit",
-                    fun: "showLogin();",
+                    name: "Logout",
+                    fun: "userLogout()",
                 },
             ]
         }
@@ -41,6 +51,13 @@
         el: document.createElement('div'),
         data: {
             title: "Rating",
+        }
+    });
+
+    let game = new Game({
+        el: document.createElement('div'),
+        data: {
+            title: "Game",
         }
     });
 
@@ -90,21 +107,26 @@
             ],
         }
     });
+
     login.on("submit", (event) => {
-        if ($("#register-form").valid()) {
-            //console.log("registration");
+        if ($("#register-form").valid() && !lg) {
             event.preventDefault();
-            //console.log($("input[name=username_reg]").val());
-            //console.log($("input[name=password1]").val());
-            siteService.register($("input[name=username_reg]").val(), $("input[name=email]").val(), $("input[name=password1]").val());
-            showInd();
-        }
-        if ($("#login-form").valid()) {
+            siteService.register($("input[name=username_reg]").val(), $("input[name=email]").val(), $("input[name=password1]").val(), showInd(), showLogin());
+            $("#register-form").each(function () {
+                this.reset();
+            });
+
+
+        } else if ($("#login-form").valid()) {
+
             event.preventDefault();
-            //console.log($("input[name=username]").val());
-            //console.log($("input[name=password]").val());
-            siteService.login($("input[name=username]").val(), $("input[name=password]").val());
-            showInd();
+
+            siteService.login($("input[name=username]").val(), $("input[name=password]").val(),  showInd(), showLogin());
+            $("#login-form").each(function () {
+                this.reset();
+            });
+
+
         }
     });
     
@@ -137,9 +159,37 @@
 		}
     });
 
-
+    let about = new About({
+        el: document.createElement('div'),
+        data: {
+            title: "Game title",
+            fields: [
+                {
+                    prof: "Fullstack",
+                    name: "Kuchaeva Karina"
+                },
+                {
+                    prof: "Fullstack",
+                    name: "Zlobina Svetlana"
+                },
+                {
+                    prof: "Teambuilding",
+                    name: "Bayramukov Yan"
+                },
+                {
+                    prof: "Producer",
+                    name: "Maschkin Egor"
+                },
+                {
+                    prof: "Designer",
+                    name: "Ovchinnikov Maksim"
+                }
+            ]
+        }
+    });
 
     indPage.appendChild(menu.el);
+<<<<<<< HEAD
 	ratPage.appendChild(rating.el); 
 	logPage.appendChild(login.el); 
 	aboutPage.appendChild(about.el);
@@ -147,4 +197,17 @@
 	ratPage.hidden = true;
 	logPage.hidden = true;
 	aboutPage.hidden = true;
+=======
+    ratPage.appendChild(rating.el);
+    makeRating();
+    logPage.appendChild(login.el);
+    aboutPage.appendChild(about.el);
+    gamePage.appendChild(game.el);
+
+
+    ratPage.hidden = true;
+    logPage.hidden = true;
+    aboutPage.hidden = true;
+    gamePage.hidden = true;
+>>>>>>> f512665a54a90dd01e16e14c83f214acaeb4dd92
 })();
