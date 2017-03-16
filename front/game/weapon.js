@@ -115,7 +115,7 @@ var fire = function () {
         if (el.life) {
             el.draw();
             el.moveAngle(el.speed);
-            if (el.isIntersect(wall)) {
+            if (el.isIntersect(blocks)) {
                 el.visible = false;
             }
             if (el.isIntersect(enemy) && el.isVisible() && enemy.isVisible()) {

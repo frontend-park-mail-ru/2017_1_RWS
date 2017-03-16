@@ -15,8 +15,8 @@ var img = pjs.tiles.newImage("assets/p2f.png");
 var animS = img.getAnimation(0,0,70,94,1);//72 97
 
 var obj = game.newAnimationObject({
-	x: 0,
-	y: 0,
+	x: 100,
+	y: 100,
 	animation: anim,
 	w: 72,
 	h: 97
@@ -26,7 +26,7 @@ obj.name = "Player1";
 obj.drawName = drawName;
 obj.setDelay(5);
 
-obj.health = 5;
+obj.health = 1;
 obj.speed = 7;
 obj.addSpec = null;
 obj.wNum = 0;
@@ -82,26 +82,32 @@ obj.control = function(){
 }
 
 obj.collision = function(){
-	if(obj.isIntersect(wall))
-	{
-		if(obj.dx > 0 && obj.x+10 < wall.x)
-		{
-			obj.dx = 0;
-		}
-		if(obj.dx < 0 && obj.x > wall.x)
-		{
-			obj.dx = 0;
-		}
-		if(obj.dy > 0 && obj.y < wall.y)
-		{
-			obj.dy = 0;
-		}
-		if(obj.dy < 0 && obj.y > wall.y)
-		{
-			obj.dy = 0;
-		}
-	}
+    OOP.forArr(blocks, function(el){
+        if(obj.isIntersect(el) && el.isWall) 
+        {
+            if(obj.dx > 0 && obj.x+10 < el.x)
+            {
+                obj.dx = 0;
+            }
+            else if(obj.dx < 0 && obj.x > el.x)
+            {
+                obj.dx = 0;
+            }
+            else if(obj.dy > 0 && obj.y < el.y)
+            {
+                obj.dy = 0;
+            } 
+            else if(obj.dy < 0 && obj.y > el.y)
+            {
+                obj.dy = 0;
+            }
+        } 
+    });
 };
+
+obj.checkHP = function(){
+    if(obj.health > 10) obj.health = 10;
+}
 
 obj.do = function(){   
     obj.control();
@@ -112,9 +118,10 @@ obj.do = function(){
         telep.draw();
     }
     
+    obj.collision();
     obj.move(point(obj.dx,obj.dy));
     obj.moveWeapon();
-    obj.collision();
+    obj.checkHP();
     obj.draw();  
     obj.weapon.draw();
     if(obj.addSpec){

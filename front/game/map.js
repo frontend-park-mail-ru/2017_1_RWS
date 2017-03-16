@@ -16,5 +16,8 @@ OOP.forArr(t, function(el, i, t){
 			w: map.tileSize,
 			h: map.tileSize,
 			animation: map.image.getAnimation(((el-1)%8) * map.tileSize, parseInt((el-1)/8) * map.tileSize, map.tileSize, map.tileSize, 1), 
+            userData: {
+                isWall: (el == 6 || el == 37 || el == 7 || el == 23 || el == 24 )
+            }
 	}));
 });
