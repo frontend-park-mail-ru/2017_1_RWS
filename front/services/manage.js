@@ -3,23 +3,34 @@ const login = document.getElementById("log");
 const rating = document.getElementById("rat");
 const about = document.getElementById("about");
 const game = document.getElementById("game");
+const profile = document.getElementById("prof");
 
 const SiteService = window.SiteService;
 const siteService = new SiteService();
 
 var playerNames = [];
 
+var isAuthed = false;
 
-//rating.hidden = true;
-//login.hidden = true;
-//about.hidden = true;
-
-
+Router.init();
+Router.nav("/");
 
 function showRating() {
     ind.hidden = true;
     rating.hidden = false;
     game.hidden = true;
+    profile.hidden = true;
+    login.hidden = true;
+    about.hidden = true;
+}
+
+function showProfile() {
+    ind.hidden = true;
+    rating.hidden = true;
+    game.hidden = true;
+    profile.hidden = false;
+    login.hidden = true;
+    about.hidden = true;
 }
 
 function showLogin() {
@@ -28,24 +39,39 @@ function showLogin() {
     game.hidden = true;
     rating.hidden = true;
     about.hidden = true;
+    profile.hidden = true;
 }
 
 function showAbout() {
     ind.hidden = true;
-    about.hidden = false;
+    login.hidden = true;
     game.hidden = true;
+    rating.hidden = true;
+    about.hidden = false;
+    profile.hidden = true;
 }
 
 function showInd() {
+    if(!isAuthed){
+        document.getElementById("Profile").hidden = true;
+        document.getElementById("Logout").hidden = true;
+    }
+    else
+    {
+        document.getElementById("Profile").hidden = false;
+        document.getElementById("Logout").hidden = false;
+    }
     ind.hidden = false;
     rating.hidden = true;
     login.hidden = true;
     about.hidden = true;
     game.hidden = true;
+    profile.hidden = true;
 }
 
 function startGame() {
-    location.href = "game/index.html";
+    if(siteService.checkAuth()) location.href = "game/index.html";
+    else showLogin();
 }
 
 function showGame() {

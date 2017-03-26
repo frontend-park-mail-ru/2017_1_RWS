@@ -20,6 +20,8 @@
                 console.log(responseParsed);
                 if (xhr.status === 200) {
                     showGame();
+                    isAuthed = true;
+                    //location.href = "game/index.html"
                 }
             });
         }
@@ -33,7 +35,9 @@
                 const responseParsed = JSON.parse(responseText);
                 console.log(responseParsed);
                 if (xhr.status === 200) {
-                    showGame();
+                    //startGame();
+                    isAuthed = true;
+                    location.href = "game/index.html"
                 }
 
             });
@@ -46,9 +50,11 @@
                 const responseParsed = JSON.parse(responseText);
                 console.log(responseParsed);
                 if (xhr.status === 200) {
-                    showGame();
+                    //showGame();
+                    return true;
                 } else {
-                    showLogin();
+                    //showLogin();
+                    return false;
                 }
 
             });
@@ -61,6 +67,7 @@
 
 
                 if (xhr.status === 200) {
+                    isAuthed = false;
                     showLogin();
                 } else {
                     showLogin();
