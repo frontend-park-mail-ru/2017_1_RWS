@@ -5,6 +5,7 @@
     let logPage = document.querySelector("#log");
     let aboutPage = document.querySelector("#about");
     let gamePage = document.querySelector("#game");
+	let profPage = document.querySelector("#prof")
 
     const SiteService = window.SiteService;
     const siteService = new SiteService();
@@ -15,11 +16,15 @@
     let menu = new Menu({
         el: document.createElement('div'),
         data: {
-            title: "Game title",
+            title: "Break Away",
             fields: [
                 {
                     name: "Start",
-                    fun: "auth()",
+                    fun: "startGame()",
+                },
+                {
+                    name: "Profile",
+                    fun: "showProfile()",
                 },
                 {
                     name: "Rating",
@@ -54,7 +59,7 @@
     let login = new Login({
         el: document.createElement('div'),
         data: {
-            title: "Game title",
+            title: "Break Away",
             logfields: [
                 {
                     input: "text",
@@ -99,37 +104,24 @@
     });
 
     login.on("submit", (event) => {
-        //if ($("#register-form").valid() && !lg) {
-        if ($("input[name=usernamesignup]").val() !== "") {
-            event.preventDefault();
-            siteService.register($("input[name=usernamesignup]").val(), $("input[name=emailsignup]").val(), $("input[name=passwordsignup]").val(), showInd(), showLogin());
-            /*$("#register-form").each(function () {
-             this.reset();
-             });*/
-        } else if ($("input[name=username]").val() !== "") {
+        if ( document.getElementById("usernamesignup").value !== "") {
             event.preventDefault();
 
-            siteService.login($("input[name=username]").val(), $("input[name=password]").val(),  showInd(), showLogin());
+            siteService.register(document.getElementById("usernamesignup").value, document.getElementById("emailsignup").value,
+                document.getElementById("passwordsignup").value, showInd(), showLogin());
+
+        } else if (document.getElementById("username").value !== "") {
+            event.preventDefault();
+
+            siteService.login(document.getElementById("username").value, document.getElementById("password").value,  showInd(), showLogin());
 
         }
-
-        /*} else if ($("#login-form").valid()) {
-
-            event.preventDefault();
-
-            siteService.login($("input[name=username]").val(), $("input[name=password]").val(),  showInd(), showLogin());
-            $("#login-form").each(function () {
-                this.reset();
-            });
-
-
-        }*/
     });
 
     let about = new About({
         el: document.createElement('div'),
         data: {
-            title: "Game title",
+            title: "Break Away",
             fields: [
                 {
                     prof: "Fullstack",
@@ -154,6 +146,47 @@
             ]
         }
     });
+	
+	let prof = new Profile({
+		el: document.createElement('div'),
+        data: {
+            title: "Profile",
+            fields: [
+                {
+                    class: "",
+					id: "email",
+					type: "email",
+					required: "required",
+					placeholder: "Email",
+					value: ""
+                },
+                {
+                    class: "",
+					id: "password",
+					type: "password",
+					required: "required",
+					placeholder: "Password",
+					value: ""
+                },
+                {
+                    class: "",
+					id: "password",
+					type: "password",
+					required: "required",
+					placeholder: "Confirm Password",
+					value: ""
+                },
+                {
+                    class: "login button",
+					id: "",
+					type: "submit",
+					required: "",
+					placeholder: "",
+					value: "Save"
+                }
+            ]
+        }
+	});
 
     indPage.appendChild(menu.el);
     ratPage.appendChild(rating.el);
@@ -161,10 +194,7 @@
     logPage.appendChild(login.el);
     aboutPage.appendChild(about.el);
     gamePage.appendChild(game.el);
+    profPage.appendChild(prof.el)
 
-
-    ratPage.hidden = true;
-    logPage.hidden = true;
-    aboutPage.hidden = true;
-    gamePage.hidden = true;
+    showInd();
 })();
