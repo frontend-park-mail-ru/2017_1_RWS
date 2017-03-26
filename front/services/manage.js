@@ -9,12 +9,8 @@ const siteService = new SiteService();
 
 var playerNames = [];
 
-
-//rating.hidden = true;
-//login.hidden = true;
-//about.hidden = true;
-
-
+Router.init();
+Router.nav("/");
 
 function showRating() {
     ind.hidden = true;
