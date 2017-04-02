@@ -85,11 +85,12 @@
 
         makeRating() {
             this.http.get('http://Rws-backend.herokuapp.com/api/rating', function (xhr) {
-                console.log("start making rating");
                 const responseText = xhr.responseText;
                 const responseParsed = JSON.parse(responseText);
-                for(let i = 0; i < responseParsed.length; i++) playerNames.push(responseParsed[i].login);
-
+				playerNames = [];
+                for(let i = 0; i < responseParsed.length; i++) {
+					playerNames.push(responseParsed[i].login);
+				}
             });
         }
     }

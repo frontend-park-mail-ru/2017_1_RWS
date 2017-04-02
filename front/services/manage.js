@@ -2,18 +2,19 @@ const ind = document.getElementById("ind");
 const login = document.getElementById("log");
 const rating = document.getElementById("rat");
 const about = document.getElementById("about");
-const game = document.getElementById("game");
 const profile = document.getElementById("prof");
 const load = document.getElementById("load");
+const mode = document.getElementById("mode");
 
 const SiteService = window.SiteService;
 const siteService = new SiteService();
 
-var playerNames = ["DronVachevsky", "TeeNik", "Random3355", "Madonna", "AMarev", "ShinyLust", "Makin", "VladislavPG", "Gigson", "Fahrenheit"];
+var playerNames =[];// ["DronVachevsky", "TeeNik", "Random3355", "Madonna", "AMarev", "ShinyLust", "Makin", "VladislavPG", "Gigson", "Fahrenheit"];
 
 var isAuthed = false;
 
 Router.init();
+console.log(window.location.href);
 Router.nav("/");
 
 
@@ -28,7 +29,17 @@ myAudio.play();*/
 function showRating() {
     ind.hidden = true;
     rating.hidden = false;
-    game.hidden = true;
+    profile.hidden = true;
+    login.hidden = true;
+    about.hidden = true;
+	load.hidden = true;
+	mode.hidden = true;
+}
+
+function showMode() {
+	mode.hidden = false;
+    ind.hidden = true;
+    rating.hidden = true;
     profile.hidden = true;
     login.hidden = true;
     about.hidden = true;
@@ -38,41 +49,41 @@ function showRating() {
 function showProfile() {
     ind.hidden = true;
     rating.hidden = true;
-    game.hidden = true;
     profile.hidden = false;
     login.hidden = true;
     about.hidden = true;
 	load.hidden = true;
+	mode.hidden = true;
 }
 
 function showLoad() {
     ind.hidden = true;
     rating.hidden = true;
-    game.hidden = true;
     profile.hidden = true;
     login.hidden = true;
     about.hidden = true;
 	load.hidden = false;
+	mode.hidden = true;
 }
 
 function showLogin() {
     ind.hidden = true;
     login.hidden = false;
-    game.hidden = true;
     rating.hidden = true;
     about.hidden = true;
     profile.hidden = true;
 	load.hidden = true;
+	mode.hidden = true;
 }
 
 function showAbout() {
     ind.hidden = true;
     login.hidden = true;
-    game.hidden = true;
     rating.hidden = true;
     about.hidden = false;
     profile.hidden = true;
 	load.hidden = true;
+	mode.hidden = true;
 }
 
 function showInd() {
@@ -89,24 +100,26 @@ function showInd() {
     rating.hidden = true;
     login.hidden = true;
     about.hidden = true;
-    game.hidden = true;
     profile.hidden = true;
 	load.hidden = true;
+	mode.hidden = true;
 }
 
 function startGame() {
-    if(isAuthed)   location.href = "game/index.html"
+    if(isAuthed)   showMode();
     //showInd();//location.href = "game/index.html";
     else showLogin();
 }
 
-function showGame() {
-    game.hidden = false;
+function showGame() {	
     ind.hidden = true;
     rating.hidden = true;
     login.hidden = true;
     about.hidden = true;
 	load.hidden = true;
+	profile.hidden = true;
+	mode.hidden = true;
+	//game.startLoop("l1");
 }
 
 function auth() {
@@ -122,6 +135,17 @@ function userLogout() {
 function makeRating() {
     "use strict";
     siteService.makeRating();
+}
+
+function exitGame(){
+	game.stop();
+    ind.hidden = true;
+    rating.hidden = true;
+    login.hidden = true;
+    about.hidden = true;
+	load.hidden = true;
+	profile.hidden = true;
+	game.startLoop("l1");
 }
 
 makeRating();
