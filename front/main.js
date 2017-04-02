@@ -1,11 +1,11 @@
 (function () {
 
-    let indPage = document.querySelector("#ind");
-    let ratPage = document.querySelector("#rat");
+    let indPage = document.querySelector("#ind");   
     let logPage = document.querySelector("#log");
     let aboutPage = document.querySelector("#about");
-    let gamePage = document.querySelector("#game");
-	let profPage = document.querySelector("#prof")
+	let profPage = document.querySelector("#prof");
+	let loadPage = document.querySelector("#load");
+	let modePage = document.querySelector("#mode");
 
     const SiteService = window.SiteService;
     const siteService = new SiteService();
@@ -28,31 +28,17 @@
                 },
                 {
                     name: "Rating",
-                    fun: "showRating()",
+                    fun: "addRating(); Router.nav('/rating')",
                 },
                 {
                     name: "About",
-                    fun: "showAbout()",
+                    fun: "Router.nav('/about')",
                 },
                 {
                     name: "Logout",
                     fun: "userLogout()",
                 },
             ]
-        }
-    });
-
-    let rating = new Rating({
-        el: document.createElement('div'),
-        data: {
-            title: "Rating",
-        }
-    });
-
-    let game = new Game({
-        el: document.createElement('div'),
-        data: {
-            title: "Game",
         }
     });
 
@@ -121,28 +107,29 @@
     let about = new About({
         el: document.createElement('div'),
         data: {
-            title: "Break Away",
+            title: "Our Team",
             fields: [
                 {
-                    prof: "Fullstack",
+                    prof: "Backend",
                     name: "Kuchaeva Karina"
                 },
                 {
-                    prof: "Fullstack",
+                    prof: "Frontend",
                     name: "Zlobina Svetlana"
                 },
                 {
-                    prof: "Teambuilding",
+                    prof: "Bug Designer",
                     name: "Bayramukov Yan"
+                },
+				{
+                    prof: "Designer",
+                    name: "Ovchinnikov Maksim"
                 },
                 {
                     prof: "Producer",
                     name: "Maschkin Egor"
-                },
-                {
-                    prof: "Designer",
-                    name: "Ovchinnikov Maksim"
                 }
+                
             ]
         }
     });
@@ -187,14 +174,59 @@
             ]
         }
 	});
-
-    indPage.appendChild(menu.el);
-    ratPage.appendChild(rating.el);
-    makeRating();
+	
+	let mode = new Mode({
+		el: document.createElement('div'),
+        data: {
+            title: "Select Mode",
+            fields: [
+                {
+                    mode: "Deathmatch",
+					img: "deathMatch.png",
+					desc: "Select a hero and fight agains other players. Kill more than anybody to win.",
+                },
+                {
+                   mode: "Сatch Flag",
+					img: "lagCapture.png",
+					desc: "Catch the flag and bring it to your base to earn a point. Team with 5 points wins.",
+                },
+                {
+                    mode: "Tutorial",
+					img: "tutorial.png",
+					desc: "Learn the controls and test weapon and skills before joining muliplayer.",
+                }
+            ]
+        }
+	});
+	
+	let load = new Load({
+		el: document.createElement('div'),
+        data: {
+            text: "We pick your opponents. Please wait."
+        }
+	})
+	
+    indPage.appendChild(menu.el);   
     logPage.appendChild(login.el);
     aboutPage.appendChild(about.el);
-    gamePage.appendChild(game.el);
-    profPage.appendChild(prof.el)
+    profPage.appendChild(prof.el);
+	loadPage.appendChild(load.el);
+	modePage.appendChild(mode.el);
+	
 
     showInd();
 })();
+
+
+var addRating = function(){
+	makeRating();
+	let ratPage = document.querySelector("#rat");
+	ratPage.innerHTML = "";
+	let rating = new Rating({
+        el: document.createElement('div'),
+        data: {
+            title: "Rating",
+        }
+    });
+	ratPage.appendChild(rating.el);
+}

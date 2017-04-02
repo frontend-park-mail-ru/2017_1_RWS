@@ -21,11 +21,8 @@
             this.el.innerHTML = `
 				<div id="menu" class="mainmenu">
                     <h1>${this.data.title || 'default'}</h1>
-                    <br>
-                    <br>
 					${this._getFields()} 
-					<br>
-					<p class="title" onclick="showInd();">Back</p>
+					<p class="backb" onclick="showInd();">Back</p>
                 </div>
 			`;
         }

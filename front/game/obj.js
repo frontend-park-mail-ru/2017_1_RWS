@@ -9,10 +9,8 @@ var drawName = function () {
 	});
 };
 
-var img = pjs.tiles.newImage("assets/p2.png");
+var img = pjs.tiles.newImage("/game/assets/p2.png");
 var anim = img.getAnimation(0,0,70,94,11);
-var img = pjs.tiles.newImage("assets/p2f.png");
-var animS = img.getAnimation(0,0,70,94,1);//72 97
 
 var obj = game.newAnimationObject({
 	x: 150,
@@ -30,6 +28,9 @@ obj.health = 1;
 obj.speed = 7;
 obj.addSpec = null;
 obj.wNum = 0;
+obj.sNum = 0;
+
+obj.fireCheck = true;
 
 obj.control = function(){
     
@@ -54,7 +55,7 @@ obj.control = function(){
         }
     
         if(key.isPress("P")){
-            obj.weapon = weapons[(++obj.wNum)%numOfWeapon]; 
+            obj.weapon = items.weapons[(++obj.wNum)%items.numOfWeapon]; 
         }
     
 		
@@ -77,27 +78,27 @@ obj.control = function(){
 			this.setFlip(1,0);
             this.weapon.setFlip(0,1); 
 		}
-	
-		
 }
 
 obj.collision = function(){
-    OOP.forArr(blocks, function(el){
+    OOP.forArr(map.blocks, function(el){
         if(obj.isIntersect(el) && el.isWall) 
         {
-            if(obj.dx > 0 && oPos.x+10 < el.x)
+            obj.drawDynamicBox();
+            el.drawDynamicBox();
+            if(obj.dx > 0 && oPos.x+50< el.x)
             {
                 obj.dx = 0;
             }
-            else if(obj.dx < 0 && oPos.x-10 > el.x)
+            else if(obj.dx < 0 && oPos.x-50> el.x)
             {
                 obj.dx = 0;
             }
-            else if(obj.dy > 0 && oPos.y+10 < el.y)
+            if(obj.dy > 0 && oPos.y+50 < el.y)
             {
                 obj.dy = 0;
             } 
-            else if(obj.dy < 0 && oPos.y-10 > el.y)
+            else if(obj.dy < 0 && oPos.y-0 > el.y)
             {
                 obj.dy = 0;
             }
@@ -109,22 +110,24 @@ obj.checkHP = function(){
     if(obj.health > 10) obj.health = 10;
 }
 
+oPos = obj.getPositionC();
+
 obj.do = function(){   
     obj.control();
     obj.drawName();
-    obj.checkSpec();
     
     if(obj.teleportSet){
-        telep.draw();
+        specials.telep.draw();
     }
     
     obj.collision();
     obj.move(point(obj.dx,obj.dy));
-    obj.moveWeapon();
+    //obj.moveWeapon();
     obj.checkHP();
-    obj.draw();  
-    obj.weapon.draw();
     if(obj.addSpec){
         obj.addSpec.draw();
     }  
+    obj.draw();  
+    obj.weapon.draw();
+    
 }
