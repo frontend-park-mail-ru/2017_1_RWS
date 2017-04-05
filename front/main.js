@@ -4,10 +4,10 @@ import Rating from './static/components/menu';
 import renderAbout from './static/renderedTemplates/aboutTemplate'
 import renderMenu from './static/renderedTemplates/menuTemplate'
 import renderRating from './static/renderedTemplates/ratingTemplate'
-import {playerNames} from './services/manage'
+//import {playerNames} from './services/manage'
+import SiteService from './services/siteService'
 
 (function () {
-
 
     let indPage = document.querySelector("#ind");
     let ratPage = document.querySelector("#rat");
@@ -15,16 +15,11 @@ import {playerNames} from './services/manage'
     let aboutPage = document.querySelector("#about");
     let gamePage = document.querySelector("#game");
 
-    const SiteService = window.SiteService;
     const siteService = new SiteService();
 
-    const HTTP = window.HTTP;
-    const http = new HTTP();
-
     let menu = new Menu (renderMenu(), null);
-
-
     let rating = new Rating(renderRating(playerNames), null);
+    let about = new About(renderAbout(), null);
 
     let game = new Game({
         el: document.createElement('div'),
@@ -108,7 +103,7 @@ import {playerNames} from './services/manage'
         }*/
     });
 
-    let about = new About(renderAbout(), null);
+
 
     indPage.appendChild(menu.content);
     ratPage.appendChild(rating.content);

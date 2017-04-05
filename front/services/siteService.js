@@ -1,12 +1,10 @@
 //import playerNames from './manage'
+import HTTP from './../modules/http'
 
 (function () {
     'use strict';
 
-    const HTTP = window.HTTP;
-
-
-    class SiteService {
+    export default class SiteService {
         constructor() {
             this.http = new HTTP();
         }
@@ -76,7 +74,7 @@
         makeRating() {
             this.http.get('http://Rws-backend.herokuapp.com/api/rating', function (xhr) {
                 console.log("start making rating");
-                playerNames = [];
+                let playerNames = [];
                 const responseText = xhr.responseText;
                 const responseParsed = JSON.parse(responseText);
                 for(let i = 0; i < responseParsed.length; i++)
@@ -86,5 +84,5 @@
             });
         }
     }
-    window.SiteService = SiteService;
+
 })();

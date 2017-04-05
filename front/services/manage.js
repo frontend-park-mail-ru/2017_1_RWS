@@ -9,15 +9,6 @@ const game = document.getElementById("game");
 const SiteService = window.SiteService;
 const siteService = new SiteService();
 
-var playerNames = [];
-
-
-//rating.hidden = true;
-//login.hidden = true;
-//about.hidden = true;
-
-
-
 function showRating() {
     ind.hidden = true;
     rating.hidden = false;
