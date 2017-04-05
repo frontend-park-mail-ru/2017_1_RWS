@@ -1,24 +1,32 @@
-(function(){
-    class About {
-        constructor (options = { data: {} }) {
+
+    export default class About {
+        constructor(renderTemplate, options){
+            this.content = document.createElement('div');
+            this.options = options;
+            this.renderTemplate = renderTemplate;
+            this.render();
+        }
+       /* constructor (options = { data: {} }) {
             this.data = options.data;
             this.el = options.el;
 
             this.render();
-        }
+        }*/
+
 
         render () {
-            this._updateHtml()
+            this.content.innerHTML = this.renderTemplate;
         }
 
-        _getFields () {
+       /* _getFields () {
             let { fields = [] } = this.data;
 
             return fields.map(field => { return `<h2>${field.prof}</h2><h3>${field.name}</h3>` }).join(' ');
-        }
+        }*/
 
         _updateHtml () {
-            this.el.innerHTML = `
+
+           /* this.el.innerHTML = `
 				<div id="menu" class="mainmenu">
                     <h1>${this.data.title || 'default'}</h1>
                     <br>
@@ -27,8 +35,7 @@
 					<br>
 					<p class="title" onclick="showInd();">Back</p>
                 </div>
-			`;
+			`;*/
         }
     }
-    window.About = About;
-})();
+

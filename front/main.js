@@ -1,4 +1,8 @@
+import About from './static/components/about';
+import renderAbout from './static/renderedTemplates/aboutTemplate'
+
 (function () {
+
 
     let indPage = document.querySelector("#ind");
     let ratPage = document.querySelector("#rat");
@@ -6,8 +10,12 @@
     let aboutPage = document.querySelector("#about");
     let gamePage = document.querySelector("#game");
 
+
+
     const SiteService = window.SiteService;
     const siteService = new SiteService();
+
+   // const pug = require('pug');
 
     const HTTP = window.HTTP;
     const http = new HTTP();
@@ -126,7 +134,8 @@
         }*/
     });
 
-    let about = new About({
+    let about = new About(renderAbout(), null);
+    /*({
         el: document.createElement('div'),
         data: {
             title: "Game title",
@@ -153,13 +162,13 @@
                 }
             ]
         }
-    });
+    });*/
 
     indPage.appendChild(menu.el);
     ratPage.appendChild(rating.el);
     makeRating();
     logPage.appendChild(login.el);
-    aboutPage.appendChild(about.el);
+    aboutPage.appendChild(about.content);
     gamePage.appendChild(game.el);
 
 
