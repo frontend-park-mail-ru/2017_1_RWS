@@ -78,31 +78,18 @@ import renderRating from './static/renderedTemplates/ratingTemplate'
     });
 
     login.on("submit", (event) => {
-        //if ($("#register-form").valid() && !lg) {
-        if ($("input[name=usernamesignup]").val() !== "") {
-            event.preventDefault();
-            siteService.register($("input[name=usernamesignup]").val(), $("input[name=emailsignup]").val(), $("input[name=passwordsignup]").val(), showInd(), showLogin());
-            /*$("#register-form").each(function () {
-             this.reset();
-             });*/
-        } else if ($("input[name=username]").val() !== "") {
+        if ( document.getElementById("usernamesignup").value !== "") {
             event.preventDefault();
 
-            siteService.login($("input[name=username]").val(), $("input[name=password]").val(),  showInd(), showLogin());
+            siteService.register(document.getElementById("usernamesignup").value, document.getElementById("emailsignup").value,
+                document.getElementById("passwordsignup").value, showInd(), showLogin());
+
+        } else if (document.getElementById("username").value !== "") {
+            event.preventDefault();
+
+            siteService.login(document.getElementById("username").value, document.getElementById("password").value,  showInd(), showLogin());
 
         }
-
-        /*} else if ($("#login-form").valid()) {
-
-            event.preventDefault();
-
-            siteService.login($("input[name=username]").val(), $("input[name=password]").val(),  showInd(), showLogin());
-            $("#login-form").each(function () {
-                this.reset();
-            });
-
-
-        }*/
     });
 
 
