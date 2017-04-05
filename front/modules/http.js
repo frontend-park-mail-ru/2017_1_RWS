@@ -1,25 +1,11 @@
 
-<<<<<<< HEAD
-
-=======
->>>>>>> develop
 (function () {
 
-<<<<<<< HEAD
-    export default class HTTP {
-        constructor() {
-            if (HTTP.__instance) {
-                return HTTP.__instance;
-            }
-            this._baseURL = '';
-            HTTP.__instance = this;
-=======
 const ALLOWED_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
     class HTTP {
     constructor() {
         if (HTTP.__instance) {
             return HTTP.__instance;
->>>>>>> develop
         }
         this._baseURL = '';
         HTTP.__instance = this;

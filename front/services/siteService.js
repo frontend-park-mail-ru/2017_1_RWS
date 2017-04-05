@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-//import playerNames from './manage'
-import HTTP from './../modules/http'
-
-(function () {
-    'use strict';
-
-    export default class SiteService {
-        constructor() {
-            this.http = new HTTP();
-=======
 //import HTTP from './../modules/http'
 
 var logicAuth = false;
@@ -24,7 +13,6 @@ const HTTP = window.HTTP;
     login(login, password, callback1 = null, callback2 = null) {
         const body = {
             login, password
->>>>>>> develop
         }
         this.http.post('http://Rws-backend.herokuapp.com/api/session', body, function (xhr) {
 
@@ -87,17 +75,6 @@ const HTTP = window.HTTP;
         });
     }
 
-<<<<<<< HEAD
-        makeRating() {
-            this.http.get('http://Rws-backend.herokuapp.com/api/rating', function (xhr) {
-                console.log("start making rating");
-                let playerNames = [];
-                const responseText = xhr.responseText;
-                const responseParsed = JSON.parse(responseText);
-                for(let i = 0; i < responseParsed.length; i++)
-                    playerNames.push(responseParsed[i].login);
-                console.log(playerNames);
-=======
     makeRating() {
         this.http.get('http://Rws-backend.herokuapp.com/api/rating', function (xhr) {
             console.log("start making rating");
@@ -107,14 +84,10 @@ const HTTP = window.HTTP;
             for(let i = 0; i < responseParsed.length; i++)
                 playerNames.push(responseParsed[i].login);
             console.log(playerNames);
->>>>>>> develop
 
         });
     }
-<<<<<<< HEAD
-=======
 }
 window.SiteService = SiteService;
->>>>>>> develop
 
 })();
