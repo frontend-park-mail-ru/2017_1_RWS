@@ -30,7 +30,7 @@ var drawEnemy = function(){
     if(enemy.health > 0){
         enemy.move(point(enemy.speed,0));
         enemy.draw();  
-        drawHP(enemy);
+        GUI.drawHP(enemy);
         if(enemy.health <= 0) {
             
         }
