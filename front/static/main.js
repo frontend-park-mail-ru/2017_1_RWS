@@ -241,7 +241,7 @@ function pug_rethrow(n, e, r, t) {
   var pug_html = "",
       pug_mixins = {},
       pug_interp;var pug_debug_filename, pug_debug_line;try {
-    var pug_debug_sources = { "front\u002FcomponentTemplates\u002FmenuTemplate.pug": "div\r\n    h1(class='h1Title') Break Away\r\n    div(class='menuBody')\r\n        p(class='title' onclick='auth()')= 'Start'\r\n        p(class='title' onclick='showRating()')= 'Rating'\r\n        if logicAuth\r\n            p(class='title' onclick='userLogout()')= 'Logout'\r\n        else\r\n            p(class='title' onclick='showLogin()')= 'Login'\r\n        p(class='title' onclick='showAbout()')= 'About'\r\n\r\n" };
+    var pug_debug_sources = { "front\u002FcomponentTemplates\u002FmenuTemplate.pug": "div\r\n    h1(class='h1Title') Break Away\r\n    div(class='menuBody')\r\n        if logicAuth\r\n            p(class='title' onclick='showGame()')= 'Start'\r\n        else\r\n            p(class='title' onclick='showLogin()')= 'Start'\r\n        p(class='title' onclick='showRating()')= 'Rating'\r\n        if logicAuth\r\n            p(class='title' onclick='userLogout()')= 'Logout'\r\n        p(class='title' onclick='showAbout()')= 'About'\r\n\r\n" };
     ;var locals_for_with = locals || {};(function (logicAuth) {
       var pug_indent = [];
       ;pug_debug_line = 1;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
@@ -253,28 +253,31 @@ function pug_rethrow(n, e, r, t) {
       ;pug_debug_line = 3;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
       pug_html = pug_html + "\n  \u003Cdiv class=\"menuBody\"\u003E";
       ;pug_debug_line = 4;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
-      pug_html = pug_html + "\n    \u003Cp class=\"title\" onclick=\"auth()\"\u003E";
-      ;pug_debug_line = 4;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
-      pug_html = pug_html + pug_escape(null == (pug_interp = 'Start') ? "" : pug_interp) + "\u003C\u002Fp\u003E";
-      ;pug_debug_line = 5;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
-      pug_html = pug_html + "\n    \u003Cp class=\"title\" onclick=\"showRating()\"\u003E";
-      ;pug_debug_line = 5;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
-      pug_html = pug_html + pug_escape(null == (pug_interp = 'Rating') ? "" : pug_interp) + "\u003C\u002Fp\u003E";
-      ;pug_debug_line = 6;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
       if (logicAuth) {
-        ;pug_debug_line = 7;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
-        pug_html = pug_html + "\n    \u003Cp class=\"title\" onclick=\"userLogout()\"\u003E";
-        ;pug_debug_line = 7;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
-        pug_html = pug_html + pug_escape(null == (pug_interp = 'Logout') ? "" : pug_interp) + "\u003C\u002Fp\u003E";
+        ;pug_debug_line = 5;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
+        pug_html = pug_html + "\n    \u003Cp class=\"title\" onclick=\"showGame()\"\u003E";
+        ;pug_debug_line = 5;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
+        pug_html = pug_html + pug_escape(null == (pug_interp = 'Start') ? "" : pug_interp) + "\u003C\u002Fp\u003E";
       } else {
-        ;pug_debug_line = 9;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
+        ;pug_debug_line = 7;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
         pug_html = pug_html + "\n    \u003Cp class=\"title\" onclick=\"showLogin()\"\u003E";
-        ;pug_debug_line = 9;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
-        pug_html = pug_html + pug_escape(null == (pug_interp = 'Login') ? "" : pug_interp) + "\u003C\u002Fp\u003E";
+        ;pug_debug_line = 7;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
+        pug_html = pug_html + pug_escape(null == (pug_interp = 'Start') ? "" : pug_interp) + "\u003C\u002Fp\u003E";
       }
-      ;pug_debug_line = 10;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
+      ;pug_debug_line = 8;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
+      pug_html = pug_html + "\n    \u003Cp class=\"title\" onclick=\"showRating()\"\u003E";
+      ;pug_debug_line = 8;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
+      pug_html = pug_html + pug_escape(null == (pug_interp = 'Rating') ? "" : pug_interp) + "\u003C\u002Fp\u003E";
+      ;pug_debug_line = 9;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
+      if (logicAuth) {
+        ;pug_debug_line = 10;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
+        pug_html = pug_html + "\n    \u003Cp class=\"title\" onclick=\"userLogout()\"\u003E";
+        ;pug_debug_line = 10;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
+        pug_html = pug_html + pug_escape(null == (pug_interp = 'Logout') ? "" : pug_interp) + "\u003C\u002Fp\u003E";
+      }
+      ;pug_debug_line = 11;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
       pug_html = pug_html + "\n    \u003Cp class=\"title\" onclick=\"showAbout()\"\u003E";
-      ;pug_debug_line = 10;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
+      ;pug_debug_line = 11;pug_debug_filename = "front\u002FcomponentTemplates\u002FmenuTemplate.pug";
       pug_html = pug_html + pug_escape(null == (pug_interp = 'About') ? "" : pug_interp) + "\u003C\u002Fp\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";
     }).call(this, "logicAuth" in locals_for_with ? locals_for_with.logicAuth : typeof logicAuth !== "undefined" ? logicAuth : undefined);
   } catch (err) {
