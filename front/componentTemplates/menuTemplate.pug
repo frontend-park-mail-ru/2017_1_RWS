@@ -1,0 +1,12 @@
+div
+    - var auth = true;
+    h1(class='h1Title') Break Away
+    div(class='menuBody')
+        p(class='title' onclick='auth()')= 'Start'
+        p(class='title' onclick='showRating()')= 'Rating'
+        if auth
+            p(class='title' onclick='userLogout()')= 'Logout'
+        else
+            p(class='title' onclick='showLogin()')= 'Login'
+        p(class='title' onclick='showAbout()')= 'About'
+

@@ -8,7 +8,6 @@ var cam = pjs.camera;
 var brush = pjs.brush;
 var OOP = pjs.OOP;
 var camera = pjs.camera;
-var audio = pjs.audio;
 var oPos;
 key.initKeyControl();
 mouse.initMouseControl();

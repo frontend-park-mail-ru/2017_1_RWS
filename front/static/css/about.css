@@ -1,0 +1,16 @@
+.aboutBody {
+    padding-top: 0%;
+}
+
+.h1Title {
+    cursor: default;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    border: solid;
+    border-color: #333;
+    font-size: 350%;
+}
+
+.aboutName {
+    font-size: 130%;
+}

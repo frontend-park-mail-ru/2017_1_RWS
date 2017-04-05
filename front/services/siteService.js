@@ -1,10 +1,10 @@
+//import playerNames from './manage'
+import HTTP from './../modules/http'
+
 (function () {
     'use strict';
 
-    const HTTP = window.HTTP;
-
-
-    class SiteService {
+    export default class SiteService {
         constructor() {
             this.http = new HTTP();
         }
@@ -19,10 +19,7 @@
                 const responseParsed = JSON.parse(responseText);
                 console.log(responseParsed);
                 if (xhr.status === 200) {
-                    //showGame();
-                    isAuthed = true;
-                    showInd();
-                    //location.href = "game/index.html"
+                    showGame();
                 }
             });
         }
@@ -36,9 +33,7 @@
                 const responseParsed = JSON.parse(responseText);
                 console.log(responseParsed);
                 if (xhr.status === 200) {
-                    //startGame();
-                    isAuthed = true;
-                    location.href = "game/index.html"
+                    showGame();
                 }
 
             });
@@ -51,11 +46,9 @@
                 const responseParsed = JSON.parse(responseText);
                 console.log(responseParsed);
                 if (xhr.status === 200) {
-                    //showGame();
-                    return true;
+                    showGame();
                 } else {
-                    //showLogin();
-                    return false;
+                    showLogin();
                 }
 
             });
@@ -68,14 +61,9 @@
 
 
                 if (xhr.status === 200) {
-                    console.log("here");
-                    isAuthed = false;
-                    //showLogin();
-                    showInd();
+                    showLogin();
                 } else {
-                    isAuthed = false;
-                    showInd();
-                    //showLogin();
+                    showLogin();
                     const responseParsed = JSON.parse(responseText);
                     console.log(responseParsed);
                 }
@@ -85,14 +73,16 @@
 
         makeRating() {
             this.http.get('http://Rws-backend.herokuapp.com/api/rating', function (xhr) {
+                console.log("start making rating");
+                let playerNames = [];
                 const responseText = xhr.responseText;
                 const responseParsed = JSON.parse(responseText);
-				playerNames = [];
-                for(let i = 0; i < responseParsed.length; i++) {
-					playerNames.push(responseParsed[i].login);
-				}
+                for(let i = 0; i < responseParsed.length; i++)
+                    playerNames.push(responseParsed[i].login);
+                console.log(playerNames);
+
             });
         }
     }
-    window.SiteService = SiteService;
+
 })();
