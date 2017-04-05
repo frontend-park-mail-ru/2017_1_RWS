@@ -5,7 +5,8 @@ import renderAbout from './static/renderedTemplates/aboutTemplate'
 import renderMenu from './static/renderedTemplates/menuTemplate'
 import renderRating from './static/renderedTemplates/ratingTemplate'
 //import {playerNames} from './services/manage'
-import SiteService from './services/siteService'
+//import SiteService from './services/siteService'
+//import makeRating  from './services/manage'
 
 (function () {
 
@@ -15,10 +16,11 @@ import SiteService from './services/siteService'
     let aboutPage = document.querySelector("#about");
     let gamePage = document.querySelector("#game");
 
+    const Siteservice = window.SiteService;
     const siteService = new SiteService();
 
     let menu = new Menu (renderMenu(), null);
-    let rating = new Rating(renderRating(playerNames), null);
+    let rating = new Rating(renderRating(), null);
     let about = new About(renderAbout(), null);
 
     let game = new Game({
