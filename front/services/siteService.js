@@ -1,6 +1,6 @@
 //import HTTP from './../modules/http'
 
-var logicAuth = false;
+var logicAuth = true;
 (function () {
 
 const HTTP = window.HTTP;
@@ -50,6 +50,7 @@ const HTTP = window.HTTP;
             console.log(responseParsed);
             if (xhr.status === 200) {
                 logicAuth = true;
+                console.log(logicAuth);
             } else {
                 logicAuth = false;
             }

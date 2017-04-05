@@ -3,10 +3,10 @@ export default class baseComponent {
         this.content = document.createElement('div');
         this.options = options;
         this.renderTemplate = renderTemplate;
-        this.render();
+        this.render(this.renderTemplate);
     }
 
-    render() {
+    render(renderTemplate) {
         //to override
     }
 }

@@ -1,4 +1,5 @@
 //import SiteService from './siteService'
+//import renderMenu from './../static/renderedTemplates/menuTemplate'
 
     const ind = document.getElementById("ind");
     const login = document.getElementById("log");
@@ -35,7 +36,8 @@
         login.hidden = true;
         about.hidden = true;
         game.hidden = true;
-        logicAuth = siteService.checkAuth();
+        siteService.checkAuth();
+        //window.menu.render(renderMenu());
     }
 
     function showGame() {

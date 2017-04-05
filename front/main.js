@@ -20,7 +20,7 @@ import renderRating from './static/renderedTemplates/ratingTemplate'
     const siteService = new SiteService();
 
     let menu = new Menu (renderMenu(), null);
-    let rating = new Rating(renderRating(), null);
+    let rating = new Rating(renderRating({position: "2"}), null);
     let about = new About(renderAbout(), null);
 
     let game = new Game({
@@ -82,12 +82,12 @@ import renderRating from './static/renderedTemplates/ratingTemplate'
             event.preventDefault();
 
             siteService.register(document.getElementById("usernamesignup").value, document.getElementById("emailsignup").value,
-                document.getElementById("passwordsignup").value, showInd(), showLogin());
+                document.getElementById("passwordsignup").value, null, null);
 
         } else if (document.getElementById("username").value !== "") {
             event.preventDefault();
 
-            siteService.login(document.getElementById("username").value, document.getElementById("password").value,  showInd(), showLogin());
+            siteService.login(document.getElementById("username").value, document.getElementById("password").value,  null, null);
 
         }
     });
@@ -100,10 +100,13 @@ import renderRating from './static/renderedTemplates/ratingTemplate'
     aboutPage.appendChild(about.content);
     gamePage.appendChild(game.el);
 
+    siteService.checkAuth();
     makeRating();
 
     ratPage.hidden = true;
     logPage.hidden = true;
     aboutPage.hidden = true;
     gamePage.hidden = true;
+
+    window.menu = menu;
 })();

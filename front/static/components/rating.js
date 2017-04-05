@@ -1,9 +1,9 @@
 import baseComponent from './baseComponent'
 
 class Rating extends baseComponent {
-    render() {
+    render(renderTemplate) {
         //this._updateHtml()
-        this.content.innerHTML = this.renderTemplate;
+        this.content.innerHTML = renderTemplate;
     }
 }
 
