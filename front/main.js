@@ -1,5 +1,10 @@
 import About from './static/components/about';
+import Menu from './static/components/menu';
+import Rating from './static/components/menu';
 import renderAbout from './static/renderedTemplates/aboutTemplate'
+import renderMenu from './static/renderedTemplates/menuTemplate'
+import renderRating from './static/renderedTemplates/ratingTemplate'
+import {playerNames} from './services/manage'
 
 (function () {
 
@@ -10,47 +15,16 @@ import renderAbout from './static/renderedTemplates/aboutTemplate'
     let aboutPage = document.querySelector("#about");
     let gamePage = document.querySelector("#game");
 
-
-
     const SiteService = window.SiteService;
     const siteService = new SiteService();
-
-   // const pug = require('pug');
 
     const HTTP = window.HTTP;
     const http = new HTTP();
 
-    let menu = new Menu({
-        el: document.createElement('div'),
-        data: {
-            title: "Game title",
-            fields: [
-                {
-                    name: "Start",
-                    fun: "auth()",
-                },
-                {
-                    name: "Rating",
-                    fun: "showRating()",
-                },
-                {
-                    name: "About",
-                    fun: "showAbout()",
-                },
-                {
-                    name: "Logout",
-                    fun: "userLogout()",
-                },
-            ]
-        }
-    });
+    let menu = new Menu (renderMenu(), null);
 
-    let rating = new Rating({
-        el: document.createElement('div'),
-        data: {
-            title: "Rating",
-        }
-    });
+
+    let rating = new Rating(renderRating(playerNames), null);
 
     let game = new Game({
         el: document.createElement('div'),
@@ -135,42 +109,14 @@ import renderAbout from './static/renderedTemplates/aboutTemplate'
     });
 
     let about = new About(renderAbout(), null);
-    /*({
-        el: document.createElement('div'),
-        data: {
-            title: "Game title",
-            fields: [
-                {
-                    prof: "Fullstack",
-                    name: "Kuchaeva Karina"
-                },
-                {
-                    prof: "Fullstack",
-                    name: "Zlobina Svetlana"
-                },
-                {
-                    prof: "Teambuilding",
-                    name: "Bayramukov Yan"
-                },
-                {
-                    prof: "Producer",
-                    name: "Maschkin Egor"
-                },
-                {
-                    prof: "Designer",
-                    name: "Ovchinnikov Maksim"
-                }
-            ]
-        }
-    });*/
 
-    indPage.appendChild(menu.el);
-    ratPage.appendChild(rating.el);
-    makeRating();
+    indPage.appendChild(menu.content);
+    ratPage.appendChild(rating.content);
     logPage.appendChild(login.el);
     aboutPage.appendChild(about.content);
     gamePage.appendChild(game.el);
 
+    makeRating();
 
     ratPage.hidden = true;
     logPage.hidden = true;

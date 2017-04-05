@@ -31,7 +31,7 @@ module.exports = pug;
 
 
 app.use('/', express.static('front'));
-app.use('/', express.static('/'));
+app.use('/', express.static('front/static'));
 
 app.set('views', './front/components');
 app.set('view engine', 'pug');

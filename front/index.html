@@ -7,22 +7,36 @@
     
     <link rel="stylesheet" type="text/css" href="static/css/demo.css" />
     <link rel="stylesheet" type="text/css" href="static/css/style.css" />
-	<link rel="stylesheet" type="text/css" href="static/css/animate-custom.css" />
-	<!--<link rel="stylesheet" href="css/bootstrap.min.css">-->
+    <link rel="stylesheet" type="text/css" href="static/css/about.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/menu.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/rating.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/animate-custom.css" />
 
 </head>
    
-<body id="lol">
+<body>
 
-    <div id="ind" class="container">
-    </div>
-    <div id="rat" class="container">      
-    </div>
-    <div id="log" class="container">
-    </div>
-    <div id="about" class="container">
-    </div>
-    <div id="game" class="container">
+    <div class="maincontainer mainmenu">
+
+        <div class="container-left">
+            <p class="backButton" onclick="showInd();">Back</p>
+        </div>
+
+        <div class="container">
+            <div id="ind"></div>
+            <div id="rat"></div>
+            <div id="log"></div>
+            <div id="about"></div>
+            <div id="game"></div>
+        </div>
+
+        <div class="container-right">
+            <p class="soundMute">Sound mute</p>
+            <div class="player">
+                <p>Player:</p>
+                <p id="playerGreeting">Not auth</p>
+            </div>
+        </div>
     </div>
 
     <script type="text/javascript" src="/modules/http.js"></script>
@@ -31,9 +45,9 @@
     <script type="text/javascript" src="js/jquery.validate.js"></script>
     <script type="text/javascript" src="services/validation.js"></script>
     <script src="services/manage.js"></script>
-    <script type="text/javascript" src="template.js"></script>
-	<script type="text/javascript" src="static/components/menu.js"></script>
-    <script type="text/javascript" src="static/components/rating.js"></script>
+    <!--<script type="text/javascript" src="template.js"></script>-->
+	<!--<script type="text/javascript" src="static/components/menu.js"></script>-->
+    <!--<script type="text/javascript" src="static/components/rating.js"></script>-->
    <!-- <script type="text/javascript" src="componentTemplates/compiledComponents/about.js"></script>-->
     <script type="text/javascript" src="static/components/login.js"></script>
     <script type="text/javascript" src="static/components/game.js"></script>

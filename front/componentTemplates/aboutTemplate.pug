@@ -1,4 +1,8 @@
-//
-   Created by SvetaZlobina on 04.04.2017.
+div
+    h1(class='h1Title') Our Team
+    div(class='aboutBody')
+        - var names = ["Kuchaeva Karina - Fullstack", "Zlobina Svetlana - Fullstack","Bayramukov Yan - Teambuilding", "Maschkin Egor - Producer", "Ovchinnikov Maksim - Designer"];
+        each name in names
+            p(class='aboutName')= name
 
-p About file
+

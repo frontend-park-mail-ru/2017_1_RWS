@@ -1,3 +1,5 @@
+
+
 const ind = document.getElementById("ind");
 const login = document.getElementById("log");
 const rating = document.getElementById("rat");
@@ -44,10 +46,6 @@ function showInd() {
     game.hidden = true;
 }
 
-function startGame() {
-    location.href = "game/index.html";
-}
-
 function showGame() {
     game.hidden = false;
     ind.hidden = true;
@@ -64,6 +62,7 @@ function auth() {
 function userLogout() {
     "use strict";
     siteService.logout();
+    showLogin();
 }
 
 function makeRating() {
@@ -72,3 +71,4 @@ function makeRating() {
 }
 
 makeRating();
+

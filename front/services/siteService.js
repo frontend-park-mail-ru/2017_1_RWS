@@ -1,3 +1,5 @@
+//import playerNames from './manage'
+
 (function () {
     'use strict';
 
@@ -74,9 +76,12 @@
         makeRating() {
             this.http.get('http://Rws-backend.herokuapp.com/api/rating', function (xhr) {
                 console.log("start making rating");
+                playerNames = [];
                 const responseText = xhr.responseText;
                 const responseParsed = JSON.parse(responseText);
-                for(let i = 0; i < responseParsed.length; i++) playerNames.push(responseParsed[i].login);
+                for(let i = 0; i < responseParsed.length; i++)
+                    playerNames.push(responseParsed[i].login);
+                console.log(playerNames);
 
             });
         }
