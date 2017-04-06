@@ -10,12 +10,9 @@ export default class Manage {
         this.rating = document.getElementById("rat");
         this.about = document.getElementById("about");
         this.game = document.getElementById("game");
+        this.backButton = document.getElementById("backButton");
         this.siteService = new SiteService();
         this.siteService.checkAuth();
-        this.logicAuth = this.siteService.serviceAuth;
-        console.log(this.logicAuth);
-        //this.ratingForRender = new Rating();
-       // this.menuForRender = new Menu();
     }
 
 
@@ -26,6 +23,7 @@ export default class Manage {
         this.ind.hidden = true;
         this.rating.hidden = false;
         this.game.hidden = true;
+        this.backButton.hidden = false;
     }
 
     showLogin() {
@@ -34,12 +32,14 @@ export default class Manage {
         this.game.hidden = true;
         this.rating.hidden = true;
         this.about.hidden = true;
+        this.backButton.hidden = false;
     }
 
     showAbout() {
         this.ind.hidden = true;
         this.about.hidden = false;
         this.game.hidden = true;
+        this.backButton.hidden = false;
     }
 
     showInd() {
@@ -49,7 +49,7 @@ export default class Manage {
         this.about.hidden = true;
         this.game.hidden = true;
         this.siteService.checkAuth();
-        //window.menu.render(renderMenu());
+        this.backButton.hidden = true;
     }
 
     showGame() {
@@ -58,6 +58,7 @@ export default class Manage {
         this.rating.hidden = true;
         this.login.hidden = true;
         this.about.hidden = true;
+        this.backButton.hidden = false;
     }
 
     auth() {
@@ -66,7 +67,7 @@ export default class Manage {
 
     userLogin(login, password, callback1=null, callback2=null){
         this.siteService.login(login, password, callback1=null, callback2=null);
-        this.logicAuth = this.siteService.logicAuth;
+        //this.logicAuth = this.siteService.logicAuth;
         this.showLogin();
     }
 
@@ -78,15 +79,11 @@ export default class Manage {
 
     userLogout() {
         this.siteService.logout();
-        this.logicAuth = this.siteService.logicAuth;
         this.showLogin();
     }
 
     makeRating() {
-        console.log("Into manage rating");
-        let players = this.siteService.makeRating();
-        console.log("Into manage " + players);
-        return players;
+        this.siteService.makeRating();
     }
 
 }

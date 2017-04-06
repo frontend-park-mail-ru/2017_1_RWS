@@ -1,13 +1,14 @@
 import HTTP from './../modules/http'
-import ratingFromServerRender from './serverResponseRender'
-//import Manage  from './manage'
+//import ratingFromServerRender from './serverResponseRender'
+import Rating  from './../static/components/rating'
+import renderRating from './../static/renderedTemplates/ratingTemplate'
 
-//var logicAuth = true;
+export var logicAuth = false;
+export var playerNames = [];
 
 export default class SiteService {
     constructor() {
         this.http = new HTTP();
-        this.serviceAuth = false;
     }
 
 
@@ -21,8 +22,7 @@ export default class SiteService {
             const responseParsed = JSON.parse(responseText);
             console.log(responseParsed);
             if (xhr.status === 200) {
-                this.http.httpAuth = true;
-                //this.manage.showGame();
+                logicAuth = true;
             }
         });
     }
@@ -36,8 +36,7 @@ export default class SiteService {
             const responseParsed = JSON.parse(responseText);
             console.log(responseParsed);
             if (xhr.status === 200) {
-                this.http.httpAuth = true;
-                //this.manage.showGame();
+                logicAuth = true;
             }
 
         });
@@ -50,12 +49,8 @@ export default class SiteService {
             const responseParsed = JSON.parse(responseText);
             console.log(responseParsed);
             if (xhr.status === 200) {
-                //this.http.httpAuth = true;
-                //console.log(this.httpAuth);
-                return true;
+                logicAuth = true;
             } else {
-                //this.serviceAuth = false;
-                return false;
             }
 
         });
@@ -68,10 +63,8 @@ export default class SiteService {
 
 
             if (xhr.status === 200) {
-                this.http.httpAuth = false;
-                //this.manage.showLogin();
+                logicAuth = false;
             } else {
-                //this.manage.showLogin();
                 const responseParsed = JSON.parse(responseText);
                 console.log(responseParsed);
             }
@@ -80,24 +73,15 @@ export default class SiteService {
     }
 
     makeRating() {
-        console.log("Into service rating");
         this.http.get('http://Rws-backend.herokuapp.com/api/rating', function (xhr) {
             console.log("start making rating");
-            let playerNames = [];
+            playerNames = [];
             const responseText = xhr.responseText;
             const responseParsed = JSON.parse(responseText);
-            for(let i = 0; i < responseParsed.length; i++)
+            for (let i = 0; i < responseParsed.length; i++)
                 playerNames.push(responseParsed[i].login);
             console.log(playerNames);
-            return playerNames;
-
         });
-        /*while(this.http.serverResponse === []){
-
-        }
-        console.log("Into service " + this.http.serverResponse);
-        return this.http.serverResponse;*/
     }
 }
-//window.SiteService = SiteService;
 

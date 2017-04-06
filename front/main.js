@@ -1,12 +1,12 @@
 import About from './static/components/about';
 import Menu from './static/components/menu';
-import Rating from './static/components/menu';
+import Rating from './static/components/rating';
 import renderAbout from './static/renderedTemplates/aboutTemplate'
 import renderMenu from './static/renderedTemplates/menuTemplate'
 import renderRating from './static/renderedTemplates/ratingTemplate'
-//import {playerNames} from './services/manage'
-//import SiteService from './services/siteService'
+import {playerNames, logicAuth} from './services/siteService'
 import Manage  from './services/manage'
+//import {router} from './services/router'
 
 (function () {
 
@@ -15,20 +15,19 @@ import Manage  from './services/manage'
     let logPage = document.getElementById("log");
     let aboutPage = document.getElementById("about");
     let gamePage = document.getElementById("game");
-
-    //const Siteservice = window.SiteService;
-    //const siteService = new SiteService();
+    let backButton = document.getElementById("backButton");
 
     let manage = new Manage();
+    //let router = new router();
 
-    console.log(manage.logicAuth);
-    let menu = new Menu(renderMenu({'logicAuth': manage.logicAuth}), null);
+    let menu = new Menu();
+    menu.render(renderMenu({'logicAuth': logicAuth}));
 
-    let topPlayers = manage.makeRating();
-    console.log("Main" + topPlayers);
-    let rating = new Rating(renderRating({'players': topPlayers}), null);
+    let rating = new Rating();
+    manage.makeRating();
 
-    let about = new About(renderAbout(), null);
+    let about = new About();
+    about.render(renderAbout());
 
     let game = new Game({
         el: document.createElement('div'),
@@ -99,64 +98,53 @@ import Manage  from './services/manage'
         }
     });
 
-    /*login.addEventListener("click", (event) => {
-     showRating();
-     });*/
-
     indPage.appendChild(menu.content);
     ratPage.appendChild(rating.content);
     logPage.appendChild(login.el);
     aboutPage.appendChild(about.content);
     gamePage.appendChild(game.el);
 
-    //siteService.checkAuth();
-    // manage.makeRating();
-
     ratPage.hidden = true;
     logPage.hidden = true;
     aboutPage.hidden = true;
     gamePage.hidden = true;
+    backButton.hidden = true;
 
     eventsListener();
 
     function eventsListener(){
-        if (manage.logicAuth) {
+        if (logicAuth) {
             document.getElementById('menuStartAuth').addEventListener("click", function () {
-                manage.showGame()
+                manage.showGame();
             });
             document.getElementById('menuLogout').addEventListener("click", function () {
-                manage.userLogout()
+                manage.userLogout();
+                //router.nav('/login');
             });
         } else {
             document.getElementById('menuStartNotAuth').addEventListener("click", function () {
-                manage.showLogin()
+                manage.showLogin();
+                //router.nav('/login');
             });
 
         }
         document.getElementById('menuRating').addEventListener("click", function () {
             manage.showRating();
+            //router.nav('/rating');
             manage.makeRating();
-            rating.render(renderRating({'players': topPlayers}));
+            rating.render(renderRating({'players': playerNames}));
         });
         document.getElementById('menuAbout').addEventListener("click", function () {
-            manage.showAbout()
+            manage.showAbout();
+            //router.nav('/about');
         });
-        document.getElementById('backButton').addEventListener("click", function () {
-            manage.showInd();
-            console.log(manage.logicAuth);
-            menu.render(renderMenu({'logicAuth': manage.logicAuth}));
-            eventsListener();
-        });
+
     }
 
-
-
-
-    //'showGame': manage.showGame(),
-    //'showLogin': manage.showLogin(),
-    //'showRating': manage.showRating(),
-    //'userLogout': manage.userLogout(),
-    //'showAbout': showAbout
-
-    //window.menu = menu;
+    document.getElementById('backButton').addEventListener("click", function () {
+        manage.showInd();
+        //router.nav('/');
+        menu.render(renderMenu({'logicAuth': logicAuth}));
+        eventsListener();
+    });
 })();

@@ -9,8 +9,6 @@ export default class HTTP {
         this._baseURL = '';
         HTTP.__instance = this;
         this.ALLOWED_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
-        //this.httpAuth = false;
-        this.serverResponse = [];
     }
 
 
@@ -34,12 +32,7 @@ export default class HTTP {
                 return;
             }
             if (typeof callback === 'function') {
-                this.serverResponse = [];
-                let players = callback(xhr);
-                console.log("Into http " + players);
-                if (players) {
-                    this.serverResponse = players;
-                }
+                callback(xhr);
             }
         };
         xhr.send(null);
@@ -84,4 +77,4 @@ export default class HTTP {
     }
 }
 
-//window.HTTP = HTTP;
+

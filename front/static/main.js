@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,15 +71,19 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(2);
+class baseComponent {
+    constructor(options = null) {
+        this.content = document.createElement('div');
+        this.options = options;
+        //this.renderTemplate = renderTemplate;
+        //this.render(this.renderTemplate);
+    }
 
-
-class Menu extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default */] {
     render(renderTemplate) {
-        this.content.innerHTML = renderTemplate;
+        //to override
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = Menu;
+/* harmony export (immutable) */ __webpack_exports__["a"] = baseComponent;
 
 
 /***/ }),
@@ -93,19 +97,91 @@ module.exports = require("fs");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-class baseComponent {
-    constructor(renderTemplate, options) {
-        this.content = document.createElement('div');
-        this.options = options;
-        this.renderTemplate = renderTemplate;
-        this.render(this.renderTemplate);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modules_http__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__static_components_rating__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__static_renderedTemplates_ratingTemplate__ = __webpack_require__(4);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return logicAuth; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return playerNames; });
+
+//import ratingFromServerRender from './serverResponseRender'
+
+
+
+var logicAuth = false;
+var playerNames = [];
+
+class SiteService {
+    constructor() {
+        this.http = new __WEBPACK_IMPORTED_MODULE_0__modules_http__["a" /* default */]();
     }
 
-    render(renderTemplate) {
-        //to override
+    login(login, password, callback1 = null, callback2 = null) {
+        const body = {
+            login, password
+        };
+        this.http.post('http://Rws-backend.herokuapp.com/api/session', body, function (xhr) {
+
+            const responseText = xhr.responseText;
+            const responseParsed = JSON.parse(responseText);
+            console.log(responseParsed);
+            if (xhr.status === 200) {
+                logicAuth = true;
+            }
+        });
+    }
+
+    register(login, email, password, callback1 = null, callback2 = null) {
+        const body = {
+            login, email, password
+        };
+        this.http.post('http://Rws-backend.herokuapp.com/api/signup', body, function (xhr) {
+            const responseText = xhr.responseText;
+            const responseParsed = JSON.parse(responseText);
+            console.log(responseParsed);
+            if (xhr.status === 200) {
+                logicAuth = true;
+            }
+        });
+    }
+
+    checkAuth() {
+        this.http.get('http://Rws-backend.herokuapp.com/api/session', this.serviceAuth = function (xhr) {
+            console.log("start checkAuth");
+            const responseText = xhr.responseText;
+            const responseParsed = JSON.parse(responseText);
+            console.log(responseParsed);
+            if (xhr.status === 200) {
+                logicAuth = true;
+            } else {}
+        });
+    }
+
+    logout() {
+        this.http.delete('http://Rws-backend.herokuapp.com/api/session', function (xhr) {
+            console.log("start logout");
+            const responseText = xhr.responseText;
+
+            if (xhr.status === 200) {
+                logicAuth = false;
+            } else {
+                const responseParsed = JSON.parse(responseText);
+                console.log(responseParsed);
+            }
+        });
+    }
+
+    makeRating() {
+        this.http.get('http://Rws-backend.herokuapp.com/api/rating', function (xhr) {
+            console.log("start making rating");
+            playerNames = [];
+            const responseText = xhr.responseText;
+            const responseParsed = JSON.parse(responseText);
+            for (let i = 0; i < responseParsed.length; i++) playerNames.push(responseParsed[i].login);
+            console.log(playerNames);
+        });
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = baseComponent;
+/* harmony export (immutable) */ __webpack_exports__["c"] = SiteService;
 
 
 /***/ }),
@@ -113,7 +189,106 @@ class baseComponent {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__siteService__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(0);
+
+
+class Rating extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default */] {
+    render(renderTemplate) {
+        this.content.innerHTML = renderTemplate;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Rating;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = renderRating;
+function pug_escape(e) {
+  var a = "" + e,
+      t = pug_match_html.exec(a);if (!t) return e;var r,
+      c,
+      n,
+      s = "";for (r = t.index, c = 0; r < a.length; r++) {
+    switch (a.charCodeAt(r)) {case 34:
+        n = "&quot;";break;case 38:
+        n = "&amp;";break;case 60:
+        n = "&lt;";break;case 62:
+        n = "&gt;";break;default:
+        continue;}c !== r && (s += a.substring(c, r)), c = r + 1, s += n;
+  }return c !== r ? s + a.substring(c, r) : s;
+}
+var pug_match_html = /["&<>]/;
+function pug_rethrow(n, e, r, t) {
+  if (!(n instanceof Error)) throw n;if (!("undefined" == typeof window && e || t)) throw n.message += " on line " + r, n;try {
+    t = t || __webpack_require__(1).readFileSync(e, "utf8");
+  } catch (e) {
+    pug_rethrow(n, null, r);
+  }var i = 3,
+      a = t.split("\n"),
+      o = Math.max(r - i, 0),
+      h = Math.min(a.length, r + i),
+      i = a.slice(o, h).map(function (n, e) {
+    var t = e + o + 1;return (t == r ? "  > " : "    ") + t + "| " + n;
+  }).join("\n");throw n.path = e, n.message = (e || "Pug") + ":" + r + "\n" + i + "\n\n" + n.message, n;
+}function renderRating(locals) {
+  var pug_html = "",
+      pug_mixins = {},
+      pug_interp;var pug_debug_filename, pug_debug_line;try {
+    var pug_debug_sources = { "front\u002FcomponentTemplates\u002FratingTemplate.pug": "div\r\n    h1(class='h1Title') Rating\r\n    div(class='ratingBody')\r\n        ol\r\n            each val in players\r\n                li= val\r\n\r\n\u002F\u002F['Player1', \"Player2\", \"Player3\", \"Player4\", \"Player5\", \"Player6\", \"Player7\", \"Player8\", \"Player9\", \"Player10\",]\r\n" };
+    ;var locals_for_with = locals || {};(function (players) {
+      ;pug_debug_line = 1;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
+      pug_html = pug_html + "\u003Cdiv\u003E";
+      ;pug_debug_line = 2;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
+      pug_html = pug_html + "\u003Ch1 class=\"h1Title\"\u003E";
+      ;pug_debug_line = 2;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
+      pug_html = pug_html + "Rating\u003C\u002Fh1\u003E";
+      ;pug_debug_line = 3;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
+      pug_html = pug_html + "\u003Cdiv class=\"ratingBody\"\u003E";
+      ;pug_debug_line = 4;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
+      pug_html = pug_html + "\u003Col\u003E";
+      ;pug_debug_line = 5;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
+      // iterate players
+      ;(function () {
+        var $$obj = players;
+        if ('number' == typeof $$obj.length) {
+          for (var pug_index0 = 0, $$l = $$obj.length; pug_index0 < $$l; pug_index0++) {
+            var val = $$obj[pug_index0];
+            ;pug_debug_line = 6;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
+            pug_html = pug_html + "\u003Cli\u003E";
+            ;pug_debug_line = 6;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
+            pug_html = pug_html + pug_escape(null == (pug_interp = val) ? "" : pug_interp) + "\u003C\u002Fli\u003E";
+          }
+        } else {
+          var $$l = 0;
+          for (var pug_index0 in $$obj) {
+            $$l++;
+            var val = $$obj[pug_index0];
+            ;pug_debug_line = 6;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
+            pug_html = pug_html + "\u003Cli\u003E";
+            ;pug_debug_line = 6;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
+            pug_html = pug_html + pug_escape(null == (pug_interp = val) ? "" : pug_interp) + "\u003C\u002Fli\u003E";
+          }
+        }
+      }).call(this);
+
+      pug_html = pug_html + "\u003C\u002Fol\u003E\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E";
+      ;pug_debug_line = 8;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
+      pug_html = pug_html + "\u003C!--['Player1', \"Player2\", \"Player3\", \"Player4\", \"Player5\", \"Player6\", \"Player7\", \"Player8\", \"Player9\", \"Player10\",]--\u003E";
+    }).call(this, "players" in locals_for_with ? locals_for_with.players : typeof players !== "undefined" ? players : undefined);
+  } catch (err) {
+    pug_rethrow(err, pug_debug_filename, pug_debug_line, pug_debug_sources[pug_debug_filename]);
+  };return pug_html;
+}
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__siteService__ = __webpack_require__(2);
 
 //import Menu from './../static/components/menu'
 //import Rating from './../static/components/rating'
@@ -126,12 +301,9 @@ class Manage {
         this.rating = document.getElementById("rat");
         this.about = document.getElementById("about");
         this.game = document.getElementById("game");
-        this.siteService = new __WEBPACK_IMPORTED_MODULE_0__siteService__["a" /* default */]();
+        this.backButton = document.getElementById("backButton");
+        this.siteService = new __WEBPACK_IMPORTED_MODULE_0__siteService__["c" /* default */]();
         this.siteService.checkAuth();
-        this.logicAuth = this.siteService.serviceAuth;
-        console.log(this.logicAuth);
-        //this.ratingForRender = new Rating();
-        // this.menuForRender = new Menu();
     }
 
     //SiteService = window.SiteService;
@@ -141,6 +313,7 @@ class Manage {
         this.ind.hidden = true;
         this.rating.hidden = false;
         this.game.hidden = true;
+        this.backButton.hidden = false;
     }
 
     showLogin() {
@@ -149,12 +322,14 @@ class Manage {
         this.game.hidden = true;
         this.rating.hidden = true;
         this.about.hidden = true;
+        this.backButton.hidden = false;
     }
 
     showAbout() {
         this.ind.hidden = true;
         this.about.hidden = false;
         this.game.hidden = true;
+        this.backButton.hidden = false;
     }
 
     showInd() {
@@ -164,7 +339,7 @@ class Manage {
         this.about.hidden = true;
         this.game.hidden = true;
         this.siteService.checkAuth();
-        //window.menu.render(renderMenu());
+        this.backButton.hidden = true;
     }
 
     showGame() {
@@ -173,6 +348,7 @@ class Manage {
         this.rating.hidden = true;
         this.login.hidden = true;
         this.about.hidden = true;
+        this.backButton.hidden = false;
     }
 
     auth() {
@@ -181,7 +357,7 @@ class Manage {
 
     userLogin(login, password, callback1 = null, callback2 = null) {
         this.siteService.login(login, password, callback1 = null, callback2 = null);
-        this.logicAuth = this.siteService.logicAuth;
+        //this.logicAuth = this.siteService.logicAuth;
         this.showLogin();
     }
 
@@ -193,15 +369,11 @@ class Manage {
 
     userLogout() {
         this.siteService.logout();
-        this.logicAuth = this.siteService.logicAuth;
         this.showLogin();
     }
 
     makeRating() {
-        console.log("Into manage rating");
-        let players = this.siteService.makeRating();
-        console.log("Into manage " + players);
-        return players;
+        this.siteService.makeRating();
     }
 
 }
@@ -209,11 +381,11 @@ class Manage {
 
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(0);
 
 
 class About extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default */] {
@@ -225,7 +397,23 @@ class About extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default 
 
 
 /***/ }),
-/* 5 */
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(0);
+
+
+class Menu extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default */] {
+    render(renderTemplate) {
+        this.content.innerHTML = renderTemplate;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Menu;
+
+
+/***/ }),
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -305,7 +493,7 @@ function pug_rethrow(n, e, r, t) {
 }
 
 /***/ }),
-/* 6 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -386,110 +574,28 @@ function pug_rethrow(n, e, r, t) {
 }
 
 /***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = renderRating;
-function pug_escape(e) {
-  var a = "" + e,
-      t = pug_match_html.exec(a);if (!t) return e;var r,
-      c,
-      n,
-      s = "";for (r = t.index, c = 0; r < a.length; r++) {
-    switch (a.charCodeAt(r)) {case 34:
-        n = "&quot;";break;case 38:
-        n = "&amp;";break;case 60:
-        n = "&lt;";break;case 62:
-        n = "&gt;";break;default:
-        continue;}c !== r && (s += a.substring(c, r)), c = r + 1, s += n;
-  }return c !== r ? s + a.substring(c, r) : s;
-}
-var pug_match_html = /["&<>]/;
-function pug_rethrow(n, e, r, t) {
-  if (!(n instanceof Error)) throw n;if (!("undefined" == typeof window && e || t)) throw n.message += " on line " + r, n;try {
-    t = t || __webpack_require__(1).readFileSync(e, "utf8");
-  } catch (e) {
-    pug_rethrow(n, null, r);
-  }var i = 3,
-      a = t.split("\n"),
-      o = Math.max(r - i, 0),
-      h = Math.min(a.length, r + i),
-      i = a.slice(o, h).map(function (n, e) {
-    var t = e + o + 1;return (t == r ? "  > " : "    ") + t + "| " + n;
-  }).join("\n");throw n.path = e, n.message = (e || "Pug") + ":" + r + "\n" + i + "\n\n" + n.message, n;
-}function renderRating(locals) {
-  var pug_html = "",
-      pug_mixins = {},
-      pug_interp;var pug_debug_filename, pug_debug_line;try {
-    var pug_debug_sources = { "front\u002FcomponentTemplates\u002FratingTemplate.pug": "div\r\n    h1(class='h1Title') Rating\r\n    div(class='ratingBody')\r\n        ol\r\n            each val in players\r\n                li= val\r\n\r\n\u002F\u002F['Player1', \"Player2\", \"Player3\", \"Player4\", \"Player5\", \"Player6\", \"Player7\", \"Player8\", \"Player9\", \"Player10\",]\r\n" };
-    ;var locals_for_with = locals || {};(function (players) {
-      var pug_indent = [];
-      ;pug_debug_line = 1;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
-      pug_html = pug_html + "\n\u003Cdiv\u003E";
-      ;pug_debug_line = 2;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
-      pug_html = pug_html + "\n  \u003Ch1 class=\"h1Title\"\u003E";
-      ;pug_debug_line = 2;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
-      pug_html = pug_html + "Rating\u003C\u002Fh1\u003E";
-      ;pug_debug_line = 3;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
-      pug_html = pug_html + "\n  \u003Cdiv class=\"ratingBody\"\u003E";
-      ;pug_debug_line = 4;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
-      pug_html = pug_html + "\n    \u003Col\u003E";
-      ;pug_debug_line = 5;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
-      // iterate players
-      ;(function () {
-        var $$obj = players;
-        if ('number' == typeof $$obj.length) {
-          for (var pug_index0 = 0, $$l = $$obj.length; pug_index0 < $$l; pug_index0++) {
-            var val = $$obj[pug_index0];
-            ;pug_debug_line = 6;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
-            pug_html = pug_html + "\n      \u003Cli\u003E";
-            ;pug_debug_line = 6;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
-            pug_html = pug_html + pug_escape(null == (pug_interp = val) ? "" : pug_interp) + "\u003C\u002Fli\u003E";
-          }
-        } else {
-          var $$l = 0;
-          for (var pug_index0 in $$obj) {
-            $$l++;
-            var val = $$obj[pug_index0];
-            ;pug_debug_line = 6;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
-            pug_html = pug_html + "\n      \u003Cli\u003E";
-            ;pug_debug_line = 6;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
-            pug_html = pug_html + pug_escape(null == (pug_interp = val) ? "" : pug_interp) + "\u003C\u002Fli\u003E";
-          }
-        }
-      }).call(this);
-
-      pug_html = pug_html + "\n    \u003C\u002Fol\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";
-      ;pug_debug_line = 8;pug_debug_filename = "front\u002FcomponentTemplates\u002FratingTemplate.pug";
-      pug_html = pug_html + "\n\u003C!--['Player1', \"Player2\", \"Player3\", \"Player4\", \"Player5\", \"Player6\", \"Player7\", \"Player8\", \"Player9\", \"Player10\",]--\u003E";
-    }).call(this, "players" in locals_for_with ? locals_for_with.players : typeof players !== "undefined" ? players : undefined);
-  } catch (err) {
-    pug_rethrow(err, pug_debug_filename, pug_debug_line, pug_debug_sources[pug_debug_filename]);
-  };return pug_html;
-}
-
-/***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__static_components_about__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__static_components_menu__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__static_renderedTemplates_aboutTemplate__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__static_renderedTemplates_menuTemplate__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__static_renderedTemplates_ratingTemplate__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_manage__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__static_components_about__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__static_components_menu__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__static_components_rating__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__static_renderedTemplates_aboutTemplate__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__static_renderedTemplates_menuTemplate__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__static_renderedTemplates_ratingTemplate__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_siteService__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_manage__ = __webpack_require__(5);
 
 
 
 
 
 
-//import {playerNames} from './services/manage'
-//import SiteService from './services/siteService'
 
+
+//import {router} from './services/router'
 
 (function () {
 
@@ -498,20 +604,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     let logPage = document.getElementById("log");
     let aboutPage = document.getElementById("about");
     let gamePage = document.getElementById("game");
+    let backButton = document.getElementById("backButton");
 
-    //const Siteservice = window.SiteService;
-    //const siteService = new SiteService();
+    let manage = new __WEBPACK_IMPORTED_MODULE_7__services_manage__["a" /* default */]();
+    //let router = new router();
 
-    let manage = new __WEBPACK_IMPORTED_MODULE_5__services_manage__["a" /* default */]();
+    let menu = new __WEBPACK_IMPORTED_MODULE_1__static_components_menu__["a" /* default */]();
+    menu.render(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__static_renderedTemplates_menuTemplate__["a" /* default */])({ 'logicAuth': __WEBPACK_IMPORTED_MODULE_6__services_siteService__["a" /* logicAuth */] }));
 
-    console.log(manage.logicAuth);
-    let menu = new __WEBPACK_IMPORTED_MODULE_1__static_components_menu__["a" /* default */](__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__static_renderedTemplates_menuTemplate__["a" /* default */])({ 'logicAuth': manage.logicAuth }), null);
+    let rating = new __WEBPACK_IMPORTED_MODULE_2__static_components_rating__["a" /* default */]();
+    manage.makeRating();
 
-    let topPlayers = manage.makeRating();
-    console.log("Main" + topPlayers);
-    let rating = new __WEBPACK_IMPORTED_MODULE_1__static_components_menu__["a" /* default */](__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__static_renderedTemplates_ratingTemplate__["a" /* default */])({ 'players': topPlayers }), null);
-
-    let about = new __WEBPACK_IMPORTED_MODULE_0__static_components_about__["a" /* default */](__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__static_renderedTemplates_aboutTemplate__["a" /* default */])(), null);
+    let about = new __WEBPACK_IMPORTED_MODULE_0__static_components_about__["a" /* default */]();
+    about.render(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__static_renderedTemplates_aboutTemplate__["a" /* default */])());
 
     let game = new Game({
         el: document.createElement('div'),
@@ -571,66 +676,57 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     });
 
-    /*login.addEventListener("click", (event) => {
-     showRating();
-     });*/
-
     indPage.appendChild(menu.content);
     ratPage.appendChild(rating.content);
     logPage.appendChild(login.el);
     aboutPage.appendChild(about.content);
     gamePage.appendChild(game.el);
 
-    //siteService.checkAuth();
-    // manage.makeRating();
-
     ratPage.hidden = true;
     logPage.hidden = true;
     aboutPage.hidden = true;
     gamePage.hidden = true;
+    backButton.hidden = true;
 
     eventsListener();
 
     function eventsListener() {
-        if (manage.logicAuth) {
+        if (__WEBPACK_IMPORTED_MODULE_6__services_siteService__["a" /* logicAuth */]) {
             document.getElementById('menuStartAuth').addEventListener("click", function () {
                 manage.showGame();
             });
             document.getElementById('menuLogout').addEventListener("click", function () {
                 manage.userLogout();
+                //router.nav('/login');
             });
         } else {
             document.getElementById('menuStartNotAuth').addEventListener("click", function () {
                 manage.showLogin();
+                //router.nav('/login');
             });
         }
         document.getElementById('menuRating').addEventListener("click", function () {
             manage.showRating();
-            let topPlayers = manage.makeRating();
-            rating.render(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__static_renderedTemplates_ratingTemplate__["a" /* default */])({ 'players': topPlayers }));
+            //router.nav('/rating');
+            manage.makeRating();
+            rating.render(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__static_renderedTemplates_ratingTemplate__["a" /* default */])({ 'players': __WEBPACK_IMPORTED_MODULE_6__services_siteService__["b" /* playerNames */] }));
         });
         document.getElementById('menuAbout').addEventListener("click", function () {
             manage.showAbout();
-        });
-        document.getElementById('backButton').addEventListener("click", function () {
-            manage.showInd();
-            console.log(manage.logicAuth);
-            menu.render(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__static_renderedTemplates_menuTemplate__["a" /* default */])({ 'logicAuth': manage.logicAuth }));
-            eventsListener();
+            //router.nav('/about');
         });
     }
 
-    //'showGame': manage.showGame(),
-    //'showLogin': manage.showLogin(),
-    //'showRating': manage.showRating(),
-    //'userLogout': manage.userLogout(),
-    //'showAbout': showAbout
-
-    //window.menu = menu;
+    document.getElementById('backButton').addEventListener("click", function () {
+        manage.showInd();
+        //router.nav('/');
+        menu.render(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__static_renderedTemplates_menuTemplate__["a" /* default */])({ 'logicAuth': __WEBPACK_IMPORTED_MODULE_6__services_siteService__["a" /* logicAuth */] }));
+        eventsListener();
+    });
 })();
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -645,8 +741,6 @@ class HTTP {
         this._baseURL = '';
         HTTP.__instance = this;
         this.ALLOWED_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
-        //this.httpAuth = false;
-        this.serverResponse = [];
     }
 
     set BaseURL(value) {
@@ -668,12 +762,7 @@ class HTTP {
                 return;
             }
             if (typeof callback === 'function') {
-                this.serverResponse = [];
-                let players = callback(xhr);
-                console.log("Into http " + players);
-                if (players) {
-                    this.serverResponse = players;
-                }
+                callback(xhr);
             }
         };
         xhr.send(null);
@@ -718,111 +807,6 @@ class HTTP {
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = HTTP;
 
-
-//window.HTTP = HTTP;
-
-/***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modules_http__ = __webpack_require__(9);
-
-//import Manage  from './manage'
-
-//var logicAuth = true;
-
-class SiteService {
-    constructor() {
-        this.http = new __WEBPACK_IMPORTED_MODULE_0__modules_http__["a" /* default */]();
-        this.serviceAuth = false;
-    }
-
-    login(login, password, callback1 = null, callback2 = null) {
-        const body = {
-            login, password
-        };
-        this.http.post('http://Rws-backend.herokuapp.com/api/session', body, function (xhr) {
-
-            const responseText = xhr.responseText;
-            const responseParsed = JSON.parse(responseText);
-            console.log(responseParsed);
-            if (xhr.status === 200) {
-                this.http.httpAuth = true;
-                //this.manage.showGame();
-            }
-        });
-    }
-
-    register(login, email, password, callback1 = null, callback2 = null) {
-        const body = {
-            login, email, password
-        };
-        this.http.post('http://Rws-backend.herokuapp.com/api/signup', body, function (xhr) {
-            const responseText = xhr.responseText;
-            const responseParsed = JSON.parse(responseText);
-            console.log(responseParsed);
-            if (xhr.status === 200) {
-                this.http.httpAuth = true;
-                //this.manage.showGame();
-            }
-        });
-    }
-
-    checkAuth() {
-        this.http.get('http://Rws-backend.herokuapp.com/api/session', this.serviceAuth = function (xhr) {
-            console.log("start checkAuth");
-            const responseText = xhr.responseText;
-            const responseParsed = JSON.parse(responseText);
-            console.log(responseParsed);
-            if (xhr.status === 200) {
-                //this.http.httpAuth = true;
-                //console.log(this.httpAuth);
-                return true;
-            } else {
-                //this.serviceAuth = false;
-                return false;
-            }
-        });
-    }
-
-    logout() {
-        this.http.delete('http://Rws-backend.herokuapp.com/api/session', function (xhr) {
-            console.log("start logout");
-            const responseText = xhr.responseText;
-
-            if (xhr.status === 200) {
-                this.http.httpAuth = false;
-                //this.manage.showLogin();
-            } else {
-                //this.manage.showLogin();
-                const responseParsed = JSON.parse(responseText);
-                console.log(responseParsed);
-            }
-        });
-    }
-
-    makeRating() {
-        console.log("Into service rating");
-        this.http.get('http://Rws-backend.herokuapp.com/api/rating', function (xhr) {
-            console.log("start making rating");
-            let playerNames = [];
-            const responseText = xhr.responseText;
-            const responseParsed = JSON.parse(responseText);
-            for (let i = 0; i < responseParsed.length; i++) playerNames.push(responseParsed[i].login);
-            console.log(playerNames);
-            return playerNames;
-        });
-        while (this.http.serverResponse === []) {
-            continue;
-        }
-        console.log("Into service " + this.http.serverResponse);
-        return this.http.serverResponse;
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = SiteService;
-
-//window.SiteService = SiteService;
 
 /***/ })
 /******/ ]);
