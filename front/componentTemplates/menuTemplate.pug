@@ -2,11 +2,11 @@ div
     h1(class='h1Title') Break Away
     div(class='menuBody')
         if logicAuth
-            p(class='title' onclick='showGame()')= 'Start'
+            p(id='menuStartAuth' class='title')= 'Start'
         else
-            p(class='title' onclick='showLogin()')= 'Start'
-        p(class='title' onclick='showRating()')= 'Rating'
+            p(id='menuStartNotAuth' class='title')= 'Start'
+        p(id='menuRating' class='title')= 'Rating'
         if logicAuth
-            p(class='title' onclick='userLogout()')= 'Logout'
-        p(class='title' onclick='showAbout()')= 'About'
+            p(id='menuLogout' class='title')= 'Logout'
+        p(id='menuAbout' class='title')= 'About'
 

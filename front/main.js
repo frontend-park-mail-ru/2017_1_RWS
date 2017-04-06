@@ -6,21 +6,28 @@ import renderMenu from './static/renderedTemplates/menuTemplate'
 import renderRating from './static/renderedTemplates/ratingTemplate'
 //import {playerNames} from './services/manage'
 //import SiteService from './services/siteService'
-//import makeRating  from './services/manage'
+import Manage  from './services/manage'
 
 (function () {
 
-    let indPage = document.querySelector("#ind");
-    let ratPage = document.querySelector("#rat");
-    let logPage = document.querySelector("#log");
-    let aboutPage = document.querySelector("#about");
-    let gamePage = document.querySelector("#game");
+    let indPage = document.getElementById("ind");
+    let ratPage = document.getElementById("rat");
+    let logPage = document.getElementById("log");
+    let aboutPage = document.getElementById("about");
+    let gamePage = document.getElementById("game");
 
-    const Siteservice = window.SiteService;
-    const siteService = new SiteService();
+    //const Siteservice = window.SiteService;
+    //const siteService = new SiteService();
 
-    let menu = new Menu (renderMenu(), null);
-    let rating = new Rating(renderRating({position: "2"}), null);
+    let manage = new Manage();
+
+    console.log(manage.logicAuth);
+    let menu = new Menu(renderMenu({'logicAuth': manage.logicAuth}), null);
+
+    let topPlayers = manage.makeRating();
+    console.log("Main" + topPlayers);
+    let rating = new Rating(renderRating({'players': topPlayers}), null);
+
     let about = new About(renderAbout(), null);
 
     let game = new Game({
@@ -78,21 +85,23 @@ import renderRating from './static/renderedTemplates/ratingTemplate'
     });
 
     login.on("submit", (event) => {
-        if ( document.getElementById("usernamesignup").value !== "") {
+        if (document.getElementById("usernamesignup").value !== "") {
             event.preventDefault();
 
-            siteService.register(document.getElementById("usernamesignup").value, document.getElementById("emailsignup").value,
+            manage.userRegister(document.getElementById("usernamesignup").value, document.getElementById("emailsignup").value,
                 document.getElementById("passwordsignup").value, null, null);
 
         } else if (document.getElementById("username").value !== "") {
             event.preventDefault();
 
-            siteService.login(document.getElementById("username").value, document.getElementById("password").value,  null, null);
+            manage.userLogin(document.getElementById("username").value, document.getElementById("password").value, null, null);
 
         }
     });
 
-
+    /*login.addEventListener("click", (event) => {
+     showRating();
+     });*/
 
     indPage.appendChild(menu.content);
     ratPage.appendChild(rating.content);
@@ -100,13 +109,54 @@ import renderRating from './static/renderedTemplates/ratingTemplate'
     aboutPage.appendChild(about.content);
     gamePage.appendChild(game.el);
 
-    siteService.checkAuth();
-    makeRating();
+    //siteService.checkAuth();
+    // manage.makeRating();
 
     ratPage.hidden = true;
     logPage.hidden = true;
     aboutPage.hidden = true;
     gamePage.hidden = true;
 
-    window.menu = menu;
+    eventsListener();
+
+    function eventsListener(){
+        if (manage.logicAuth) {
+            document.getElementById('menuStartAuth').addEventListener("click", function () {
+                manage.showGame()
+            });
+            document.getElementById('menuLogout').addEventListener("click", function () {
+                manage.userLogout()
+            });
+        } else {
+            document.getElementById('menuStartNotAuth').addEventListener("click", function () {
+                manage.showLogin()
+            });
+
+        }
+        document.getElementById('menuRating').addEventListener("click", function () {
+            manage.showRating();
+            manage.makeRating();
+            rating.render(renderRating({'players': topPlayers}));
+        });
+        document.getElementById('menuAbout').addEventListener("click", function () {
+            manage.showAbout()
+        });
+        document.getElementById('backButton').addEventListener("click", function () {
+            manage.showInd();
+            console.log(manage.logicAuth);
+            menu.render(renderMenu({'logicAuth': manage.logicAuth}));
+            eventsListener();
+        });
+    }
+
+
+
+
+    //'showGame': manage.showGame(),
+    //'showLogin': manage.showLogin(),
+    //'showRating': manage.showRating(),
+    //'userLogout': manage.userLogout(),
+    //'showAbout': showAbout
+
+    //window.menu = menu;
 })();

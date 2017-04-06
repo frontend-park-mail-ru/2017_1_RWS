@@ -43,17 +43,22 @@
 }
 
 .player {
-	padding-top: 100%;
+    position: fixed;
+    margin-left: 4vw;
+    bottom: 4vw;
 	font-size: 110%;
+    border: solid #333333 3px;
 }
 
 li {
     font-size: 30px;
+    text-align: left;
 }
 
 body {
     background-color: #01FF70;
     margin: 0;
+    overflow: hidden;
 }
 
 h1 {
@@ -123,17 +128,21 @@ h1 {
 }
 
 .backButton {
-	margin: 0 auto;
-	padding-top: 35%;
-	max-width: 300%;
-	font-size: 250%;
-	transition: 0.2s linear;
-	cursor: default;
+	border-color: #333;
+	background: #333;
+	cursor: pointer;
+    margin-top: 3vw;
+    margin-left: 3vw;
+	display: block;
+	font-family: pixel;
+	color: #fff;
+	font-size: 2.5vw;
+	width: 40%;
+	float: left;
 }
 
 .backButton:hover {
-	-webkit-transform: scale(1.2);
-	transform: scale(1.2);
+	background: #474747;
 }
 
 .title:hover {

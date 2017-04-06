@@ -1,14 +1,15 @@
-//import HTTP from './../modules/http'
+import HTTP from './../modules/http'
+import ratingFromServerRender from './serverResponseRender'
+//import Manage  from './manage'
 
-var logicAuth = true;
-(function () {
+//var logicAuth = true;
 
-const HTTP = window.HTTP;
-
-    class SiteService {
+export default class SiteService {
     constructor() {
         this.http = new HTTP();
+        this.serviceAuth = false;
     }
+
 
     login(login, password, callback1 = null, callback2 = null) {
         const body = {
@@ -20,8 +21,8 @@ const HTTP = window.HTTP;
             const responseParsed = JSON.parse(responseText);
             console.log(responseParsed);
             if (xhr.status === 200) {
-                logicAuth = true;
-                showGame();
+                this.http.httpAuth = true;
+                //this.manage.showGame();
             }
         });
     }
@@ -35,24 +36,26 @@ const HTTP = window.HTTP;
             const responseParsed = JSON.parse(responseText);
             console.log(responseParsed);
             if (xhr.status === 200) {
-                logicAuth = true;
-                showGame();
+                this.http.httpAuth = true;
+                //this.manage.showGame();
             }
 
         });
     }
 
     checkAuth() {
-        this.http.get('http://Rws-backend.herokuapp.com/api/session', function (xhr) {
+        this.http.get('http://Rws-backend.herokuapp.com/api/session', this.serviceAuth = function (xhr) {
             console.log("start checkAuth");
             const responseText = xhr.responseText;
             const responseParsed = JSON.parse(responseText);
             console.log(responseParsed);
             if (xhr.status === 200) {
-                logicAuth = true;
-                console.log(logicAuth);
+                //this.http.httpAuth = true;
+                //console.log(this.httpAuth);
+                return true;
             } else {
-                logicAuth = false;
+                //this.serviceAuth = false;
+                return false;
             }
 
         });
@@ -65,10 +68,10 @@ const HTTP = window.HTTP;
 
 
             if (xhr.status === 200) {
-                logicAuth = false;
-                showLogin();
+                this.http.httpAuth = false;
+                //this.manage.showLogin();
             } else {
-                showLogin();
+                //this.manage.showLogin();
                 const responseParsed = JSON.parse(responseText);
                 console.log(responseParsed);
             }
@@ -77,6 +80,7 @@ const HTTP = window.HTTP;
     }
 
     makeRating() {
+        console.log("Into service rating");
         this.http.get('http://Rws-backend.herokuapp.com/api/rating', function (xhr) {
             console.log("start making rating");
             let playerNames = [];
@@ -85,10 +89,15 @@ const HTTP = window.HTTP;
             for(let i = 0; i < responseParsed.length; i++)
                 playerNames.push(responseParsed[i].login);
             console.log(playerNames);
+            return playerNames;
 
         });
+        /*while(this.http.serverResponse === []){
+
+        }
+        console.log("Into service " + this.http.serverResponse);
+        return this.http.serverResponse;*/
     }
 }
-window.SiteService = SiteService;
+//window.SiteService = SiteService;
 
-})();

@@ -1,3 +1,13 @@
 .menuBody {
     padding-top: 10%;
 }
+
+.soundButton {
+    width: 5vw;
+    height: 5vw;
+    margin-top: 3vw;
+}
+
+.soundButton:hover {
+    cursor: pointer;
+}

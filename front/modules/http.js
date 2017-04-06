@@ -1,14 +1,16 @@
 
-(function () {
 
-const ALLOWED_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
-    class HTTP {
+//const ALLOWED_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
+export default class HTTP {
     constructor() {
         if (HTTP.__instance) {
             return HTTP.__instance;
         }
         this._baseURL = '';
         HTTP.__instance = this;
+        this.ALLOWED_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
+        //this.httpAuth = false;
+        this.serverResponse = [];
     }
 
 
@@ -32,9 +34,14 @@ const ALLOWED_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
                 return;
             }
             if (typeof callback === 'function') {
-                callback(xhr);
+                this.serverResponse = [];
+                let players = callback(xhr);
+                console.log("Into http " + players);
+                if (players) {
+                    this.serverResponse = players;
+                }
             }
-        }
+        };
         xhr.send(null);
     }
 
@@ -77,5 +84,4 @@ const ALLOWED_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
     }
 }
 
-window.HTTP = HTTP;
-})();
+//window.HTTP = HTTP;
