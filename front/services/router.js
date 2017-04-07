@@ -2,7 +2,7 @@ import Manage from './manage'
 
 let manage = new Manage();
 
-export var router = {
+export var Router = {
     routes: {
         "/": "indexPage",
         "/rating": "ratingPage",
@@ -59,14 +59,14 @@ var getLocation = function(href) {
 window.onpopstate = function(e){
     e.preventDefault();
     var l = getLocation(document.location.href);
-    router.nav(l.pathname);
+    Router.nav(l.pathname);
 }
 
-router.init();
+Router.init();
 let str = getLocation(document.location.href).pathname;
 
 
-router.init();
-router.nav(str.substring(0, str.length - 1));
+Router.init();
+Router.nav(str.substring(0, str.length - 1));
 
 

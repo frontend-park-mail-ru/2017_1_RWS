@@ -60,6 +60,8 @@ export default class Manage {
     }
 
     showInd() {
+        /*let b = document.getElementById("#bb");
+        b.hidden = true;*/
         this.ind.hidden = false;
         this.rating.hidden = true;
         this.login.hidden = true;

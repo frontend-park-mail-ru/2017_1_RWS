@@ -6,7 +6,7 @@ import renderMenu from './static/renderedTemplates/menuTemplate'
 import renderRating from './static/renderedTemplates/ratingTemplate'
 import {playerNames, logicAuth} from './services/siteService'
 import Manage  from './services/manage'
-//import {router} from './services/router'
+import {Router} from './services/router'
 
 (function () {
 
@@ -118,32 +118,32 @@ import Manage  from './services/manage'
                 manage.showGame();
             });
             document.getElementById('menuLogout').addEventListener("click", function () {
-                manage.userLogout();
-                //router.nav('/login');
+                //manage.userLogout();
+                Router.nav('/login');
             });
         } else {
             document.getElementById('menuStartNotAuth').addEventListener("click", function () {
-                manage.showLogin();
-                //router.nav('/login');
+                //manage.showLogin();
+                Router.nav('/login');
             });
 
         }
         document.getElementById('menuRating').addEventListener("click", function () {
-            manage.showRating();
-            //router.nav('/rating');
+            //manage.showRating();
+            Router.nav('/rating');
             manage.makeRating();
             rating.render(renderRating({'players': playerNames}));
         });
         document.getElementById('menuAbout').addEventListener("click", function () {
-            manage.showAbout();
-            //router.nav('/about');
+            //manage.showAbout();
+            Router.nav('/about');
         });
 
     }
 
     document.getElementById('backButton').addEventListener("click", function () {
-        manage.showInd();
-        //router.nav('/');
+        //manage.showInd();
+        Router.nav('/');
         menu.render(renderMenu({'logicAuth': logicAuth}));
         eventsListener();
     });

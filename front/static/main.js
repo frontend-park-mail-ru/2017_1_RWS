@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -97,9 +97,124 @@ module.exports = require("fs");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modules_http__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__static_components_rating__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__static_renderedTemplates_ratingTemplate__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__siteService__ = __webpack_require__(3);
+
+//import Menu from './../static/components/menu'
+//import Rating from './../static/components/rating'
+//import renderMenu from './../static/renderedTemplates/menuTemplate'
+
+class Manage {
+    constructor() {
+        this.ind = document.getElementById("ind");
+        this.login = document.getElementById("log");
+        this.rating = document.getElementById("rat");
+        this.about = document.getElementById("about");
+        this.game = document.getElementById("game");
+        this.backButton = document.getElementById("backButton");
+        this.siteService = new __WEBPACK_IMPORTED_MODULE_0__siteService__["c" /* default */]();
+        this.siteService.checkAuth();
+        this.myAudio = new Audio("game/assets/main_theme.mp3");
+        this.myAudio.addEventListener('ended', function () {
+            this.currentTime = 0;
+            this.play();
+        }, false);
+        this.myAudio.play();
+    }
+
+    //SiteService = window.SiteService;
+
+    sound() {
+        let s = document.getElementById("sBut");
+        if (!myAudio.paused) {
+            s.src = "resources/soundOff.png";
+            myAudio.pause();
+        } else {
+            s.src = "resources/soundOn.png";
+            myAudio.play();
+        }
+    }
+
+    showRating() {
+        this.ind.hidden = true;
+        this.rating.hidden = false;
+        this.game.hidden = true;
+        this.backButton.hidden = false;
+    }
+
+    showLogin() {
+        this.ind.hidden = true;
+        this.login.hidden = false;
+        this.game.hidden = true;
+        this.rating.hidden = true;
+        this.about.hidden = true;
+        this.backButton.hidden = false;
+    }
+
+    showAbout() {
+        this.ind.hidden = true;
+        this.about.hidden = false;
+        this.game.hidden = true;
+        this.backButton.hidden = false;
+    }
+
+    showInd() {
+        /*let b = document.getElementById("#bb");
+        b.hidden = true;*/
+        this.ind.hidden = false;
+        this.rating.hidden = true;
+        this.login.hidden = true;
+        this.about.hidden = true;
+        this.game.hidden = true;
+        this.siteService.checkAuth();
+        this.backButton.hidden = true;
+    }
+
+    showGame() {
+        this.game.hidden = false;
+        this.ind.hidden = true;
+        this.rating.hidden = true;
+        this.login.hidden = true;
+        this.about.hidden = true;
+        this.backButton.hidden = false;
+    }
+
+    auth() {
+        this.siteService.checkAuth();
+    }
+
+    userLogin(login, password, callback1 = null, callback2 = null) {
+        this.siteService.login(login, password, callback1 = null, callback2 = null);
+        //this.logicAuth = this.siteService.logicAuth;
+        this.showLogin();
+    }
+
+    userRegister(login, email, password, callback1 = null, callback2 = null) {
+        this.siteService.register(login, email, password, callback1 = null, callback2 = null);
+        this.logicAuth = this.siteService.logicAuth;
+        this.showLogin();
+    }
+
+    userLogout() {
+        this.siteService.logout();
+        this.showLogin();
+    }
+
+    makeRating() {
+        this.siteService.makeRating();
+    }
+
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Manage;
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modules_http__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__static_components_rating__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__static_renderedTemplates_ratingTemplate__ = __webpack_require__(5);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return logicAuth; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return playerNames; });
 
@@ -185,7 +300,7 @@ class SiteService {
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -201,7 +316,7 @@ class Rating extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -284,120 +399,84 @@ function pug_rethrow(n, e, r, t) {
 }
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__siteService__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__manage__ = __webpack_require__(2);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Router; });
 
-//import Menu from './../static/components/menu'
-//import Rating from './../static/components/rating'
-//import renderMenu from './../static/renderedTemplates/menuTemplate'
 
-class Manage {
-    constructor() {
-        this.ind = document.getElementById("ind");
-        this.login = document.getElementById("log");
-        this.rating = document.getElementById("rat");
-        this.about = document.getElementById("about");
-        this.game = document.getElementById("game");
-        this.backButton = document.getElementById("backButton");
-        this.siteService = new __WEBPACK_IMPORTED_MODULE_0__siteService__["c" /* default */]();
-        this.siteService.checkAuth();
-        this.myAudio = new Audio("game/assets/main_theme.mp3");
-        this.myAudio.addEventListener('ended', function () {
-            this.currentTime = 0;
-            this.play();
-        }, false);
-        this.myAudio.play();
-    }
+let manage = new __WEBPACK_IMPORTED_MODULE_0__manage__["a" /* default */]();
 
-    //SiteService = window.SiteService;
-
-    sound() {
-        let s = document.getElementById("sBut");
-        if (!myAudio.paused) {
-            s.src = "resources/soundOff.png";
-            myAudio.pause();
-        } else {
-            s.src = "resources/soundOn.png";
-            myAudio.play();
+var Router = {
+    routes: {
+        "/": "indexPage",
+        "/rating": "ratingPage",
+        "/about": "aboutPage",
+        "/login": "loginPage"
+    },
+    init: function () {
+        this._routes = [];
+        for (var route in this.routes) {
+            var methodName = this.routes[route];
+            this._routes.push({
+                pattern: new RegExp('^' + route.replace(/:\w+/, '(\\w+)') + '$'),
+                callback: this[methodName]
+            });
         }
+    },
+    nav: function (path) {
+        var i = this._routes.length;
+        while (i--) {
+            var args = path.match(this._routes[i].pattern);
+            if (args) {
+                this._routes[i].callback.apply(this, args.slice(1));
+            }
+        }
+    },
+
+    indexPage: function () {
+        history.pushState(null, null, "/");
+        manage.showInd();
+    },
+
+    ratingPage: function () {
+        history.pushState(null, null, "/rating");
+        manage.showRating();
+    },
+
+    aboutPage: function () {
+        history.pushState(null, null, "/about");
+        manage.showAbout();
+    },
+
+    loginPage: function () {
+        history.pushState(null, null, "/login");
+        manage.showLogin();
     }
+};
 
-    showRating() {
-        this.ind.hidden = true;
-        this.rating.hidden = false;
-        this.game.hidden = true;
-        this.backButton.hidden = false;
-    }
+var getLocation = function (href) {
+    var l = document.createElement("a");
+    l.href = href;
+    return l;
+};
 
-    showLogin() {
-        this.ind.hidden = true;
-        this.login.hidden = false;
-        this.game.hidden = true;
-        this.rating.hidden = true;
-        this.about.hidden = true;
-        this.backButton.hidden = false;
-    }
+window.onpopstate = function (e) {
+    e.preventDefault();
+    var l = getLocation(document.location.href);
+    Router.nav(l.pathname);
+};
 
-    showAbout() {
-        this.ind.hidden = true;
-        this.about.hidden = false;
-        this.game.hidden = true;
-        this.backButton.hidden = false;
-    }
+Router.init();
+let str = getLocation(document.location.href).pathname;
 
-    showInd() {
-        this.ind.hidden = false;
-        this.rating.hidden = true;
-        this.login.hidden = true;
-        this.about.hidden = true;
-        this.game.hidden = true;
-        this.siteService.checkAuth();
-        this.backButton.hidden = true;
-    }
-
-    showGame() {
-        this.game.hidden = false;
-        this.ind.hidden = true;
-        this.rating.hidden = true;
-        this.login.hidden = true;
-        this.about.hidden = true;
-        this.backButton.hidden = false;
-    }
-
-    auth() {
-        this.siteService.checkAuth();
-    }
-
-    userLogin(login, password, callback1 = null, callback2 = null) {
-        this.siteService.login(login, password, callback1 = null, callback2 = null);
-        //this.logicAuth = this.siteService.logicAuth;
-        this.showLogin();
-    }
-
-    userRegister(login, email, password, callback1 = null, callback2 = null) {
-        this.siteService.register(login, email, password, callback1 = null, callback2 = null);
-        this.logicAuth = this.siteService.logicAuth;
-        this.showLogin();
-    }
-
-    userLogout() {
-        this.siteService.logout();
-        this.showLogin();
-    }
-
-    makeRating() {
-        this.siteService.makeRating();
-    }
-
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Manage;
-
+Router.init();
+Router.nav(str.substring(0, str.length - 1));
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -413,7 +492,7 @@ class About extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default 
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -429,137 +508,149 @@ class Menu extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default *
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = renderAbout;
 function pug_escape(e) {
-	var a = "" + e,
-	    t = pug_match_html.exec(a);
-	if (!t) return e;
-	var r,
-	    c,
-	    n,
-	    s = "";
-	for (r = t.index, c = 0; r < a.length; r++) {
-		switch (a.charCodeAt(r)) {
-			case 34:
-				n = "&quot;";
-				break;
-			case 38:
-				n = "&amp;";
-				break;
-			case 60:
-				n = "&lt;";
-				break;
-			case 62:
-				n = "&gt;";
-				break;
-			default:
-				continue;
-		}
-		c !== r && (s += a.substring(c, r)), c = r + 1, s += n;
-	}
-	return c !== r ? s + a.substring(c, r) : s;
+    var a = "" + e,
+        t = pug_match_html.exec(a);
+    if (!t) return e;
+    var r,
+        c,
+        n,
+        s = "";
+    for (r = t.index, c = 0; r < a.length; r++) {
+        switch (a.charCodeAt(r)) {
+            case 34:
+                n = "&quot;";
+                break;
+            case 38:
+                n = "&amp;";
+                break;
+            case 60:
+                n = "&lt;";
+                break;
+            case 62:
+                n = "&gt;";
+                break;
+            default:
+                continue;
+        }
+        c !== r && (s += a.substring(c, r)), c = r + 1, s += n;
+    }
+    return c !== r ? s + a.substring(c, r) : s;
 }
 var pug_match_html = /["&<>]/;
-
 function pug_rethrow(n, e, r, t) {
-	if (!(n instanceof Error)) throw n;
-	if (!("undefined" == typeof window && e || t)) throw n.message += " on line " + r, n;
-	try {
-		t = t || __webpack_require__(1).readFileSync(e, "utf8");
-	} catch (e) {
-		pug_rethrow(n, null, r);
-	}
-	var i = 3,
-	    a = t.split("\n"),
-	    o = Math.max(r - i, 0),
-	    h = Math.min(a.length, r + i),
-	    i = a.slice(o, h).map(function (n, e) {
-		var t = e + o + 1;
-		return (t == r ? "  > " : "    ") + t + "| " + n;
-	}).join("\n");
-	throw n.path = e, n.message = (e || "Pug") + ":" + r + "\n" + i + "\n\n" + n.message, n;
+    if (!(n instanceof Error)) throw n;
+    if (!("undefined" == typeof window && e || t)) throw n.message += " on line " + r, n;
+    try {
+        t = t || __webpack_require__(1).readFileSync(e, "utf8");
+    } catch (e) {
+        pug_rethrow(n, null, r);
+    }
+    var i = 3,
+        a = t.split("\n"),
+        o = Math.max(r - i, 0),
+        h = Math.min(a.length, r + i),
+        i = a.slice(o, h).map(function (n, e) {
+        var t = e + o + 1;
+        return (t == r ? "  > " : "    ") + t + "| " + n;
+    }).join("\n");
+    throw n.path = e, n.message = (e || "Pug") + ":" + r + "\n" + i + "\n\n" + n.message, n;
 }
-
 function renderAbout(locals) {
-	var pug_html = "",
-	    pug_mixins = {},
-	    pug_interp;
-	var pug_debug_filename, pug_debug_line;
-	try {
-		var pug_debug_sources = {
-			"front\u002FcomponentTemplates\u002FaboutTemplate.pug": "div\r\n    h1(class='h1Title') Our Team\r\n    div(class='aboutBody')\r\n        - var names = [[\"Kuchaeva Karina\", \"Fullstack\"], [\"Zlobina Svetlana\", \"Fullstack\"], [\"Bayramukov Yan\", \"Bug Designer\"], [\"Ovchinnikov Maksim\", \"Designer\"], [\"Maschkin Egor\", \"Producer\"]];\r\n        each name in names\r\n            h2 #{name[1]}\r\n            h3 #{name[0]}\r\n\r\n\r\n\r\n"
-		};
-		var pug_indent = [];;
-		pug_debug_line = 1;
-		pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
-		pug_html = pug_html + "\n\u003Cdiv\u003E";;
-		pug_debug_line = 2;
-		pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
-		pug_html = pug_html + "\n  \u003Ch1 class=\"h1Title\"\u003E";;
-		pug_debug_line = 2;
-		pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
-		pug_html = pug_html + "Our Team\u003C\u002Fh1\u003E";;
-		pug_debug_line = 3;
-		pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
-		pug_html = pug_html + "\n  \u003Cdiv class=\"aboutBody\"\u003E";;
-		pug_debug_line = 4;
-		pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
-		var names = [["Kuchaeva Karina", "Fullstack"], ["Zlobina Svetlana", "Fullstack"], ["Bayramukov Yan", "Bug Designer"], ["Ovchinnikov Maksim", "Designer"], ["Maschkin Egor", "Producer"]];;
-		pug_debug_line = 5;
-		pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
-		// iterate names
-		;
-		(function () {
-			var $$obj = names;
-			if ('number' == typeof $$obj.length) {
-				for (var pug_index0 = 0, $$l = $$obj.length; pug_index0 < $$l; pug_index0++) {
-					var name = $$obj[pug_index0];;
-					pug_debug_line = 6;
-					pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
-					pug_html = pug_html + "\n    \u003Ch2\u003E";;
-					pug_debug_line = 6;
-					pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
-					pug_html = pug_html + pug_escape(null == (pug_interp = name[1]) ? "" : pug_interp) + "\u003C\u002Fh2\u003E";;
-					pug_debug_line = 7;
-					pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
-					pug_html = pug_html + "\n    \u003Ch3\u003E";;
-					pug_debug_line = 7;
-					pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
-					pug_html = pug_html + pug_escape(null == (pug_interp = name[0]) ? "" : pug_interp) + "\u003C\u002Fh3\u003E";
-				}
-			} else {
-				var $$l = 0;
-				for (var pug_index0 in $$obj) {
-					$$l++;
-					var name = $$obj[pug_index0];;
-					pug_debug_line = 6;
-					pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
-					pug_html = pug_html + "\n    \u003Ch2\u003E";;
-					pug_debug_line = 6;
-					pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
-					pug_html = pug_html + pug_escape(null == (pug_interp = name[1]) ? "" : pug_interp) + "\u003C\u002Fh2\u003E";;
-					pug_debug_line = 7;
-					pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
-					pug_html = pug_html + "\n    \u003Ch3\u003E";;
-					pug_debug_line = 7;
-					pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
-					pug_html = pug_html + pug_escape(null == (pug_interp = name[0]) ? "" : pug_interp) + "\u003C\u002Fh3\u003E";
-				}
-			}
-		}).call(this);
-		pug_html = pug_html + "\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";
-	} catch (err) {
-		pug_rethrow(err, pug_debug_filename, pug_debug_line, pug_debug_sources[pug_debug_filename]);
-	};
-	return pug_html;
+    var pug_html = "",
+        pug_mixins = {},
+        pug_interp;
+    var pug_debug_filename, pug_debug_line;
+    try {
+        var pug_debug_sources = { "front\u002FcomponentTemplates\u002FaboutTemplate.pug": "div\r\n    h1(class='h1Title') Our Team\r\n    div(class='aboutBody')\r\n        - var names = [[\"Kuchaeva Karina\", \"Fullstack\"], [\"Zlobina Svetlana\", \"Fullstack\"], [\"Bayramukov Yan\", \"Bug Designer\"], [\"Ovchinnikov Maksim\", \"Designer\"], [\"Maschkin Egor\", \"Producer\"]];\r\n        each name in names\r\n            h2 #{name[1]}\r\n            h3 #{name[0]}\r\n\r\n\r\n\r\n" };
+        var pug_indent = [];
+        ;
+        pug_debug_line = 1;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
+        pug_html = pug_html + "\n\u003Cdiv\u003E";
+        ;
+        pug_debug_line = 2;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
+        pug_html = pug_html + "\n  \u003Ch1 class=\"h1Title\"\u003E";
+        ;
+        pug_debug_line = 2;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
+        pug_html = pug_html + "Our Team\u003C\u002Fh1\u003E";
+        ;
+        pug_debug_line = 3;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
+        pug_html = pug_html + "\n  \u003Cdiv class=\"aboutBody\"\u003E";
+        ;
+        pug_debug_line = 4;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
+        var names = [["Kuchaeva Karina", "Fullstack"], ["Zlobina Svetlana", "Fullstack"], ["Bayramukov Yan", "Bug Designer"], ["Ovchinnikov Maksim", "Designer"], ["Maschkin Egor", "Producer"]];
+        ;
+        pug_debug_line = 5;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
+        // iterate names
+        ;
+        (function () {
+            var $$obj = names;
+            if ('number' == typeof $$obj.length) {
+                for (var pug_index0 = 0, $$l = $$obj.length; pug_index0 < $$l; pug_index0++) {
+                    var name = $$obj[pug_index0];
+                    ;
+                    pug_debug_line = 6;
+                    pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
+                    pug_html = pug_html + "\n    \u003Ch2\u003E";
+                    ;
+                    pug_debug_line = 6;
+                    pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
+                    pug_html = pug_html + pug_escape(null == (pug_interp = name[1]) ? "" : pug_interp) + "\u003C\u002Fh2\u003E";
+                    ;
+                    pug_debug_line = 7;
+                    pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
+                    pug_html = pug_html + "\n    \u003Ch3\u003E";
+                    ;
+                    pug_debug_line = 7;
+                    pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
+                    pug_html = pug_html + pug_escape(null == (pug_interp = name[0]) ? "" : pug_interp) + "\u003C\u002Fh3\u003E";
+                }
+            } else {
+                var $$l = 0;
+                for (var pug_index0 in $$obj) {
+                    $$l++;
+                    var name = $$obj[pug_index0];
+                    ;
+                    pug_debug_line = 6;
+                    pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
+                    pug_html = pug_html + "\n    \u003Ch2\u003E";
+                    ;
+                    pug_debug_line = 6;
+                    pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
+                    pug_html = pug_html + pug_escape(null == (pug_interp = name[1]) ? "" : pug_interp) + "\u003C\u002Fh2\u003E";
+                    ;
+                    pug_debug_line = 7;
+                    pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
+                    pug_html = pug_html + "\n    \u003Ch3\u003E";
+                    ;
+                    pug_debug_line = 7;
+                    pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
+                    pug_html = pug_html + pug_escape(null == (pug_interp = name[0]) ? "" : pug_interp) + "\u003C\u002Fh3\u003E";
+                }
+            }
+        }).call(this);
+
+        pug_html = pug_html + "\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";
+    } catch (err) {
+        pug_rethrow(err, pug_debug_filename, pug_debug_line, pug_debug_sources[pug_debug_filename]);
+    }
+    ;
+    return pug_html;
 }
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -700,19 +791,20 @@ function renderMenu(locals) {
 }
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__static_components_about__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__static_components_menu__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__static_components_rating__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__static_renderedTemplates_aboutTemplate__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__static_renderedTemplates_menuTemplate__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__static_renderedTemplates_ratingTemplate__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_siteService__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_manage__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__static_components_about__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__static_components_menu__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__static_components_rating__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__static_renderedTemplates_aboutTemplate__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__static_renderedTemplates_menuTemplate__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__static_renderedTemplates_ratingTemplate__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_siteService__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_manage__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_router__ = __webpack_require__(6);
 
 
 
@@ -721,7 +813,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-//import {router} from './services/router'
+
 
 (function () {
 
@@ -822,37 +914,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 manage.showGame();
             });
             document.getElementById('menuLogout').addEventListener("click", function () {
-                manage.userLogout();
-                //router.nav('/login');
+                //manage.userLogout();
+                __WEBPACK_IMPORTED_MODULE_8__services_router__["a" /* Router */].nav('/login');
             });
         } else {
             document.getElementById('menuStartNotAuth').addEventListener("click", function () {
-                manage.showLogin();
-                //router.nav('/login');
+                //manage.showLogin();
+                __WEBPACK_IMPORTED_MODULE_8__services_router__["a" /* Router */].nav('/login');
             });
         }
         document.getElementById('menuRating').addEventListener("click", function () {
-            manage.showRating();
-            //router.nav('/rating');
+            //manage.showRating();
+            __WEBPACK_IMPORTED_MODULE_8__services_router__["a" /* Router */].nav('/rating');
             manage.makeRating();
             rating.render(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__static_renderedTemplates_ratingTemplate__["a" /* default */])({ 'players': __WEBPACK_IMPORTED_MODULE_6__services_siteService__["b" /* playerNames */] }));
         });
         document.getElementById('menuAbout').addEventListener("click", function () {
-            manage.showAbout();
-            //router.nav('/about');
+            //manage.showAbout();
+            __WEBPACK_IMPORTED_MODULE_8__services_router__["a" /* Router */].nav('/about');
         });
     }
 
     document.getElementById('backButton').addEventListener("click", function () {
-        manage.showInd();
-        //router.nav('/');
+        //manage.showInd();
+        __WEBPACK_IMPORTED_MODULE_8__services_router__["a" /* Router */].nav('/');
         menu.render(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__static_renderedTemplates_menuTemplate__["a" /* default */])({ 'logicAuth': __WEBPACK_IMPORTED_MODULE_6__services_siteService__["a" /* logicAuth */] }));
         eventsListener();
     });
 })();
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
