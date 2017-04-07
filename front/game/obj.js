@@ -73,6 +73,14 @@
 				size: 14
 			});
 		};
+		
+		get2dPosX(){
+			return parseInt(oPos.x / 128);
+		}
+		
+		get2dPosY(){
+			return parseInt(oPos.y / 128);
+		}
 	
 		collision(){
 			OOP.forArr(map.blocks, function(el){
@@ -80,22 +88,23 @@
 				{
 					this.obj.drawDynamicBox();
 					el.drawDynamicBox();
-					if(this.obj.dx > 0 && oPos.x+50< el.x)
-					{
-						this.dx = 0;
-					}
-					else if(this.dx < 0 && oPos.x-50> el.x)
-					{
-						this.dx = 0;
-					}
-					if(this.dy > 0 && oPos.y+50 < el.y)
-					{
-						this.dy = 0;
-					} 
-					else if(this.dy < 0 && oPos.y-0 > el.y)
-					{
-						this.dy = 0;
-					}
+					console.log(map.isItWall(this.get2dPosX()+1, this.get2dPosY()));
+                    if(this.dx > 0 && oPos.x < el.x && map.isItWall(this.get2dPosX()+1, this.get2dPosY()))
+                    {
+                        this.dx = 0;
+                    }
+                    else if(this.dx < 0 && oPos.x> el.x && map.isItWall(this.get2dPosX()-1, this.get2dPosY()))
+                    {
+                        this.dx = 0;
+                    }
+                    if(this.dy > 0 && oPos.y < el.y && map.isItWall(this.get2dPosX()+1, this.get2dPosY()))
+                    {
+                        this.dy = 0;
+                    }
+                    else if(this.dy < 0 && oPos.y > el.y && map.isItWall(this.get2dPosX()-1, this.get2dPosY()))
+                    {
+                        this.dy = 0;
+                    }
 				} 
 			}.bind(this));
 		};

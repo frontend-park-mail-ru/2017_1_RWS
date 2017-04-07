@@ -1,8 +1,10 @@
 div
     h1(class='h1Title') Our Team
     div(class='aboutBody')
-        - var names = ["Kuchaeva Karina - Fullstack", "Zlobina Svetlana - Fullstack","Bayramukov Yan - Teambuilding", "Maschkin Egor - Producer", "Ovchinnikov Maksim - Designer"];
+        - var names = [["Kuchaeva Karina", "Fullstack"], ["Zlobina Svetlana", "Fullstack"], ["Bayramukov Yan", "Bug Designer"], ["Ovchinnikov Maksim", "Designer"], ["Maschkin Egor", "Producer"]];
         each name in names
-            p(class='aboutName')= name
+            h2 #{name[1]}
+            h3 #{name[0]}
+
 
 

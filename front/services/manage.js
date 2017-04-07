@@ -13,11 +13,28 @@ export default class Manage {
         this.backButton = document.getElementById("backButton");
         this.siteService = new SiteService();
         this.siteService.checkAuth();
+        this.myAudio = new Audio("game/assets/main_theme.mp3");
+        this.myAudio.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+        }, false);
+        this.myAudio.play();
     }
 
 
     //SiteService = window.SiteService;
 
+    sound(){
+        let s = document.getElementById("sBut");
+        if(!myAudio.paused){
+            s.src = "resources/soundOff.png";
+            myAudio.pause();
+        }
+        else{
+            s.src = "resources/soundOn.png";
+            myAudio.play();
+        }
+    }
 
     showRating() {
         this.ind.hidden = true;
