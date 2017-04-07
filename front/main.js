@@ -1,51 +1,34 @@
+import About from './static/components/about';
+import Menu from './static/components/menu';
+import Rating from './static/components/rating';
+import renderAbout from './static/renderedTemplates/aboutTemplate'
+import renderMenu from './static/renderedTemplates/menuTemplate'
+import renderRating from './static/renderedTemplates/ratingTemplate'
+import {playerNames, logicAuth} from './services/siteService'
+import Manage  from './services/manage'
+import {Router} from './services/router'
+
 (function () {
 
-    let indPage = document.querySelector("#ind");
-    let ratPage = document.querySelector("#rat");
-    let logPage = document.querySelector("#login");
-    let aboutPage = document.querySelector("#about");
-    let gamePage = document.querySelector("#game");
+    let indPage = document.getElementById("ind");
+    let ratPage = document.getElementById("rat");
+    let logPage = document.getElementById("log");
+    let aboutPage = document.getElementById("about");
+    let gamePage = document.getElementById("game");
+    let backButton = document.getElementById("backButton");
 
-    const SiteService = window.SiteService;
-    const siteService = new SiteService();
+    let manage = new Manage();
+    //let router = new router();
 
-    //const Game = window.Game;
+    let menu = new Menu();
+    menu.render(renderMenu({'logicAuth': logicAuth}));
 
-    const HTTP = window.HTTP;
-    const http = new HTTP();
-    //http.BaseURL = 'http://Rws-backend.herokuapp.com/api';
+    let rating = new Rating();
+    manage.makeRating();
 
-    let menu = new Menu({
-        el: document.createElement('div'),
-        data: {
-            title: "Game title",
-            fields: [
-                {
-                    name: "Start",
-                    fun: "auth()",
-                },
-                {
-                    name: "Rating",
-                    fun: "showRating()",
-                },
-                {
-                    name: "About",
-                    fun: "showAbout()",
-                },
-                {
-                    name: "Logout",
-                    fun: "userLogout()",
-                },
-            ]
-        }
-    });
-
-    let rating = new Rating({
-        el: document.createElement('div'),
-        data: {
-            title: "Rating",
-        }
-    });
+    let about = new About();
+    alert("render about");
+    about.render(renderAbout());
 
     let game = new Game({
         el: document.createElement('div'),
@@ -53,6 +36,10 @@
             title: "Game",
         }
     });
+
+    export default function renderAll(){
+            about.render(renderAbout());
+    }
 
     let login = new Login({
         el: document.createElement('div'),
@@ -100,66 +87,70 @@
             ],
         }
     });
+
     login.on("submit", (event) => {
-        if ($("#register-form").valid() && !lg) {
-            event.preventDefault();
-            siteService.register($("input[name=username_reg]").val(), $("input[name=email]").val(), $("input[name=password1]").val(), showInd(), showLogin());
-            $("#register-form").each(function () {
-                this.reset();
-            });
-
-
-        } else if ($("#login-form").valid()) {
-
+        if (document.getElementById("usernamesignup").value !== "") {
             event.preventDefault();
 
-            siteService.login($("input[name=username]").val(), $("input[name=password]").val(),  showInd(), showLogin());
-            $("#login-form").each(function () {
-                this.reset();
-            });
+            manage.userRegister(document.getElementById("usernamesignup").value, document.getElementById("emailsignup").value,
+                document.getElementById("passwordsignup").value, null, null);
 
+        } else if (document.getElementById("username").value !== "") {
+            event.preventDefault();
+
+            manage.userLogin(document.getElementById("username").value, document.getElementById("password").value, null, null);
 
         }
+        manage.showInd();
     });
 
-    let about = new About({
-        el: document.createElement('div'),
-        data: {
-            title: "Game title",
-            fields: [
-                {
-                    prof: "Fullstack",
-                    name: "Kuchaeva Karina"
-                },
-                {
-                    prof: "Fullstack",
-                    name: "Zlobina Svetlana"
-                },
-                {
-                    prof: "Teambuilding",
-                    name: "Bayramukov Yan"
-                },
-                {
-                    prof: "Producer",
-                    name: "Maschkin Egor"
-                },
-                {
-                    prof: "Designer",
-                    name: "Ovchinnikov Maksim"
-                }
-            ]
-        }
-    });
-
-    indPage.appendChild(menu.el);
-    ratPage.appendChild(rating.el);
+    indPage.appendChild(menu.content);
+    ratPage.appendChild(rating.content);
     logPage.appendChild(login.el);
-    aboutPage.appendChild(about.el);
+    aboutPage.appendChild(about.content);
     gamePage.appendChild(game.el);
-
 
     ratPage.hidden = true;
     logPage.hidden = true;
     aboutPage.hidden = true;
     gamePage.hidden = true;
+    backButton.hidden = true;
+
+    eventsListener();
+
+    function eventsListener(){
+        if (logicAuth) {
+            document.getElementById('menuStartAuth').addEventListener("click", function () {
+                manage.showGame();
+            });
+            document.getElementById('menuLogout').addEventListener("click", function () {
+                manage.userLogout();
+                Router.nav('/login');
+            });
+        } else {
+            document.getElementById('menuStartNotAuth').addEventListener("click", function () {
+                //manage.showLogin();
+                Router.nav('/login');
+            });
+
+        }
+        document.getElementById('menuRating').addEventListener("click", function () {
+            //manage.showRating();
+            Router.nav('/rating');
+            manage.makeRating();
+            rating.render(renderRating({'players': playerNames}));
+        });
+        document.getElementById('menuAbout').addEventListener("click", function () {
+            //manage.showAbout();
+            Router.nav('/about');
+        });
+
+    }
+
+    document.getElementById('backButton').addEventListener("click", function () {
+        //manage.showInd();
+        Router.nav('/');
+        menu.render(renderMenu({'logicAuth': logicAuth}));
+        eventsListener();
+    });
 })();
