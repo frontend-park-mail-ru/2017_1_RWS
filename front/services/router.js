@@ -1,4 +1,5 @@
 import Manage from './manage'
+import {renderAll} from './front/main'
 
 let manage = new Manage();
 
@@ -67,6 +68,8 @@ let str = getLocation(document.location.href).pathname;
 
 
 Router.init();
+alert(str.substring(0, str.length - 1));
+renderAll();
 Router.nav(str.substring(0, str.length - 1));
 
 

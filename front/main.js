@@ -27,6 +27,7 @@ import {Router} from './services/router'
     manage.makeRating();
 
     let about = new About();
+    alert("render about");
     about.render(renderAbout());
 
     let game = new Game({
@@ -35,6 +36,10 @@ import {Router} from './services/router'
             title: "Game",
         }
     });
+
+    export default function renderAll(){
+            about.render(renderAbout());
+    }
 
     let login = new Login({
         el: document.createElement('div'),
