@@ -96,6 +96,7 @@ import {Router} from './services/router'
             manage.userLogin(document.getElementById("username").value, document.getElementById("password").value, null, null);
 
         }
+        manage.showInd();
     });
 
     indPage.appendChild(menu.content);
@@ -118,7 +119,7 @@ import {Router} from './services/router'
                 manage.showGame();
             });
             document.getElementById('menuLogout').addEventListener("click", function () {
-                //manage.userLogout();
+                manage.userLogout();
                 Router.nav('/login');
             });
         } else {

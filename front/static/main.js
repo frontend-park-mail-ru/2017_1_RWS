@@ -892,6 +892,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             manage.userLogin(document.getElementById("username").value, document.getElementById("password").value, null, null);
         }
+        manage.showInd();
     });
 
     indPage.appendChild(menu.content);
@@ -914,7 +915,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 manage.showGame();
             });
             document.getElementById('menuLogout').addEventListener("click", function () {
-                //manage.userLogout();
+                manage.userLogout();
                 __WEBPACK_IMPORTED_MODULE_8__services_router__["a" /* Router */].nav('/login');
             });
         } else {
