@@ -71,240 +71,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-class baseComponent {
-    constructor(options = null) {
-        this.content = document.createElement('div');
-        this.options = options;
-        //this.renderTemplate = renderTemplate;
-        //this.render(this.renderTemplate);
-    }
-
-    render(renderTemplate) {
-        //to override
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = baseComponent;
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-module.exports = require("fs");
-
-/***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__siteService__ = __webpack_require__(3);
-
-//import Menu from './../static/components/menu'
-//import Rating from './../static/components/rating'
-//import renderMenu from './../static/renderedTemplates/menuTemplate'
-
-class Manage {
-    constructor() {
-        this.ind = document.getElementById("ind");
-        this.login = document.getElementById("log");
-        this.rating = document.getElementById("rat");
-        this.about = document.getElementById("about");
-        this.game = document.getElementById("game");
-        this.backButton = document.getElementById("backButton");
-        this.siteService = new __WEBPACK_IMPORTED_MODULE_0__siteService__["c" /* default */]();
-        this.siteService.checkAuth();
-        this.myAudio = new Audio("game/assets/main_theme.mp3");
-        this.myAudio.addEventListener('ended', function () {
-            this.currentTime = 0;
-            this.play();
-        }, false);
-        this.myAudio.play();
-    }
-
-    //SiteService = window.SiteService;
-
-    sound() {
-        let s = document.getElementById("sBut");
-        if (!myAudio.paused) {
-            s.src = "resources/soundOff.png";
-            myAudio.pause();
-        } else {
-            s.src = "resources/soundOn.png";
-            myAudio.play();
-        }
-    }
-
-    showRating() {
-        this.ind.hidden = true;
-        this.rating.hidden = false;
-        this.game.hidden = true;
-        this.backButton.hidden = false;
-    }
-
-    showLogin() {
-        this.ind.hidden = true;
-        this.login.hidden = false;
-        this.game.hidden = true;
-        this.rating.hidden = true;
-        this.about.hidden = true;
-        this.backButton.hidden = false;
-    }
-
-    showAbout() {
-        this.ind.hidden = true;
-        this.about.hidden = false;
-        this.game.hidden = true;
-        this.backButton.hidden = false;
-    }
-
-    showInd() {
-        /*let b = document.getElementById("#bb");
-        b.hidden = true;*/
-        this.ind.hidden = false;
-        this.rating.hidden = true;
-        this.login.hidden = true;
-        this.about.hidden = true;
-        this.game.hidden = true;
-        this.siteService.checkAuth();
-        this.backButton.hidden = true;
-    }
-
-    showGame() {
-        this.game.hidden = false;
-        this.ind.hidden = true;
-        this.rating.hidden = true;
-        this.login.hidden = true;
-        this.about.hidden = true;
-        this.backButton.hidden = false;
-    }
-
-    auth() {
-        this.siteService.checkAuth();
-    }
-
-    userLogin(login, password, callback1 = null, callback2 = null) {
-        this.siteService.login(login, password, callback1 = null, callback2 = null);
-        //this.logicAuth = this.siteService.logicAuth;
-        this.showLogin();
-    }
-
-    userRegister(login, email, password, callback1 = null, callback2 = null) {
-        this.siteService.register(login, email, password, callback1 = null, callback2 = null);
-        this.logicAuth = this.siteService.logicAuth;
-        this.showLogin();
-    }
-
-    userLogout() {
-        this.siteService.logout();
-        this.showLogin();
-    }
-
-    makeRating() {
-        this.siteService.makeRating();
-    }
-
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Manage;
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modules_http__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__static_components_rating__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__static_renderedTemplates_ratingTemplate__ = __webpack_require__(5);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return logicAuth; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return playerNames; });
-
-//import ratingFromServerRender from './serverResponseRender'
-
-
-
-var logicAuth = false;
-var playerNames = [];
-
-class SiteService {
-    constructor() {
-        this.http = new __WEBPACK_IMPORTED_MODULE_0__modules_http__["a" /* default */]();
-    }
-
-    login(login, password, callback1 = null, callback2 = null) {
-        const body = {
-            login, password
-        };
-        this.http.post('http://Rws-backend.herokuapp.com/api/session', body, function (xhr) {
-
-            const responseText = xhr.responseText;
-            const responseParsed = JSON.parse(responseText);
-            console.log(responseParsed);
-            if (xhr.status === 200) {
-                logicAuth = true;
-            }
-        });
-    }
-
-    register(login, email, password, callback1 = null, callback2 = null) {
-        const body = {
-            login, email, password
-        };
-        this.http.post('http://Rws-backend.herokuapp.com/api/signup', body, function (xhr) {
-            const responseText = xhr.responseText;
-            const responseParsed = JSON.parse(responseText);
-            console.log(responseParsed);
-            if (xhr.status === 200) {
-                logicAuth = true;
-            }
-        });
-    }
-
-    checkAuth() {
-        this.http.get('http://Rws-backend.herokuapp.com/api/session', this.serviceAuth = function (xhr) {
-            console.log("start checkAuth");
-            const responseText = xhr.responseText;
-            const responseParsed = JSON.parse(responseText);
-            console.log(responseParsed);
-            if (xhr.status === 200) {
-                logicAuth = true;
-            } else {}
-        });
-    }
-
-    logout() {
-        this.http.delete('http://Rws-backend.herokuapp.com/api/session', function (xhr) {
-            console.log("start logout");
-            const responseText = xhr.responseText;
-
-            if (xhr.status === 200) {
-                logicAuth = false;
-            } else {
-                const responseParsed = JSON.parse(responseText);
-                console.log(responseParsed);
-            }
-        });
-    }
-
-    makeRating() {
-        this.http.get('http://Rws-backend.herokuapp.com/api/rating', function (xhr) {
-            console.log("start making rating");
-            playerNames = [];
-            const responseText = xhr.responseText;
-            const responseParsed = JSON.parse(responseText);
-            for (let i = 0; i < responseParsed.length; i++) playerNames.push(responseParsed[i].login);
-            console.log(playerNames);
-        });
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["c"] = SiteService;
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(2);
 
 
 class Rating extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default */] {
@@ -316,7 +83,7 @@ class Rating extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default
 
 
 /***/ }),
-/* 5 */
+/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -338,7 +105,7 @@ function pug_escape(e) {
 var pug_match_html = /["&<>]/;
 function pug_rethrow(n, e, r, t) {
   if (!(n instanceof Error)) throw n;if (!("undefined" == typeof window && e || t)) throw n.message += " on line " + r, n;try {
-    t = t || __webpack_require__(1).readFileSync(e, "utf8");
+    t = t || __webpack_require__(3).readFileSync(e, "utf8");
   } catch (e) {
     pug_rethrow(n, null, r);
   }var i = 3,
@@ -399,38 +166,62 @@ function pug_rethrow(n, e, r, t) {
 }
 
 /***/ }),
-/* 6 */
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__manage__ = __webpack_require__(2);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Router; });
+class baseComponent {
+    constructor(options = null) {
+        this.content = document.createElement('div');
+        this.options = options;
+        //this.renderTemplate = renderTemplate;
+        //this.render(this.renderTemplate);
+    }
+
+    render(renderTemplate) {
+        //to override
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = baseComponent;
 
 
-let manage = new __WEBPACK_IMPORTED_MODULE_0__manage__["a" /* default */]();
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
 
-var Router = {
+module.exports = require("fs");
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+/*import Manage from './manage'
+//import {renderAll} from './../main'
+
+let manage = new Manage();
+
+export var Router = {
     routes: {
         "/": "indexPage",
         "/rating": "ratingPage",
         "/about": "aboutPage",
         "/login": "loginPage"
     },
-    init: function () {
+    init: function (){
         this._routes = [];
-        for (var route in this.routes) {
+        for( var route in this.routes ){
             var methodName = this.routes[route];
             this._routes.push({
-                pattern: new RegExp('^' + route.replace(/:\w+/, '(\\w+)') + '$'),
+                pattern: new RegExp('^'+route.replace(/:\w+/, '(\\w+)')+'$'),
                 callback: this[methodName]
             });
         }
     },
-    nav: function (path) {
+    nav: function (path){
         var i = this._routes.length;
-        while (i--) {
+        while( i-- ){
             var args = path.match(this._routes[i].pattern);
-            if (args) {
+            if( args ){
                 this._routes[i].callback.apply(this, args.slice(1));
             }
         }
@@ -457,30 +248,118 @@ var Router = {
     }
 };
 
-var getLocation = function (href) {
+var getLocation = function(href) {
     var l = document.createElement("a");
     l.href = href;
     return l;
 };
 
-window.onpopstate = function (e) {
+window.onpopstate = function(e){
     e.preventDefault();
     var l = getLocation(document.location.href);
     Router.nav(l.pathname);
-};
+}
 
 Router.init();
 let str = getLocation(document.location.href).pathname;
 
+
 Router.init();
-Router.nav(str.substring(0, str.length - 1));
+alert(str.substring(0, str.length - 1));
+//renderAll();
+Router.nav(str.substring(0, str.length - 1));*/
 
 /***/ }),
-/* 7 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modules_http__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__static_components_rating__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__static_renderedTemplates_ratingTemplate__ = __webpack_require__(1);
+
+//import ratingFromServerRender from './serverResponseRender'
+
+
+
+//export var logicAuth = false;
+//export var playerNames = [];
+
+class SiteService {
+    constructor() {
+        this.http = new __WEBPACK_IMPORTED_MODULE_0__modules_http__["a" /* default */]();
+    }
+
+    login(login, password, callback1 = null, callback2 = null) {
+        const body = {
+            login, password
+        };
+        let prom = this.http.request('https://rws-backend.herokuapp.com/api/session', 'POST', body);
+        prom.then(response => {
+            if (response.status === 200) {
+                logicAuth = true;
+                //showGame();
+            }
+        }).catch(err => {
+            console.log('fetch error: ', err);
+        });
+    }
+
+    register(login, email, password, callback1 = null, callback2 = null) {
+        const body = {
+            login, email, password
+        };
+        let prom = this.http.request('https://rws-backend.herokuapp.com/api/signup', 'POST', body);
+        prom.then(response => {
+            response.json().then(function (data) {
+                console.log(data);
+            });
+            if (response.status === 200) {
+                logicAuth = true;
+                //showGame();
+            }
+        }).catch(err => {
+            console.log('fetch error: ', err);
+        });
+    }
+
+    checkAuth() {
+        console.log("start checkAuth");
+        return this.http.request('https://rws-backend.herokuapp.com/api/session', 'GET');
+    }
+
+    logout() {
+        return prom = this.http.request('https://rws-backend.herokuapp.com/api/session', 'DELETE');
+        /*prom.then(response => {
+            console.log("start logout");
+            if (prom.status === 200) {
+                //showLogin();
+                //showInd();
+            } else {
+                //showInd();
+                //showLogin();
+                response.json().then(function (data) {
+                    console.log(data);
+                });
+            }
+        }).catch(err => {
+            console.log('fetch error: ', err);
+        });*/
+    }
+
+    makeRating() {
+        return this.http.request('https://rws-backend.herokuapp.com/api/rating', 'GET');
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = SiteService;
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(2);
 
 
 class About extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default */] {
@@ -492,11 +371,11 @@ class About extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default 
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(2);
 
 
 class Menu extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default */] {
@@ -508,7 +387,7 @@ class Menu extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default *
 
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -547,7 +426,7 @@ function pug_rethrow(n, e, r, t) {
     if (!(n instanceof Error)) throw n;
     if (!("undefined" == typeof window && e || t)) throw n.message += " on line " + r, n;
     try {
-        t = t || __webpack_require__(1).readFileSync(e, "utf8");
+        t = t || __webpack_require__(3).readFileSync(e, "utf8");
     } catch (e) {
         pug_rethrow(n, null, r);
     }
@@ -650,7 +529,7 @@ function renderAbout(locals) {
 }
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -689,7 +568,7 @@ function pug_rethrow(n, e, r, t) {
     if (!(n instanceof Error)) throw n;
     if (!("undefined" == typeof window && e || t)) throw n.message += " on line " + r, n;
     try {
-        t = t || __webpack_require__(1).readFileSync(e, "utf8");
+        t = t || __webpack_require__(3).readFileSync(e, "utf8");
     } catch (e) {
         pug_rethrow(n, null, r);
     }
@@ -791,20 +670,227 @@ function renderMenu(locals) {
 }
 
 /***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__siteService__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__static_components_menu__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__static_components_rating__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__static_components_about__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__static_renderedTemplates_menuTemplate__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__static_renderedTemplates_ratingTemplate__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__static_renderedTemplates_aboutTemplate__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__router__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__router__);
+
+
+
+
+
+
+
+
+
+class Manage {
+    constructor() {
+        this.indPage = document.getElementById("ind");
+        this.loginPage = document.getElementById("log");
+        this.ratPage = document.getElementById("rat");
+        this.aboutPage = document.getElementById("about");
+        this.gamePage = document.getElementById("game");
+        this.backButton = document.getElementById("backButton");
+        this.siteService = new __WEBPACK_IMPORTED_MODULE_0__siteService__["a" /* default */]();
+        this.menu = new __WEBPACK_IMPORTED_MODULE_1__static_components_menu__["a" /* default */]();
+        this.rating = new __WEBPACK_IMPORTED_MODULE_2__static_components_rating__["a" /* default */]();
+        this.about = new __WEBPACK_IMPORTED_MODULE_3__static_components_about__["a" /* default */]();
+        this.myAudio = new Audio("game/assets/main_theme.mp3");
+        this.myAudio.addEventListener('ended', function () {
+            this.currentTime = 0;
+            this.play();
+        }, false);
+        this.myAudio.play();
+        this.logicAuth = false;
+
+        this.indPage.appendChild(this.menu.content);
+        this.ratPage.appendChild(this.rating.content);
+        //this.login.appendChild(this.login.el);
+        this.aboutPage.appendChild(this.about.content);
+        //this.game.appendChild(this.game.el);
+
+        this.ratPage.hidden = true;
+        //this.login.hidden = true;
+        this.aboutPage.hidden = true;
+        //this.game.hidden = true;
+        this.backButton.hidden = true;
+    }
+
+    sound() {
+        let s = document.getElementById("sBut");
+        if (!this.myAudio.paused) {
+            s.src = "./../resources/soundOff.png";
+            this.myAudio.pause();
+        } else {
+            s.src = "./../resources/soundOn.png";
+            this.myAudio.play();
+        }
+    }
+
+    showRating() {
+        this.indPage.hidden = true;
+        this.ratPage.hidden = false;
+        this.gamePage.hidden = true;
+        this.backButton.hidden = false;
+        this.siteService.makeRating().then(response => {
+            response.json().then(function (data) {
+                let playerNames = [];
+                for (let i = 0; i < data.length; i++) {
+                    playerNames.push(data[i].login);
+                }
+                this.rating.render(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__static_renderedTemplates_ratingTemplate__["a" /* default */])({ 'players': playerNames }));
+                this.backButtonEventsListener(this.logicAuth);
+            }.bind(this));
+        }).catch(err => {
+            console.log('fetch error: ', err);
+        });
+    }
+
+    showLogin() {
+        this.indPage.hidden = true;
+        this.loginPage.hidden = false;
+        this.gamePage.hidden = true;
+        this.ratPage.hidden = true;
+        this.aboutPage.hidden = true;
+        this.backButton.hidden = false;
+        this.backButtonEventsListener(this.logicAuth);
+    }
+
+    showAbout() {
+        this.indPage.hidden = true;
+        this.aboutPage.hidden = false;
+        this.gamePage.hidden = true;
+        this.backButton.hidden = false;
+        this.about.render(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__static_renderedTemplates_aboutTemplate__["a" /* default */])());
+        this.backButtonEventsListener(this.logicAuth);
+    }
+
+    showInd() {
+        this.indPage.hidden = false;
+        this.ratPage.hidden = true;
+        this.loginPage.hidden = true;
+        this.aboutPage.hidden = true;
+        this.gamePage.hidden = true;
+        this.siteService.checkAuth().then(response => {
+            response.json().then(function (data) {
+                console.log(data);
+            });
+            if (response.status === 200) {
+                this.logicAuth = true;
+                this.menu.render(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__static_renderedTemplates_menuTemplate__["a" /* default */])({ 'logicAuth': this.logicAuth }));
+            } else {
+                this.menu.render(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__static_renderedTemplates_menuTemplate__["a" /* default */])({ 'logicAuth': this.logicAuth }));
+            }
+            this.menuEventsListener(this.logicAuth);
+        }).catch(err => {
+            console.log('fetch error: ', err);
+        });
+        this.backButton.hidden = true;
+    }
+
+    showGame() {
+        /*this.gamePage.hidden = false;
+        this.indPage.hidden = true;
+        this.ratPage.hidden = true;
+        this.loginPage.hidden = true;
+        this.aboutPage.hidden = true;
+        this.backButton.hidden = false;*/
+        this.showLogin();
+        this.backButtonEventsListener(this.logicAuth);
+    }
+
+    userLogin(login, password, callback1 = null, callback2 = null) {
+        this.siteService.login(login, password, callback1 = null, callback2 = null);
+        //this.logicAuth = this.siteService.logicAuth;
+        this.showLogin();
+    }
+
+    userRegister(login, email, password, callback1 = null, callback2 = null) {
+        this.siteService.register(login, email, password, callback1 = null, callback2 = null);
+        this.logicAuth = this.siteService.logicAuth;
+        this.showLogin();
+    }
+
+    userLogout() {
+        this.siteService.logout().then(response => {
+            console.log("start logout");
+            if (response.status === 200) {
+                this.logicAuth = false;
+                this.showInd();
+            }
+        }).catch(err => {
+            console.log('fetch error: ', err);
+            this.showInd();
+        });
+    }
+
+    makeRating() {
+        this.siteService.makeRating();
+    }
+
+    menuEventsListener(logicAuth) {
+        if (logicAuth) {
+            document.getElementById('menuStartAuth').addEventListener("click", function () {
+                this.showGame();
+            }.bind(this));
+            document.getElementById('menuLogout').addEventListener("click", function () {
+                this.userLogout();
+                //Router.nav('/login');
+            }.bind(this));
+        } else {
+            document.getElementById('menuStartNotAuth').addEventListener("click", function () {
+                this.showLogin();
+                //Router.nav('/login');
+            }.bind(this));
+        }
+        document.getElementById('menuRating').addEventListener("click", function () {
+            this.showRating();
+            //Router.nav('/rating');
+            this.makeRating();
+            //rating.render(renderRating({'players': playerNames}));
+        }.bind(this));
+        document.getElementById('menuAbout').addEventListener("click", function () {
+            this.showAbout();
+            //Router.nav('/about');
+        }.bind(this));
+    }
+
+    backButtonEventsListener(logicAuth) {
+        document.getElementById('backButton').addEventListener("click", function () {
+            //Router.nav('/');
+            this.showInd();
+            this.menuEventsListener(logicAuth);
+        }.bind(this));
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Manage;
+
+
+/***/ }),
 /* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__static_components_about__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__static_components_menu__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__static_components_rating__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__static_renderedTemplates_aboutTemplate__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__static_renderedTemplates_menuTemplate__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__static_renderedTemplates_ratingTemplate__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_siteService__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_manage__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_router__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__static_components_about__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__static_components_menu__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__static_components_rating__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__static_renderedTemplates_aboutTemplate__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__static_renderedTemplates_menuTemplate__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__static_renderedTemplates_ratingTemplate__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_siteService__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_manage__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_router__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__services_router__);
 
 
 
@@ -817,24 +903,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 (function () {
 
-    let indPage = document.getElementById("ind");
-    let ratPage = document.getElementById("rat");
-    let logPage = document.getElementById("log");
-    let aboutPage = document.getElementById("about");
-    let gamePage = document.getElementById("game");
-    let backButton = document.getElementById("backButton");
-
     let manage = new __WEBPACK_IMPORTED_MODULE_7__services_manage__["a" /* default */]();
     //let router = new router();
 
-    let menu = new __WEBPACK_IMPORTED_MODULE_1__static_components_menu__["a" /* default */]();
-    menu.render(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__static_renderedTemplates_menuTemplate__["a" /* default */])({ 'logicAuth': __WEBPACK_IMPORTED_MODULE_6__services_siteService__["a" /* logicAuth */] }));
+    //let menu = new Menu();
+    manage.sound();
+    manage.showInd();
+    //menu.render(renderMenu({'logicAuth': logicAuth}));
 
-    let rating = new __WEBPACK_IMPORTED_MODULE_2__static_components_rating__["a" /* default */]();
-    manage.makeRating();
+    //let rating = new Rating();
+    // manage.makeRating();
 
-    let about = new __WEBPACK_IMPORTED_MODULE_0__static_components_about__["a" /* default */]();
-    about.render(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__static_renderedTemplates_aboutTemplate__["a" /* default */])());
+    //let about = new About();
+    //about.render(renderAbout());
+
+    let loginPage = document.getElementById("log");
+    //this.ratPage = document.getElementById("rat");
+    //this.aboutPage = document.getElementById("about");
+    let gamePage = document.getElementById("game");
 
     let game = new Game({
         el: document.createElement('div'),
@@ -895,53 +981,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         manage.showInd();
     });
 
-    indPage.appendChild(menu.content);
-    ratPage.appendChild(rating.content);
-    logPage.appendChild(login.el);
-    aboutPage.appendChild(about.content);
+    loginPage.appendChild(login.el);
     gamePage.appendChild(game.el);
 
-    ratPage.hidden = true;
-    logPage.hidden = true;
-    aboutPage.hidden = true;
-    gamePage.hidden = true;
-    backButton.hidden = true;
+    //eventsListener();
 
-    eventsListener();
-
-    function eventsListener() {
-        if (__WEBPACK_IMPORTED_MODULE_6__services_siteService__["a" /* logicAuth */]) {
+    /*function eventsListener(){
+        if (logicAuth) {
             document.getElementById('menuStartAuth').addEventListener("click", function () {
                 manage.showGame();
             });
             document.getElementById('menuLogout').addEventListener("click", function () {
                 manage.userLogout();
-                __WEBPACK_IMPORTED_MODULE_8__services_router__["a" /* Router */].nav('/login');
+                Router.nav('/login');
             });
         } else {
             document.getElementById('menuStartNotAuth').addEventListener("click", function () {
                 //manage.showLogin();
-                __WEBPACK_IMPORTED_MODULE_8__services_router__["a" /* Router */].nav('/login');
+                Router.nav('/login');
             });
-        }
+          }
         document.getElementById('menuRating').addEventListener("click", function () {
             //manage.showRating();
-            __WEBPACK_IMPORTED_MODULE_8__services_router__["a" /* Router */].nav('/rating');
+            Router.nav('/rating');
             manage.makeRating();
-            rating.render(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__static_renderedTemplates_ratingTemplate__["a" /* default */])({ 'players': __WEBPACK_IMPORTED_MODULE_6__services_siteService__["b" /* playerNames */] }));
+            //rating.render(renderRating({'players': playerNames}));
         });
         document.getElementById('menuAbout').addEventListener("click", function () {
             //manage.showAbout();
-            __WEBPACK_IMPORTED_MODULE_8__services_router__["a" /* Router */].nav('/about');
+            Router.nav('/about');
         });
-    }
+      }*/
 
-    document.getElementById('backButton').addEventListener("click", function () {
-        //manage.showInd();
-        __WEBPACK_IMPORTED_MODULE_8__services_router__["a" /* Router */].nav('/');
-        menu.render(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__static_renderedTemplates_menuTemplate__["a" /* default */])({ 'logicAuth': __WEBPACK_IMPORTED_MODULE_6__services_siteService__["a" /* logicAuth */] }));
+    /*document.getElementById('backButton').addEventListener("click", function () {
+        Router.nav('/');
         eventsListener();
-    });
+    });*/
 })();
 
 /***/ }),
@@ -950,30 +1025,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 
-
-//const ALLOWED_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
 class HTTP {
     constructor() {
         if (HTTP.__instance) {
             return HTTP.__instance;
         }
-        this._baseURL = '';
         HTTP.__instance = this;
-        this.ALLOWED_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
     }
 
-    set BaseURL(value) {
+    request(address = '', type = '', body) {
+        let req = {
+            method: type,
+            mode: 'cors',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
+        };
+        if (body) {
+            console.log(body);
+            req.body = JSON.stringify(body);
+        }
+        return fetch(address, req);
+    }
+
+    /*set BaseURL(value) {
         this._baseURL = value;
     }
-
-    get BaseURL() {
+      get BaseURL() {
         return this._baseURL;
     }
-
-    get(address, callback = null) {
+      get(address, callback = null) {
         const xhr = new XMLHttpRequest();
-
-        xhr.withCredentials = true;
+          xhr.withCredentials = true;
         let url = '${this._baseURL}${address}';
         xhr.open('GET', address, true);
         xhr.onreadystatechange = function () {
@@ -986,11 +1068,9 @@ class HTTP {
         };
         xhr.send(null);
     }
-
-    delete(address, callback = null) {
+      delete(address, callback = null) {
         const xhr = new XMLHttpRequest();
-
-        xhr.withCredentials = true;
+          xhr.withCredentials = true;
         let url = '${this._baseURL}${address}';
         xhr.open('DELETE', address, true);
         xhr.onreadystatechange = function () {
@@ -1000,29 +1080,26 @@ class HTTP {
             if (typeof callback === 'function') {
                 callback(xhr);
             }
-        };
+        }
         xhr.send(null);
     }
-
-    post(address, body, callback = null) {
+      post(address, body, callback = null) {
         const xhr = new XMLHttpRequest();
         let url = '${this._baseURL}${address}';
         xhr.open('POST', address, true);
         xhr.withCredentials = true;
-
-        xhr.setRequestHeader('Content-Type', 'application/json');
-
-        xhr.onreadystatechange = function () {
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.onreadystatechange = function () {
             if (xhr.readyState !== 4) {
                 return;
             }
             if (typeof callback === 'function') {
                 callback(xhr);
             }
-        };
+        }
         console.log(JSON.stringify(body));
         xhr.send(JSON.stringify(body));
-    }
+      }*/
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = HTTP;
 
