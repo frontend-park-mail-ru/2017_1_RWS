@@ -793,7 +793,8 @@ class Manage {
     menuEventsListener(logicAuth) {
         if (logicAuth) {
             document.getElementById('menuStartAuth').addEventListener("click", function () {
-                this.showGameMode();
+                //this.showGameMode();
+                location.href = 'game/index.html';
             }.bind(this));
             document.getElementById('menuLogout').addEventListener("click", function () {
                 this.userLogout();
@@ -1198,76 +1199,136 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = renderGameMode;
 function pug_rethrow(n, e, r, t) {
-  if (!(n instanceof Error)) throw n;if (!("undefined" == typeof window && e || t)) throw n.message += " on line " + r, n;try {
-    t = t || __webpack_require__(1).readFileSync(e, "utf8");
-  } catch (e) {
-    pug_rethrow(n, null, r);
-  }var i = 3,
-      a = t.split("\n"),
-      o = Math.max(r - i, 0),
-      h = Math.min(a.length, r + i),
-      i = a.slice(o, h).map(function (n, e) {
-    var t = e + o + 1;return (t == r ? "  > " : "    ") + t + "| " + n;
-  }).join("\n");throw n.path = e, n.message = (e || "Pug") + ":" + r + "\n" + i + "\n\n" + n.message, n;
-}function renderGameMode(locals) {
-  var pug_html = "",
-      pug_mixins = {},
-      pug_interp;var pug_debug_filename, pug_debug_line;try {
-    var pug_debug_sources = { "front\u002FcomponentTemplates\u002FgameModeTemplate.pug": "div(id='menu')\r\n    h1(class='h1Title') Select Mode\r\n    div(class='container group')\r\n        div(class='grid-1-5 col-1')\r\n            h3(class='h3mode')\r\n                span(class='uppercase') Deathmatch\r\n                img(class='msimg' src=\"resources\u002FdeathMatch.png\")\r\n                p Select a hero and fight agains other players. Kill more than anybody to win.\r\n        div(class='grid-1-5 col-1')\r\n            h3(class='h3mode')\r\n                span(class='uppercase') Catch Flag\r\n                img(class='msimg' src=\"resources\u002FflagCapture.png\")\r\n                p Catch the flag and bring it to your base to earn a point. Team with 5 points wins.\r\n        div(class='grid-1-5 col-1' onclick=\"location.href = 'game\u002Findex.html'\")\r\n            h3(class='h3mode')\r\n                span(class='uppercase') Tutorial\r\n                img(class='msimg' src=\"resources\u002Ftutorial.png\")\r\n                p Learn the controls and test weapon and skills before joining muliplayer.\r\n\r\n" };
-    var pug_indent = [];
-    ;pug_debug_line = 1;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "\n\u003Cdiv id=\"menu\"\u003E";
-    ;pug_debug_line = 2;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "\n  \u003Ch1 class=\"h1Title\"\u003E";
-    ;pug_debug_line = 2;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "Select Mode\u003C\u002Fh1\u003E";
-    ;pug_debug_line = 3;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "\n  \u003Cdiv class=\"container group\"\u003E";
-    ;pug_debug_line = 4;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "\n    \u003Cdiv class=\"grid-1-5 col-1\"\u003E";
-    ;pug_debug_line = 5;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "\n      \u003Ch3 class=\"h3mode\"\u003E";
-    ;pug_debug_line = 6;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "\u003Cspan class=\"uppercase\"\u003E";
-    ;pug_debug_line = 6;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "Deathmatch\u003C\u002Fspan\u003E";
-    ;pug_debug_line = 7;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "\u003Cimg class=\"msimg\" src=\"resources\u002FdeathMatch.png\"\u002F\u003E";
-    ;pug_debug_line = 8;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "\n        \u003Cp\u003E";
-    ;pug_debug_line = 8;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "Select a hero and fight agains other players. Kill more than anybody to win.\u003C\u002Fp\u003E\n      \u003C\u002Fh3\u003E\n    \u003C\u002Fdiv\u003E";
-    ;pug_debug_line = 9;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "\n    \u003Cdiv class=\"grid-1-5 col-1\"\u003E";
-    ;pug_debug_line = 10;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "\n      \u003Ch3 class=\"h3mode\"\u003E";
-    ;pug_debug_line = 11;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "\u003Cspan class=\"uppercase\"\u003E";
-    ;pug_debug_line = 11;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "Catch Flag\u003C\u002Fspan\u003E";
-    ;pug_debug_line = 12;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "\u003Cimg class=\"msimg\" src=\"resources\u002FflagCapture.png\"\u002F\u003E";
-    ;pug_debug_line = 13;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "\n        \u003Cp\u003E";
-    ;pug_debug_line = 13;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "Catch the flag and bring it to your base to earn a point. Team with 5 points wins.\u003C\u002Fp\u003E\n      \u003C\u002Fh3\u003E\n    \u003C\u002Fdiv\u003E";
-    ;pug_debug_line = 14;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "\n    \u003Cdiv class=\"grid-1-5 col-1\" onclick=\"location.href = 'game\u002Findex.html'\"\u003E";
-    ;pug_debug_line = 15;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "\n      \u003Ch3 class=\"h3mode\"\u003E";
-    ;pug_debug_line = 16;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "\u003Cspan class=\"uppercase\"\u003E";
-    ;pug_debug_line = 16;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "Tutorial\u003C\u002Fspan\u003E";
-    ;pug_debug_line = 17;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "\u003Cimg class=\"msimg\" src=\"resources\u002Ftutorial.png\"\u002F\u003E";
-    ;pug_debug_line = 18;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "\n        \u003Cp\u003E";
-    ;pug_debug_line = 18;pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
-    pug_html = pug_html + "Learn the controls and test weapon and skills before joining muliplayer.\u003C\u002Fp\u003E\n      \u003C\u002Fh3\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";
-  } catch (err) {
-    pug_rethrow(err, pug_debug_filename, pug_debug_line, pug_debug_sources[pug_debug_filename]);
-  };return pug_html;
+    if (!(n instanceof Error)) throw n;
+    if (!("undefined" == typeof window && e || t)) throw n.message += " on line " + r, n;
+    try {
+        t = t || __webpack_require__(1).readFileSync(e, "utf8");
+    } catch (e) {
+        pug_rethrow(n, null, r);
+    }
+    var i = 3,
+        a = t.split("\n"),
+        o = Math.max(r - i, 0),
+        h = Math.min(a.length, r + i),
+        i = a.slice(o, h).map(function (n, e) {
+        var t = e + o + 1;
+        return (t == r ? "  > " : "    ") + t + "| " + n;
+    }).join("\n");
+    throw n.path = e, n.message = (e || "Pug") + ":" + r + "\n" + i + "\n\n" + n.message, n;
+}
+function renderGameMode(locals) {
+    var pug_html = "",
+        pug_mixins = {},
+        pug_interp;
+    var pug_debug_filename, pug_debug_line;
+    try {
+        var pug_debug_sources = { "front\u002FcomponentTemplates\u002FgameModeTemplate.pug": "div(id='menu')\r\n    h1(class='h1Title') Select Mode\r\n    div(class='container group')\r\n        div(class='gridd-1-5 coll-1')\r\n            h3(class='h3mode')\r\n                span(class='uppercase') Deathmatch\r\n                img(class='msimg' src=\"resources\u002FdeathMatch.png\")\r\n                p Select a hero and fight agains other players. Kill more than anybody to win.\r\n        div(class='gridd-1-5 coll-1')\r\n            h3(class='h3mode')\r\n                span(class='uppercase') Catch Flag\r\n                img(class='msimg' src=\"resources\u002FflagCapture.png\")\r\n                p Catch the flag and bring it to your base to earn a point. Team with 5 points wins.\r\n        div(class='gridd-1-5 coll-1' onclick=\"location.href = 'game\u002Findex.html'\")\r\n            h3(class='h3mode')\r\n                span(class='uppercase') Tutorial\r\n                img(class='msimg' src=\"resources\u002Ftutorial.png\")\r\n                p Learn the controls and test weapon and skills before joining muliplayer.\r\n\r\n" };
+        var pug_indent = [];
+        ;
+        pug_debug_line = 1;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "\n\u003Cdiv id=\"menu\"\u003E";
+        ;
+        pug_debug_line = 2;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "\n  \u003Ch1 class=\"h1Title\"\u003E";
+        ;
+        pug_debug_line = 2;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "Select Mode\u003C\u002Fh1\u003E";
+        ;
+        pug_debug_line = 3;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "\n  \u003Cdiv class=\"container group\"\u003E";
+        ;
+        pug_debug_line = 4;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "\n    \u003Cdiv class=\"gridd-1-5 coll-1\"\u003E";
+        ;
+        pug_debug_line = 5;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "\n      \u003Ch3 class=\"h3mode\"\u003E";
+        ;
+        pug_debug_line = 6;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "\u003Cspan class=\"uppercase\"\u003E";
+        ;
+        pug_debug_line = 6;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "Deathmatch\u003C\u002Fspan\u003E";
+        ;
+        pug_debug_line = 7;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "\u003Cimg class=\"msimg\" src=\"resources\u002FdeathMatch.png\"\u002F\u003E";
+        ;
+        pug_debug_line = 8;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "\n        \u003Cp\u003E";
+        ;
+        pug_debug_line = 8;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "Select a hero and fight agains other players. Kill more than anybody to win.\u003C\u002Fp\u003E\n      \u003C\u002Fh3\u003E\n    \u003C\u002Fdiv\u003E";
+        ;
+        pug_debug_line = 9;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "\n    \u003Cdiv class=\"gridd-1-5 coll-1\"\u003E";
+        ;
+        pug_debug_line = 10;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "\n      \u003Ch3 class=\"h3mode\"\u003E";
+        ;
+        pug_debug_line = 11;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "\u003Cspan class=\"uppercase\"\u003E";
+        ;
+        pug_debug_line = 11;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "Catch Flag\u003C\u002Fspan\u003E";
+        ;
+        pug_debug_line = 12;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "\u003Cimg class=\"msimg\" src=\"resources\u002FflagCapture.png\"\u002F\u003E";
+        ;
+        pug_debug_line = 13;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "\n        \u003Cp\u003E";
+        ;
+        pug_debug_line = 13;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "Catch the flag and bring it to your base to earn a point. Team with 5 points wins.\u003C\u002Fp\u003E\n      \u003C\u002Fh3\u003E\n    \u003C\u002Fdiv\u003E";
+        ;
+        pug_debug_line = 14;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "\n    \u003Cdiv class=\"gridd-1-5 coll-1\" onclick=\"location.href = 'game\u002Findex.html'\"\u003E";
+        ;
+        pug_debug_line = 15;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "\n      \u003Ch3 class=\"h3mode\"\u003E";
+        ;
+        pug_debug_line = 16;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "\u003Cspan class=\"uppercase\"\u003E";
+        ;
+        pug_debug_line = 16;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "Tutorial\u003C\u002Fspan\u003E";
+        ;
+        pug_debug_line = 17;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "\u003Cimg class=\"msimg\" src=\"resources\u002Ftutorial.png\"\u002F\u003E";
+        ;
+        pug_debug_line = 18;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "\n        \u003Cp\u003E";
+        ;
+        pug_debug_line = 18;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FgameModeTemplate.pug";
+        pug_html = pug_html + "Learn the controls and test weapon and skills before joining muliplayer.\u003C\u002Fp\u003E\n      \u003C\u002Fh3\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";
+    } catch (err) {
+        pug_rethrow(err, pug_debug_filename, pug_debug_line, pug_debug_sources[pug_debug_filename]);
+    }
+    ;
+    return pug_html;
 }
 
 /***/ }),
@@ -1277,96 +1338,176 @@ function pug_rethrow(n, e, r, t) {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = renderLogin;
 function pug_rethrow(n, e, r, t) {
-  if (!(n instanceof Error)) throw n;if (!("undefined" == typeof window && e || t)) throw n.message += " on line " + r, n;try {
-    t = t || __webpack_require__(1).readFileSync(e, "utf8");
-  } catch (e) {
-    pug_rethrow(n, null, r);
-  }var i = 3,
-      a = t.split("\n"),
-      o = Math.max(r - i, 0),
-      h = Math.min(a.length, r + i),
-      i = a.slice(o, h).map(function (n, e) {
-    var t = e + o + 1;return (t == r ? "  > " : "    ") + t + "| " + n;
-  }).join("\n");throw n.path = e, n.message = (e || "Pug") + ":" + r + "\n" + i + "\n\n" + n.message, n;
-}function renderLogin(locals) {
-  var pug_html = "",
-      pug_mixins = {},
-      pug_interp;var pug_debug_filename, pug_debug_line;try {
-    var pug_debug_sources = { "front\u002FcomponentTemplates\u002FloginTemplate.pug": "div\r\n    h1(class='h1Title') Break Away\r\n    div(class='menuBody')\r\n        a(id='toRegister' class='hiddenanchor')\r\n        a(id='toLogin' class='hiddenanchor')\r\n        div(id='wrapper')\r\n            div(id='login' class='animate form')\r\n                form(autocomplete='on')\r\n                    h4\r\n                        a(class='to_register') Log in\r\n                        a(class='to_signup') Sign up\r\n                    p\r\n                        input(id='username' name='username' required='required' type='text' placeholder='Username')\r\n                    p\r\n                        input(id='password' name='password' required='required' type='password' placeholder='Password')\r\n                    p(class='login button')\r\n                        input(type='submit' value='Login')\r\n            div(id='register' class='animate form')\r\n                form(autocomplete='on')\r\n                    h4\r\n                        a(class='to_register') Log in\r\n                        a(class='to_signup') Sign up\r\n                    p\r\n                        input(id='usernamesignup' name='usernamesignup' required='required' type='text' placeholder='Username')\r\n                    p\r\n                        input(id='emailsignup' name='emailsignup' required='required' type='text' placeholder='Email')\r\n                    p\r\n                        input(id='passwordsignup' name='passwordsignup' required='required' type='password' placeholder='Password')\r\n                    p(class='login button')\r\n                        input(type='submit' value='Sign up')\r\n\r\n" };
-    var pug_indent = [];
-    ;pug_debug_line = 1;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n\u003Cdiv\u003E";
-    ;pug_debug_line = 2;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n  \u003Ch1 class=\"h1Title\"\u003E";
-    ;pug_debug_line = 2;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "Break Away\u003C\u002Fh1\u003E";
-    ;pug_debug_line = 3;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n  \u003Cdiv class=\"menuBody\"\u003E";
-    ;pug_debug_line = 4;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\u003Ca class=\"hiddenanchor\" id=\"toRegister\"\u003E\u003C\u002Fa\u003E";
-    ;pug_debug_line = 5;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\u003Ca class=\"hiddenanchor\" id=\"toLogin\"\u003E\u003C\u002Fa\u003E";
-    ;pug_debug_line = 6;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n    \u003Cdiv id=\"wrapper\"\u003E";
-    ;pug_debug_line = 7;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n      \u003Cdiv class=\"animate form\" id=\"login\"\u003E";
-    ;pug_debug_line = 8;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n        \u003Cform autocomplete=\"on\"\u003E";
-    ;pug_debug_line = 9;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n          \u003Ch4\u003E";
-    ;pug_debug_line = 10;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\u003Ca class=\"to_register\"\u003E";
-    ;pug_debug_line = 10;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "Log in\u003C\u002Fa\u003E";
-    ;pug_debug_line = 11;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\u003Ca class=\"to_signup\"\u003E";
-    ;pug_debug_line = 11;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "Sign up\u003C\u002Fa\u003E\u003C\u002Fh4\u003E";
-    ;pug_debug_line = 12;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n          \u003Cp\u003E";
-    ;pug_debug_line = 13;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n            \u003Cinput id=\"username\" name=\"username\" required=\"required\" type=\"text\" placeholder=\"Username\"\u002F\u003E\n          \u003C\u002Fp\u003E";
-    ;pug_debug_line = 14;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n          \u003Cp\u003E";
-    ;pug_debug_line = 15;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n            \u003Cinput id=\"password\" name=\"password\" required=\"required\" type=\"password\" placeholder=\"Password\"\u002F\u003E\n          \u003C\u002Fp\u003E";
-    ;pug_debug_line = 16;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n          \u003Cp class=\"login button\"\u003E";
-    ;pug_debug_line = 17;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n            \u003Cinput type=\"submit\" value=\"Login\"\u002F\u003E\n          \u003C\u002Fp\u003E\n        \u003C\u002Fform\u003E\n      \u003C\u002Fdiv\u003E";
-    ;pug_debug_line = 18;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n      \u003Cdiv class=\"animate form\" id=\"register\"\u003E";
-    ;pug_debug_line = 19;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n        \u003Cform autocomplete=\"on\"\u003E";
-    ;pug_debug_line = 20;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n          \u003Ch4\u003E";
-    ;pug_debug_line = 21;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\u003Ca class=\"to_register\"\u003E";
-    ;pug_debug_line = 21;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "Log in\u003C\u002Fa\u003E";
-    ;pug_debug_line = 22;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\u003Ca class=\"to_signup\"\u003E";
-    ;pug_debug_line = 22;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "Sign up\u003C\u002Fa\u003E\u003C\u002Fh4\u003E";
-    ;pug_debug_line = 23;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n          \u003Cp\u003E";
-    ;pug_debug_line = 24;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n            \u003Cinput id=\"usernamesignup\" name=\"usernamesignup\" required=\"required\" type=\"text\" placeholder=\"Username\"\u002F\u003E\n          \u003C\u002Fp\u003E";
-    ;pug_debug_line = 25;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n          \u003Cp\u003E";
-    ;pug_debug_line = 26;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n            \u003Cinput id=\"emailsignup\" name=\"emailsignup\" required=\"required\" type=\"text\" placeholder=\"Email\"\u002F\u003E\n          \u003C\u002Fp\u003E";
-    ;pug_debug_line = 27;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n          \u003Cp\u003E";
-    ;pug_debug_line = 28;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n            \u003Cinput id=\"passwordsignup\" name=\"passwordsignup\" required=\"required\" type=\"password\" placeholder=\"Password\"\u002F\u003E\n          \u003C\u002Fp\u003E";
-    ;pug_debug_line = 29;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n          \u003Cp class=\"login button\"\u003E";
-    ;pug_debug_line = 30;pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
-    pug_html = pug_html + "\n            \u003Cinput type=\"submit\" value=\"Sign up\"\u002F\u003E\n          \u003C\u002Fp\u003E\n        \u003C\u002Fform\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";
-  } catch (err) {
-    pug_rethrow(err, pug_debug_filename, pug_debug_line, pug_debug_sources[pug_debug_filename]);
-  };return pug_html;
+    if (!(n instanceof Error)) throw n;
+    if (!("undefined" == typeof window && e || t)) throw n.message += " on line " + r, n;
+    try {
+        t = t || __webpack_require__(1).readFileSync(e, "utf8");
+    } catch (e) {
+        pug_rethrow(n, null, r);
+    }
+    var i = 3,
+        a = t.split("\n"),
+        o = Math.max(r - i, 0),
+        h = Math.min(a.length, r + i),
+        i = a.slice(o, h).map(function (n, e) {
+        var t = e + o + 1;
+        return (t == r ? "  > " : "    ") + t + "| " + n;
+    }).join("\n");
+    throw n.path = e, n.message = (e || "Pug") + ":" + r + "\n" + i + "\n\n" + n.message, n;
+}
+function renderLogin(locals) {
+    var pug_html = "",
+        pug_mixins = {},
+        pug_interp;
+    var pug_debug_filename, pug_debug_line;
+    try {
+        var pug_debug_sources = { "front\u002FcomponentTemplates\u002FloginTemplate.pug": "div\r\n    h1(class='h1Title') Break Away\r\n    div(class='menuBody')\r\n        a(id='toregister' class='hiddenanchor')\r\n        a(id='tologin' class='hiddenanchor')\r\n        div(id='wrapper')\r\n            div(id='login' class='animate form')\r\n                form(autocomplete='on')\r\n                    h4\r\n                        a(class='to_register registerAnc' href='#tologin') Log in\r\n                        a(class='to_rigister registerAnc' href='#toregister') Sign up\r\n                    p\r\n                        input(id='username' name='username' required='required' type='text' placeholder='Username')\r\n                    p\r\n                        input(id='password' name='password' required='required' type='password' placeholder='Password')\r\n                    p(class='login button')\r\n                        input(type='submit' value='Login')\r\n            div(id='register' class='animate form')\r\n                form(autocomplete='on')\r\n                    h4\r\n                        a(class='to_register registerAnc' href='#tologin') Log in\r\n                        a(class='to_register registerAnc' href='#toregister') Sign up\r\n                    p\r\n                        input(id='usernamesignup' name='usernamesignup' required='required' type='text' placeholder='Username')\r\n                    p\r\n                        input(id='emailsignup' name='emailsignup' required='required' type='text' placeholder='Email')\r\n                    p\r\n                        input(id='passwordsignup' name='passwordsignup' required='required' type='password' placeholder='Password')\r\n                    p(class='login button')\r\n                        input(type='submit' value='Sign up')\r\n\r\n" };
+        var pug_indent = [];
+        ;
+        pug_debug_line = 1;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n\u003Cdiv\u003E";
+        ;
+        pug_debug_line = 2;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n  \u003Ch1 class=\"h1Title\"\u003E";
+        ;
+        pug_debug_line = 2;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "Break Away\u003C\u002Fh1\u003E";
+        ;
+        pug_debug_line = 3;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n  \u003Cdiv class=\"menuBody\"\u003E";
+        ;
+        pug_debug_line = 4;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\u003Ca class=\"hiddenanchor\" id=\"toregister\"\u003E\u003C\u002Fa\u003E";
+        ;
+        pug_debug_line = 5;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\u003Ca class=\"hiddenanchor\" id=\"tologin\"\u003E\u003C\u002Fa\u003E";
+        ;
+        pug_debug_line = 6;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n    \u003Cdiv id=\"wrapper\"\u003E";
+        ;
+        pug_debug_line = 7;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n      \u003Cdiv class=\"animate form\" id=\"login\"\u003E";
+        ;
+        pug_debug_line = 8;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n        \u003Cform autocomplete=\"on\"\u003E";
+        ;
+        pug_debug_line = 9;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n          \u003Ch4\u003E";
+        ;
+        pug_debug_line = 10;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\u003Ca class=\"to_register registerAnc\" href=\"#tologin\"\u003E";
+        ;
+        pug_debug_line = 10;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "Log in\u003C\u002Fa\u003E";
+        ;
+        pug_debug_line = 11;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\u003Ca class=\"to_rigister registerAnc\" href=\"#toregister\"\u003E";
+        ;
+        pug_debug_line = 11;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "Sign up\u003C\u002Fa\u003E\u003C\u002Fh4\u003E";
+        ;
+        pug_debug_line = 12;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n          \u003Cp\u003E";
+        ;
+        pug_debug_line = 13;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n            \u003Cinput id=\"username\" name=\"username\" required=\"required\" type=\"text\" placeholder=\"Username\"\u002F\u003E\n          \u003C\u002Fp\u003E";
+        ;
+        pug_debug_line = 14;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n          \u003Cp\u003E";
+        ;
+        pug_debug_line = 15;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n            \u003Cinput id=\"password\" name=\"password\" required=\"required\" type=\"password\" placeholder=\"Password\"\u002F\u003E\n          \u003C\u002Fp\u003E";
+        ;
+        pug_debug_line = 16;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n          \u003Cp class=\"login button\"\u003E";
+        ;
+        pug_debug_line = 17;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n            \u003Cinput type=\"submit\" value=\"Login\"\u002F\u003E\n          \u003C\u002Fp\u003E\n        \u003C\u002Fform\u003E\n      \u003C\u002Fdiv\u003E";
+        ;
+        pug_debug_line = 18;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n      \u003Cdiv class=\"animate form\" id=\"register\"\u003E";
+        ;
+        pug_debug_line = 19;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n        \u003Cform autocomplete=\"on\"\u003E";
+        ;
+        pug_debug_line = 20;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n          \u003Ch4\u003E";
+        ;
+        pug_debug_line = 21;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\u003Ca class=\"to_register registerAnc\" href=\"#tologin\"\u003E";
+        ;
+        pug_debug_line = 21;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "Log in\u003C\u002Fa\u003E";
+        ;
+        pug_debug_line = 22;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\u003Ca class=\"to_register registerAnc\" href=\"#toregister\"\u003E";
+        ;
+        pug_debug_line = 22;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "Sign up\u003C\u002Fa\u003E\u003C\u002Fh4\u003E";
+        ;
+        pug_debug_line = 23;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n          \u003Cp\u003E";
+        ;
+        pug_debug_line = 24;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n            \u003Cinput id=\"usernamesignup\" name=\"usernamesignup\" required=\"required\" type=\"text\" placeholder=\"Username\"\u002F\u003E\n          \u003C\u002Fp\u003E";
+        ;
+        pug_debug_line = 25;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n          \u003Cp\u003E";
+        ;
+        pug_debug_line = 26;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n            \u003Cinput id=\"emailsignup\" name=\"emailsignup\" required=\"required\" type=\"text\" placeholder=\"Email\"\u002F\u003E\n          \u003C\u002Fp\u003E";
+        ;
+        pug_debug_line = 27;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n          \u003Cp\u003E";
+        ;
+        pug_debug_line = 28;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n            \u003Cinput id=\"passwordsignup\" name=\"passwordsignup\" required=\"required\" type=\"password\" placeholder=\"Password\"\u002F\u003E\n          \u003C\u002Fp\u003E";
+        ;
+        pug_debug_line = 29;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n          \u003Cp class=\"login button\"\u003E";
+        ;
+        pug_debug_line = 30;
+        pug_debug_filename = "front\u002FcomponentTemplates\u002FloginTemplate.pug";
+        pug_html = pug_html + "\n            \u003Cinput type=\"submit\" value=\"Sign up\"\u002F\u003E\n          \u003C\u002Fp\u003E\n        \u003C\u002Fform\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";
+    } catch (err) {
+        pug_rethrow(err, pug_debug_filename, pug_debug_line, pug_debug_sources[pug_debug_filename]);
+    }
+    ;
+    return pug_html;
 }
 
 /***/ })

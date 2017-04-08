@@ -1,14 +1,14 @@
 div
     h1(class='h1Title') Break Away
     div(class='menuBody')
-        a(id='toRegister' class='hiddenanchor')
-        a(id='toLogin' class='hiddenanchor')
+        a(id='toregister' class='hiddenanchor')
+        a(id='tologin' class='hiddenanchor')
         div(id='wrapper')
             div(id='login' class='animate form')
                 form(autocomplete='on')
                     h4
-                        a(class='to_register') Log in
-                        a(class='to_signup') Sign up
+                        a(class='to_register registerAnc' href='#tologin') Log in
+                        a(class='to_rigister registerAnc' href='#toregister') Sign up
                     p
                         input(id='username' name='username' required='required' type='text' placeholder='Username')
                     p
@@ -18,8 +18,8 @@ div
             div(id='register' class='animate form')
                 form(autocomplete='on')
                     h4
-                        a(class='to_register') Log in
-                        a(class='to_signup') Sign up
+                        a(class='to_register registerAnc' href='#tologin') Log in
+                        a(class='to_register registerAnc' href='#toregister') Sign up
                     p
                         input(id='usernamesignup' name='usernamesignup' required='required' type='text' placeholder='Username')
                     p

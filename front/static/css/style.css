@@ -1,4 +1,6 @@
-
+.registerAnc{
+	padding-left: 80px;
+}
 @font-face {
     font-family: pixel;
     src: url(/fonts/joystix.otf);
