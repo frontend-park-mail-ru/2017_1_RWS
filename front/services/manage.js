@@ -2,9 +2,13 @@ import SiteService from './siteService'
 import Menu from './../static/components/menu'
 import Rating from './../static/components/rating'
 import About from './../static/components/about'
+import Login from './../static/components/login'
+import Gamemode from './../static/components/gameMode'
 import renderMenu from './../static/renderedTemplates/menuTemplate'
 import renderRating from './../static/renderedTemplates/ratingTemplate'
 import renderAbout from './../static/renderedTemplates/aboutTemplate'
+import renderLogin from './../static/renderedTemplates/loginTemplate'
+import renderGameMode from './../static/renderedTemplates/gameModeTemplate'
 import {Router} from './router'
 
 export default class Manage {
@@ -13,12 +17,14 @@ export default class Manage {
         this.loginPage = document.getElementById("log");
         this.ratPage = document.getElementById("rat");
         this.aboutPage = document.getElementById("about");
-        this.gamePage = document.getElementById("game");
+        this.modePage = document.getElementById("mode");
         this.backButton = document.getElementById("backButton");
         this.siteService = new SiteService();
         this.menu = new Menu();
         this.rating = new Rating();
         this.about = new About();
+        this.login = new Login();
+        this.gameMode = new Gamemode();
         this.myAudio = new Audio("game/assets/main_theme.mp3");
         this.myAudio.addEventListener('ended', function () {
             this.currentTime = 0;
@@ -29,16 +35,17 @@ export default class Manage {
 
         this.indPage.appendChild(this.menu.content);
         this.ratPage.appendChild(this.rating.content);
-        //this.login.appendChild(this.login.el);
+        this.loginPage.appendChild(this.login.content);
         this.aboutPage.appendChild(this.about.content);
-        //this.game.appendChild(this.game.el);
+        this.modePage.appendChild(this.gameMode.content);
 
         this.ratPage.hidden = true;
-        //this.login.hidden = true;
+        this.loginPage.hidden = true;
         this.aboutPage.hidden = true;
-        //this.game.hidden = true;
+        this.modePage.hidden = true;
         this.backButton.hidden = true;
     }
+
 
     sound() {
         let s = document.getElementById("sBut");
@@ -55,7 +62,7 @@ export default class Manage {
     showRating() {
         this.indPage.hidden = true;
         this.ratPage.hidden = false;
-        this.gamePage.hidden = true;
+        this.modePage.hidden = true;
         this.backButton.hidden = false;
         this.siteService.makeRating().then(response => {
             response.json().then(function (data) {
@@ -69,22 +76,40 @@ export default class Manage {
         }).catch(err => {
             console.log('fetch error: ', err);
         });
+        this.backButtonEventsListener(this.logicAuth);
     }
 
     showLogin() {
         this.indPage.hidden = true;
         this.loginPage.hidden = false;
-        this.gamePage.hidden = true;
+        this.modePage.hidden = true;
         this.ratPage.hidden = true;
         this.aboutPage.hidden = true;
         this.backButton.hidden = false;
+        this.login.render(renderLogin());
+        this.login.on("submit", (event) => {
+            if (document.getElementById("usernamesignup").value !== "") {
+                event.preventDefault();
+
+                this.userRegister(document.getElementById("usernamesignup").value, document.getElementById("emailsignup").value,
+                    document.getElementById("passwordsignup").value, null, null);
+
+            } else if (document.getElementById("username").value !== "") {
+                event.preventDefault();
+
+                this.userLogin(document.getElementById("username").value, document.getElementById("password").value, null, null);
+
+            }
+            this.showInd();
+        });
+
         this.backButtonEventsListener(this.logicAuth);
     }
 
     showAbout() {
         this.indPage.hidden = true;
         this.aboutPage.hidden = false;
-        this.gamePage.hidden = true;
+        this.modePage.hidden = true;
         this.backButton.hidden = false;
         this.about.render(renderAbout());
         this.backButtonEventsListener(this.logicAuth);
@@ -95,7 +120,7 @@ export default class Manage {
         this.ratPage.hidden = true;
         this.loginPage.hidden = true;
         this.aboutPage.hidden = true;
-        this.gamePage.hidden = true;
+        this.modePage.hidden = true;
         this.siteService.checkAuth().then(response => {
             response.json().then(function (data) {
                 console.log(data);
@@ -113,27 +138,41 @@ export default class Manage {
         this.backButton.hidden = true;
     }
 
-    showGame() {
-        /*this.gamePage.hidden = false;
+    showGameMode() {
+        this.modePage.hidden = false;
         this.indPage.hidden = true;
         this.ratPage.hidden = true;
         this.loginPage.hidden = true;
         this.aboutPage.hidden = true;
-        this.backButton.hidden = false;*/
-        this.showLogin();
+        this.backButton.hidden = false;
+        //this.showLogin();
+        this.gameMode.render(renderGameMode());
         this.backButtonEventsListener(this.logicAuth);
     }
 
     userLogin(login, password, callback1 = null, callback2 = null) {
-        this.siteService.login(login, password, callback1 = null, callback2 = null);
-        //this.logicAuth = this.siteService.logicAuth;
-        this.showLogin();
+        this.siteService.login(login, password, callback1 = null, callback2 = null).then(response => {
+            if (response.status === 200) {
+                this.logicAuth = true;
+            }
+        }).catch(err => {
+            console.log('fetch error: ', err);
+        });
+        this.showInd();
     }
 
     userRegister(login, email, password, callback1 = null, callback2 = null) {
-        this.siteService.register(login, email, password, callback1 = null, callback2 = null);
-        this.logicAuth = this.siteService.logicAuth;
-        this.showLogin();
+        this.siteService.register(login, email, password, callback1 = null, callback2 = null).then(response => {
+            response.json().then(function (data) {
+                console.log(data);
+            });
+            if (response.status === 200) {
+                this.logicAuth = true;
+            }
+        }).catch(err => {
+            console.log('fetch error: ', err);
+        });
+        this.showInd();
     }
 
     userLogout() {
@@ -141,12 +180,11 @@ export default class Manage {
             console.log("start logout");
             if (response.status === 200) {
                 this.logicAuth = false;
-                this.showInd();
             }
         }).catch(err => {
             console.log('fetch error: ', err);
-            this.showInd();
         });
+        this.showInd();
     }
 
     makeRating() {
@@ -156,7 +194,7 @@ export default class Manage {
     menuEventsListener(logicAuth) {
         if (logicAuth) {
             document.getElementById('menuStartAuth').addEventListener("click", function () {
-                this.showGame();
+                this.showGameMode();
             }.bind(this));
             document.getElementById('menuLogout').addEventListener("click", function () {
                 this.userLogout();

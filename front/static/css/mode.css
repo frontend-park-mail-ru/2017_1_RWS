@@ -44,45 +44,42 @@ html {
 }
 .grid-1-5 {
   color: #fff;
-  border: 2px solid #5d4e65;   
+  border: 2px solid #5d4e65;
   min-height: 400px;
   padding: 1.25em;
   position: relative;
   text-align: center;
-  transition: all .2s ease-in-out;
-  
-  @media screen and (min-width: 700px) {
-    & {
-      float: left;
-      width: 50%;
-    }
-    &:nth-child(odd) {
-      clear: left;
-    }
-  }
-  
-  @media screen and (min-width: 800px) {
-    & {      
-      width: 33.3333333%;
-    }
-    &:nth-child(3n+1) {
-      clear: left;
-    }
-    &:nth-child(odd) {
-      clear: none;
-    }    
-  }
-  
-  @media screen and (min-width: 1120px) {
-    & {
-       width: 20%;
-    }
-    &:nth-child(odd), &:nth-child(3n+1) {
-       clear: none;
-    }    
-  }
-  
+  transition: all .2s ease-in-out;}
+
+@media screen and (min-width: 700px) { {
+  float: left;
+  width: 50%;
 }
+  :nth-child(odd) {
+    clear: left;
+  }
+}
+
+@media screen and (min-width: 800px) { {
+  width: 33.3333333%;
+}
+  :nth-child(3n+1) {
+    clear: left;
+  }
+
+  :nth-child(odd) {
+    clear: none;
+  }
+}
+
+@media screen and (min-width: 1120px) { {
+  width: 20%;
+}
+  :nth-child(odd), :nth-child(3n+1) {
+    clear: none;
+  }
+}
+
 .grid-1-5:hover {
   cursor: pointer;
   background-color: rgb(83,69,91);
@@ -92,9 +89,9 @@ html {
   border-bottom: 2px solid #333;
   box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 1);
   transform: scale(1.025);
-  z-index: 2;
+  z-index: 2;}
 
-  &:before, &:after {
+  :before, :after {
     content: ""; 
     position: absolute; 
     background-color: #333;
@@ -105,19 +102,18 @@ html {
     width: 2px;    
   }
 
-  &:before { 
+  :before {
     left: -2px; 
   }
-  &:after { 
+  :after {
     right: -2px; 
   }  
 
-  & .button {
+  .button {
     background-color: rgb(238,122,54);
     @include filter-gradient(#ee7a36, #eb495d, horizontal);
     @include background-image(linear-gradient(left,  rgba(238,122,54,1) 0%,rgba(235,73,93,1) 100%));    
   }
-}
 
 .h3mode {
   font-size: 1.5em;

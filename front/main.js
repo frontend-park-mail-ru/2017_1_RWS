@@ -4,7 +4,7 @@ import Rating from './static/components/rating';
 import renderAbout from './static/renderedTemplates/aboutTemplate'
 import renderMenu from './static/renderedTemplates/menuTemplate'
 import renderRating from './static/renderedTemplates/ratingTemplate'
-import {playerNames, logicAuth} from './services/siteService'
+//import {playerNames, logicAuth} from './services/siteService'
 import Manage  from './services/manage'
 import {Router} from './services/router'
 
@@ -26,19 +26,19 @@ import {Router} from './services/router'
     //let about = new About();
     //about.render(renderAbout());
 
-    let loginPage = document.getElementById("log");
+    //let loginPage = document.getElementById("log");
     //this.ratPage = document.getElementById("rat");
     //this.aboutPage = document.getElementById("about");
-    let gamePage = document.getElementById("game");
+    //let gamePage = document.getElementById("game");
 
-    let game = new Game({
+    /*let game = new Game({
         el: document.createElement('div'),
         data: {
             title: "Game",
         }
-    });
+    });*/
 
-    let login = new Login({
+    /*let login = new Login({
         el: document.createElement('div'),
         data: {
             title: "Game title",
@@ -83,9 +83,9 @@ import {Router} from './services/router'
                 },
             ],
         }
-    });
+    });*/
 
-    login.on("submit", (event) => {
+   /* login.on("submit", (event) => {
         if (document.getElementById("usernamesignup").value !== "") {
             event.preventDefault();
 
@@ -99,44 +99,9 @@ import {Router} from './services/router'
 
         }
         manage.showInd();
-    });
-
-    loginPage.appendChild(login.el);
-    gamePage.appendChild(game.el);
-
-    //eventsListener();
-
-    /*function eventsListener(){
-        if (logicAuth) {
-            document.getElementById('menuStartAuth').addEventListener("click", function () {
-                manage.showGame();
-            });
-            document.getElementById('menuLogout').addEventListener("click", function () {
-                manage.userLogout();
-                Router.nav('/login');
-            });
-        } else {
-            document.getElementById('menuStartNotAuth').addEventListener("click", function () {
-                //manage.showLogin();
-                Router.nav('/login');
-            });
-
-        }
-        document.getElementById('menuRating').addEventListener("click", function () {
-            //manage.showRating();
-            Router.nav('/rating');
-            manage.makeRating();
-            //rating.render(renderRating({'players': playerNames}));
-        });
-        document.getElementById('menuAbout').addEventListener("click", function () {
-            //manage.showAbout();
-            Router.nav('/about');
-        });
-
-    }*/
-
-    /*document.getElementById('backButton').addEventListener("click", function () {
-        Router.nav('/');
-        eventsListener();
     });*/
+
+    //loginPage.appendChild(login.el);
+    //gamePage.appendChild(game.el);
+
 })();
