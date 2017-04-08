@@ -278,7 +278,7 @@ function renderAbout(locals) {
         pug_interp;
     var pug_debug_filename, pug_debug_line;
     try {
-        var pug_debug_sources = { "front\u002FcomponentTemplates\u002FaboutTemplate.pug": "div\r\n    h1(class='h1Title') Our Team\r\n    div(class='aboutBody')\r\n        - var names = [[\"Kuchaeva Karina\", \"Fullstack\"], [\"Zlobina Svetlana\", \"Fullstack\"], [\"Bayramukov Yan\", \"Bug Designer\"], [\"Ovchinnikov Maksim\", \"Designer\"], [\"Maschkin Egor\", \"Producer\"]];\r\n        each name in names\r\n            h2 #{name[1]}\r\n            h3 #{name[0]}\r\n\r\n\r\n\r\n" };
+        var pug_debug_sources = { "front\u002FcomponentTemplates\u002FaboutTemplate.pug": "div\r\n    h1(class='h1Title') Our Team\r\n    div(class='aboutBody')\r\n        - var names = [[\"Kuchaeva Karina\", \"Fullstack\"], [\"Zlobina Svetlana\", \"Fullstack\"], [\"Bayramukov Yan\", \"Bug Designer\"], [\"Ovchinnikov Maksim\", \"Designer\"]];\r\n        each name in names\r\n            h2 #{name[1]}\r\n            h3 #{name[0]}\r\n\r\n\r\n\r\n" };
         var pug_indent = [];
         ;
         pug_debug_line = 1;
@@ -299,7 +299,7 @@ function renderAbout(locals) {
         ;
         pug_debug_line = 4;
         pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
-        var names = [["Kuchaeva Karina", "Fullstack"], ["Zlobina Svetlana", "Fullstack"], ["Bayramukov Yan", "Bug Designer"], ["Ovchinnikov Maksim", "Designer"], ["Maschkin Egor", "Producer"]];
+        var names = [["Kuchaeva Karina", "Fullstack"], ["Zlobina Svetlana", "Fullstack"], ["Bayramukov Yan", "Bug Designer"], ["Ovchinnikov Maksim", "Designer"]];
         ;
         pug_debug_line = 5;
         pug_debug_filename = "front\u002FcomponentTemplates\u002FaboutTemplate.pug";
