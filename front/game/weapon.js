@@ -2,6 +2,7 @@
 	class Weapon{
 		constructor(){
 			this.bulls = [];
+			this.enemyBulls = [];
 		}
 		
 		
@@ -47,12 +48,10 @@
 		
 		fire() {
 			if (mouse.isDown("LEFT") && player.fireCheck) {
-				console.log("fire");
 				player.fireCheck = false;
 				
 				switch (player.wNum % 5) {
 				case 0:
-						console.log("pistol");
 					this.pistolShot();
 					break;
 				case 1:
@@ -80,9 +79,30 @@
 						el.visible = false;
 						el.life = false;
 					}
-					if (el.isIntersect(enemy.obj) && el.isVisible() && enemy.obj.isVisible()) {
+					OOP.forArr(enemies, function(n){
+						if (el.isIntersect(n.obj) && el.isVisible() && n.obj.isVisible()) {
+							el.visible = false;
+							n.health -= el.damage;
+							el.life = false;
+						}
+					});
+					
+				}
+				else {
+					el = null;
+				}
+			});
+			OOP.forArr(this.enemyBulls, function (el) {
+				if (el.life) {
+					el.draw();
+					el.moveAngle(el.speed);
+					if (el.isArrIntersect(map.walls)) {
 						el.visible = false;
-						enemy.health -= el.damage;
+						el.life = false;
+					}
+					if (el.isIntersect(player.obj) && el.isVisible()) {
+						el.visible = false;
+						player.health -= el.damage;
 						el.life = false;
 					}
 				}
