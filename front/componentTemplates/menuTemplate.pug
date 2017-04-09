@@ -1,11 +1,13 @@
 div
     h1(class='h1Title') Break Away
     div(class='menuBody')
-        p(class='title' onclick='auth()')= 'Start'
-        p(class='title' onclick='showRating()')= 'Rating'
         if logicAuth
-            p(class='title' onclick='userLogout()')= 'Logout'
+            p(id='menuStartAuth' class='title stroke')= 'Start'
         else
-            p(class='title' onclick='showLogin()')= 'Login'
-        p(class='title' onclick='showAbout()')= 'About'
+            p(id='menuStartNotAuth' class='title stroke')= 'Start'
+        p(id='menuRating' class='title')= 'Rating'
+        p(id='menuAbout' class='title')= 'About'
+        if logicAuth
+            p(id='menuLogout' class='title')= 'Logout'
+
 

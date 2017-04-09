@@ -2,10 +2,11 @@
 	class Weapon{
 		constructor(){
 			this.bulls = [];
+			this.enemyBulls = [];
 		}
 		
 		
-		createShot(fileName = "/game/assets/pistolShot.png", sp = 10, dm = 1) {
+		createShot(fileName = "assets/pistolShot.png", sp = 10, dm = 1) {
 			let bull = game.newImageObject({
 				file: fileName,
 				x: oPos.x,
@@ -22,61 +23,33 @@
 		}
 	
 		pistolShot() {
-			if (player.fireCheck) {
-				player.fireCheck = false;
 				this.createShot();
-				setTimeout(function () {
-					player.fireCheck = true;
-				}, 500);
-			}
 		};
 		
 		assaultShot() {
-			if (player.fireCheck) {
-				player.fireCheck = false;
 				for(let i = 1; i < 4; i++){
 					setTimeout(this.createShot.bind(this), 100*i);
 				}
-				setTimeout(function () {
-					player.fireCheck = true;
-				}, 500);
-			}
 		};
 		
 		gunShot() {
-			if (player.fireCheck) {
-				player.fireCheck = false;
 				let i = 2;
 				for(let i = 1; i < 3; i++){
-					setTimeout(this.createShot.bind(this,"/game/assets/gunShot.png", 10, 1.5), 100*i);
+					setTimeout(this.createShot.bind(this,"assets/gunShot.png", 10, 1.5), 100*i);
 				}
-				setTimeout(function () {
-					player.fireCheck = true;
-				}, 500);
-			}
 		};
 		sniperShot() {
-			if (player.fireCheck) {
-				player.fireCheck = false;
-				this.createShot("/game/assets/soran.png", 20, 1.5);
-				setTimeout(function () {
-					player.fireCheck = true;
-				}, 500);
-			}
+			this.createShot("assets/soran.png", 20, 1.5);
 		};
 		
 		plasmaShot() {
-			if (player.fireCheck) {
-				player.fireCheck = false;
-				this.createShot("/game/assets/plasmaShot.png", 20, 2);
-				setTimeout(function () {
-					player.fireCheck = true;
-				}, 500);
-			}
+			this.createShot("assets/plasmaShot.png", 20, 2);
 		};
 		
 		fire() {
-			if (mouse.isPress("LEFT")) {
+			if (mouse.isDown("LEFT") && player.fireCheck) {
+				player.fireCheck = false;
+				
 				switch (player.wNum % 5) {
 				case 0:
 					this.pistolShot();
@@ -94,7 +67,9 @@
 					this.plasmaShot();
 					break;
 				}
-				this.assaultShot();
+				setTimeout(function () {
+					player.fireCheck = true;
+				}, 800);
 			}
 			OOP.forArr(this.bulls, function (el) {
 				if (el.life) {
@@ -104,9 +79,30 @@
 						el.visible = false;
 						el.life = false;
 					}
-					if (el.isIntersect(enemy) && el.isVisible() && enemy.isVisible()) {
+					OOP.forArr(enemies, function(n){
+						if (el.isIntersect(n.obj) && el.isVisible() && n.obj.isVisible()) {
+							el.visible = false;
+							n.health -= el.damage;
+							el.life = false;
+						}
+					});
+					
+				}
+				else {
+					el = null;
+				}
+			});
+			OOP.forArr(this.enemyBulls, function (el) {
+				if (el.life) {
+					el.draw();
+					el.moveAngle(el.speed);
+					if (el.isArrIntersect(map.walls)) {
 						el.visible = false;
-						enemy.health -= el.damage;
+						el.life = false;
+					}
+					if (el.isIntersect(player.obj) && el.isVisible()) {
+						el.visible = false;
+						player.health -= el.damage;
 						el.life = false;
 					}
 				}

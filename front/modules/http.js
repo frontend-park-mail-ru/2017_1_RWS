@@ -1,19 +1,27 @@
 
-(function () {
-
-const ALLOWED_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
-    class HTTP {
+export default class HTTP {
     constructor() {
         if (HTTP.__instance) {
             return HTTP.__instance;
         }
-        this._baseURL = '';
         HTTP.__instance = this;
     }
 
+    request(address='', type='', body){
+        let req = {
+            method: type,
+            mode:'cors',
+            headers: {'Content-Type': 'application/json'},
+            credentials: 'include'
+        };
+        if(body) {
+            console.log(body);
+            req.body = JSON.stringify(body);
+        }
+        return fetch(address, req);
+    }
 
-
-    set BaseURL(value) {
+    /*set BaseURL(value) {
         this._baseURL = value;
     }
 
@@ -34,7 +42,7 @@ const ALLOWED_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
             if (typeof callback === 'function') {
                 callback(xhr);
             }
-        }
+        };
         xhr.send(null);
     }
 
@@ -74,8 +82,7 @@ const ALLOWED_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
         console.log(JSON.stringify(body));
         xhr.send(JSON.stringify(body));
 
-    }
+    }*/
 }
 
-window.HTTP = HTTP;
-})();
+

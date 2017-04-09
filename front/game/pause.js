@@ -1,10 +1,13 @@
+//import Manage  from './services/manage'
+
+//manage = new Manage();
 (function(){
 	class Pause{
 		constructor(){
 			this.pause = false;
 
 			this.pauseBack = game.newImageObject({
-				file: "/game/assets/t0.png",
+				file: "assets/t0.png",
 				scale: 0.35,
 				positionC: point(game.getWH2().w, game.getWH2().h)
 			});
@@ -21,7 +24,7 @@
 				size: 50,
 				font: "pixel",
 				text: "Exit",
-				color: "black",	
+				color: "black",
 			});
 		}
 		
@@ -36,6 +39,7 @@
 
 			if(mouse.isPeekObject("LEFT", this.exitText)){
 				location.href = "/../index.html";
+				//manage.showInd();
 			}
 
 			if(mouse.isPeekObject("LEFT", this.soundButton)){

@@ -1,36 +1,44 @@
 import About from './static/components/about';
 import Menu from './static/components/menu';
-import Rating from './static/components/menu';
+import Rating from './static/components/rating';
 import renderAbout from './static/renderedTemplates/aboutTemplate'
 import renderMenu from './static/renderedTemplates/menuTemplate'
 import renderRating from './static/renderedTemplates/ratingTemplate'
-//import {playerNames} from './services/manage'
-//import SiteService from './services/siteService'
-//import makeRating  from './services/manage'
+//import {playerNames, logicAuth} from './services/siteService'
+import Manage  from './services/manage'
+import {Router} from './services/router'
 
 (function () {
 
-    let indPage = document.querySelector("#ind");
-    let ratPage = document.querySelector("#rat");
-    let logPage = document.querySelector("#log");
-    let aboutPage = document.querySelector("#about");
-    let gamePage = document.querySelector("#game");
 
-    const Siteservice = window.SiteService;
-    const siteService = new SiteService();
 
-    let menu = new Menu (renderMenu(), null);
-    let rating = new Rating(renderRating(), null);
-    let about = new About(renderAbout(), null);
+    let manage = new Manage();
+    //let router = new router();
 
-    let game = new Game({
+    //let menu = new Menu();
+    manage.sound();
+    manage.showInd();
+    //menu.render(renderMenu({'logicAuth': logicAuth}));
+
+    //let rating = new Rating();
+   // manage.makeRating();
+
+    //let about = new About();
+    //about.render(renderAbout());
+
+    //let loginPage = document.getElementById("log");
+    //this.ratPage = document.getElementById("rat");
+    //this.aboutPage = document.getElementById("about");
+    //let gamePage = document.getElementById("game");
+
+    /*let game = new Game({
         el: document.createElement('div'),
         data: {
             title: "Game",
         }
-    });
+    });*/
 
-    let login = new Login({
+    /*let login = new Login({
         el: document.createElement('div'),
         data: {
             title: "Game title",
@@ -75,35 +83,25 @@ import renderRating from './static/renderedTemplates/ratingTemplate'
                 },
             ],
         }
-    });
+    });*/
 
-    login.on("submit", (event) => {
-        if ( document.getElementById("usernamesignup").value !== "") {
+   /* login.on("submit", (event) => {
+        if (document.getElementById("usernamesignup").value !== "") {
             event.preventDefault();
 
-            siteService.register(document.getElementById("usernamesignup").value, document.getElementById("emailsignup").value,
-                document.getElementById("passwordsignup").value, showInd(), showLogin());
+            manage.userRegister(document.getElementById("usernamesignup").value, document.getElementById("emailsignup").value,
+                document.getElementById("passwordsignup").value, null, null);
 
         } else if (document.getElementById("username").value !== "") {
             event.preventDefault();
 
-            siteService.login(document.getElementById("username").value, document.getElementById("password").value,  showInd(), showLogin());
+            manage.userLogin(document.getElementById("username").value, document.getElementById("password").value, null, null);
 
         }
-    });
+        manage.showInd();
+    });*/
 
+    //loginPage.appendChild(login.el);
+    //gamePage.appendChild(game.el);
 
-
-    indPage.appendChild(menu.content);
-    ratPage.appendChild(rating.content);
-    logPage.appendChild(login.el);
-    aboutPage.appendChild(about.content);
-    gamePage.appendChild(game.el);
-
-    makeRating();
-
-    ratPage.hidden = true;
-    logPage.hidden = true;
-    aboutPage.hidden = true;
-    gamePage.hidden = true;
 })();

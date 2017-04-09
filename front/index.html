@@ -4,13 +4,18 @@
 <head>
     <meta charset="utf-8" />
     <title>Let's rage!!!</title>
-    
-    <link rel="stylesheet" type="text/css" href="static/css/demo.css" />
+
+
+    <!--<link rel="stylesheet" type="text/css" href="static/css/demo.css" />-->
     <link rel="stylesheet" type="text/css" href="static/css/style.css" />
     <link rel="stylesheet" type="text/css" href="static/css/about.css" />
+
     <link rel="stylesheet" type="text/css" href="static/css/menu.css" />
+    <!--<link rel="stylesheet" type="text/css" href="static/css/mode.css" />-->
     <link rel="stylesheet" type="text/css" href="static/css/rating.css" />
     <link rel="stylesheet" type="text/css" href="static/css/animate-custom.css" />
+    <!--<link rel="stylesheet" type="text/css" href="static/css/mode.css" />-->
+
 
 </head>
    
@@ -19,34 +24,33 @@
     <div class="maincontainer mainmenu">
 
         <div class="container-left">
-            <p class="backButton" onclick="showInd();">Back</p>
+            <p id="backButton" class="backButton" hidden="hidden">Back</p>
         </div>
 
         <div class="container">
             <div id="ind"></div>
             <div id="rat"></div>
-            <div id="log"></div>
             <div id="about"></div>
-            <div id="game"></div>
+            <div id="log"></div>
+            <div id="mode"></div>
         </div>
 
         <div class="container-right">
-            <p class="soundMute">Sound mute</p>
+            <img id="sBut" class = "soundButton" src="resources/soundOn.png" onclick="manage.sound()">
             <div class="player">
-                <p>Player:</p>
-                <p id="playerGreeting">Not auth</p>
+                <p>Player: not auth</p>
+                <p id="playerGreeting">Score: 0</p>
             </div>
         </div>
     </div>
 
-    <script type="text/javascript" src="/modules/http.js"></script>
+    <!--<script type="text/javascript" src="/modules/http.js"></script>
     <script type="text/javascript" src="/services/siteService.js"></script>
     <script type="text/javascript" src="/services/manage.js"></script>
     <script src="services/manage.js"></script>
-    <script type="text/javascript" src="static/components/login.js"></script>
+    <script type="text/javascript" src="static/components/login.js"></script>-->
     <script type="text/javascript" src="static/components/game.js"></script>
-    <script type="text/javascript" src="/static/main.js"></script>
-
+    <script type="text/javascript" src="static/main.js"></script>
 
 
 

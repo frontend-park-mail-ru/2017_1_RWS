@@ -8,13 +8,20 @@
 			this.obj;
 			this.name;
 			this.health = 1;
+			this.mana = 0;
 			this.speed = 7;
 			this.addSpec = null;
 			this.wNum = 0;
 			this.sNum = 0;
 			this.fireCheck = true;
 			this.dx = 0;
-			this.dy = 0;			
+			this.dy = 0;
+			
+			setInterval(function(){
+				if(this.mana < 10) {
+					this.mana++;
+				}
+			}.bind(this), 1000);
 		} 
 		
 		control(){  
@@ -39,7 +46,7 @@
 			}
 
 			if(key.isPress("P")){
-				this.weapon = items.weapons[(++obj.wNum)%items.numOfWeapon]; 
+				this.weapon = items.weapons[(++this.wNum)%items.numOfWeapon]; 
 			}
 
 
@@ -73,35 +80,61 @@
 				size: 14
 			});
 		};
+		
+		get2dPosX(){
+			return parseInt(oPos.x / 128);
+		}
+		
+		get2dPosY(){
+			return parseInt(oPos.y / 128);
+		}
 	
 		collision(){
 			OOP.forArr(map.blocks, function(el){
 				if(this.obj.isIntersect(el) && el.isWall) 
 				{
-					this.obj.drawDynamicBox();
-					el.drawDynamicBox();
-					if(this.obj.dx > 0 && oPos.x+50< el.x)
-					{
+					/*this.obj.drawDynamicBox();
+					el.drawDynamicBox();*/
+                    if(this.dx > 0 && this.obj.x < el.x && map.isItWall(this.get2dPosX()+1, this.get2dPosY()))
+                    {
+                        this.dx = 0;
+                    }
+                    else if(this.dx < 0 && this.obj.x> el.x && map.isItWall(this.get2dPosX()-1, this.get2dPosY()))
+                    {
+                        this.dx = 0;
+                    }
+                    if(this.dy > 0 && this.obj.y < el.y && map.isItWall(this.get2dPosX(), this.get2dPosY()+1))
+                    {
+                        this.dy = 0;
+                    }
+                    else if(this.dy < 0 && this.obj.y > el.y && map.isItWall(this.get2dPosX(), this.get2dPosY()-1))
+                    {
+                        this.dy = 0;
+                    }
+					if(this.dx > 0 && this.dy > 0 && this.obj.x < el.x && this.obj.y < el.y && map.isItWall(this.get2dPosX()+1, this.get2dPosY()+1)){
 						this.dx = 0;
+						this.dy = 0;
 					}
-					else if(this.dx < 0 && oPos.x-50> el.x)
-					{
+					if(this.dx > 0 && this.dy < 0 && this.obj.x < el.x && this.obj.y > el.y && map.isItWall(this.get2dPosX()+1, this.get2dPosY()-1)){
 						this.dx = 0;
-					}
-					if(this.dy > 0 && oPos.y+50 < el.y)
-					{
-						this.dy = 0;
-					} 
-					else if(this.dy < 0 && oPos.y-0 > el.y)
-					{
 						this.dy = 0;
 					}
+					if(this.dx < 0 && this.dy > 0 && this.obj.x > el.x && this.obj.y < el.y && map.isItWall(this.get2dPosX()-1, this.get2dPosY()+1)){
+						this.dx = 0;
+						this.dy = 0;
+					}
+					if(this.dx < 0 && this.dy < 0 && this.obj.x > el.x && this.obj.y > el.y && map.isItWall(this.get2dPosX()-1, this.get2dPosY()-1)){
+						this.dx = 0;
+						this.dy = 0;
+					}
+					
 				} 
 			}.bind(this));
 		};
 		
 		checkHP() {
 			if(this.health > 10) this.health = 10;
+			if(this.health < 0) this.health = 7;
 		};
 	
 		do() {   
@@ -125,8 +158,8 @@
 		init() {
 			let an = this.anim;
 			this.obj = game.newAnimationObject({
-				x: 150,
-				y: 150,
+				x: 300,
+				y: 300,
 				animation: an,
 				w: 72,
 				h: 97
@@ -141,9 +174,9 @@
 	
 })();
 
-//var img = pjs.tiles.newImage("/game/assets/p2.png");
+//var img = pjs.tiles.newImage("assets/p2.png");
 
-var player = new Person("/game/assets/p2.png");
+var player = new Person("assets/p2.png");
 player.init();
 
 
