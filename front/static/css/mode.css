@@ -1,89 +1,68 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:400,700,900);
 
-html {
-  box-sizing: border-box;
-  height: 100%;
-}
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
 .msimg {
 	width: 50%;
 }
 
-.col-1 {
+.coll-1 {
    width: 33%;
    float: left;
    min-height: 100%;
 	background-color: #990066;
 }
 
-.col-2 {
+.coll-2 {
    width: 33%;
    min-height: 100%;
    float: left;
 	background-color: rgb(33,31,35);
 }
-.col-3 {
+.coll-3 {
    width: 33%;
    min-height: 100%;
    float: left;
    background-color: rgb(33,31,35);
 }
 
-.container {
-  margin: 0 auto;
-  width: 90%;
-  max-width: 1200px;
-}
-.group:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-.grid-1-5 {
+.gridd-1-5 {
   color: #fff;
-  border: 2px solid #5d4e65;   
+  border: 2px solid #5d4e65;
   min-height: 400px;
   padding: 1.25em;
   position: relative;
   text-align: center;
-  transition: all .2s ease-in-out;
-  
-  @media screen and (min-width: 700px) {
-    & {
-      float: left;
-      width: 50%;
-    }
-    &:nth-child(odd) {
-      clear: left;
-    }
-  }
-  
-  @media screen and (min-width: 800px) {
-    & {      
-      width: 33.3333333%;
-    }
-    &:nth-child(3n+1) {
-      clear: left;
-    }
-    &:nth-child(odd) {
-      clear: none;
-    }    
-  }
-  
-  @media screen and (min-width: 1120px) {
-    & {
-       width: 20%;
-    }
-    &:nth-child(odd), &:nth-child(3n+1) {
-       clear: none;
-    }    
-  }
-  
+  transition: all .2s ease-in-out;}
+
+@media screen and (min-width: 700px) { {
+  float: left;
+  width: 50%;
 }
-.grid-1-5:hover {
+  :nth-child(odd) {
+    clear: left;
+  }
+}
+
+@media screen and (min-width: 800px) { {
+  width: 33.3333333%;
+}
+  :nth-child(3n+1) {
+    clear: left;
+  }
+
+  :nth-child(odd) {
+    clear: none;
+  }
+}
+
+@media screen and (min-width: 1120px) { {
+  width: 20%;
+}
+  :nth-child(odd), :nth-child(3n+1) {
+    clear: none;
+  }
+}
+
+.gridd-1-5:hover {
   cursor: pointer;
   background-color: rgb(83,69,91);
   @include filter-gradient(#53455b, #201d22, vertical);
@@ -92,9 +71,9 @@ html {
   border-bottom: 2px solid #333;
   box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 1);
   transform: scale(1.025);
-  z-index: 2;
+  z-index: 2;}
 
-  &:before, &:after {
+  :before, :after {
     content: ""; 
     position: absolute; 
     background-color: #333;
@@ -105,19 +84,12 @@ html {
     width: 2px;    
   }
 
-  &:before { 
+  :before {
     left: -2px; 
   }
-  &:after { 
+  :after {
     right: -2px; 
-  }  
-
-  & .button {
-    background-color: rgb(238,122,54);
-    @include filter-gradient(#ee7a36, #eb495d, horizontal);
-    @include background-image(linear-gradient(left,  rgba(238,122,54,1) 0%,rgba(235,73,93,1) 100%));    
   }
-}
 
 .h3mode {
   font-size: 1.5em;
@@ -125,7 +97,7 @@ html {
   margin: 0 0 0.3333333333333333em;
 }
 
-.uppercase, .button, h2 {
+.uppercase{
   text-transform: uppercase;
 }
 sup, .small {
