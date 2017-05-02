@@ -4,12 +4,7 @@ import Rating from './../static/components/rating'
 import About from './../static/components/about'
 import Login from './../static/components/login'
 import Gamemode from './../static/components/gameMode'
-import renderMenu from './../static/renderedTemplates/menuTemplate'
-import renderRating from './../static/renderedTemplates/ratingTemplate'
-import renderAbout from './../static/renderedTemplates/aboutTemplate'
-import renderLogin from './../static/renderedTemplates/loginTemplate'
-import renderGameMode from './../static/renderedTemplates/gameModeTemplate'
-import {Router} from './router'
+//import {Router} from './router'
 
 export default class Manage {
     constructor() {
@@ -32,6 +27,12 @@ export default class Manage {
         }, false);
         this.myAudio.play();
         this.logicAuth = false;
+
+        this.renderMenu = require("./../componentTemplates/menuTemplate.pug");
+        this.renderRating = require("./../componentTemplates/ratingTemplate.pug");
+        this.renderAbout = require("./../componentTemplates/aboutTemplate.pug");
+        this.renderLogin = require("./../componentTemplates/loginTemplate.pug");
+        this.renderGameMode = require("./../componentTemplates/gameModeTemplate.pug");
 
         this.indPage.appendChild(this.menu.content);
         this.ratPage.appendChild(this.rating.content);
@@ -70,7 +71,7 @@ export default class Manage {
                 for (let i = 0; i < data.length; i++) {
                     playerNames.push(data[i].login);
                 }
-                this.rating.render(renderRating({'players': playerNames}));
+                this.rating.render(this.renderRating({'players': playerNames}));
                 this.backButtonEventsListener(this.logicAuth);
             }.bind(this));
         }).catch(err => {
@@ -86,7 +87,7 @@ export default class Manage {
         this.ratPage.hidden = true;
         this.aboutPage.hidden = true;
         this.backButton.hidden = false;
-        this.login.render(renderLogin());
+        this.login.render(this.renderLogin());
         this.login.on("submit", (event) => {
             if (document.getElementById("usernamesignup").value !== "") {
                 event.preventDefault();
@@ -111,7 +112,7 @@ export default class Manage {
         this.aboutPage.hidden = false;
         this.modePage.hidden = true;
         this.backButton.hidden = false;
-        this.about.render(renderAbout());
+        this.about.render(this.renderAbout());
         this.backButtonEventsListener(this.logicAuth);
     }
 
@@ -127,9 +128,9 @@ export default class Manage {
             });
             if (response.status === 200) {
                 this.logicAuth = true;
-                this.menu.render(renderMenu({'logicAuth': this.logicAuth}));
+                this.menu.render(this.renderMenu({'logicAuth': this.logicAuth}));
             } else {
-                this.menu.render(renderMenu({'logicAuth': this.logicAuth}));
+                this.menu.render(this.renderMenu({'logicAuth': this.logicAuth}));
             }
             this.menuEventsListener(this.logicAuth);
         }).catch(err => {
@@ -146,7 +147,7 @@ export default class Manage {
         this.aboutPage.hidden = true;
         this.backButton.hidden = false;
         //this.showLogin();
-        this.gameMode.render(renderGameMode());
+        this.gameMode.render(this.renderGameMode());
         this.backButtonEventsListener(this.logicAuth);
     }
 
