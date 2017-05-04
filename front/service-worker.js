@@ -24,11 +24,7 @@ const cacheUrls = [
 	'/static/components/login.js',
 	'/static/components/menu.js',
 	'/static/components/rating.js',
-	'/static/renderedTemplates/aboutTemplate.js',
-	'/static/renderedTemplates/gameModeTemplate.js',
-	'/static/renderedTemplates/loginTemplate.js',
-	'/static/renderedTemplates/menuTemplate.js',
-	'/static/renderedTemplates/ratingTemplate.js',
+
 
 
 	'/services/manage.js',
