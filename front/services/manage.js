@@ -154,12 +154,12 @@ export default class Manage {
         this.ratPage.hidden = true;
         this.loginPage.hidden = true;
         this.aboutPage.hidden = true;
-        this.backButton.hidden = false;
         this.backButton.style.visibility = "visible";
+        this.loadPage.hidden = true;
 
-        //this.showLogin();
+
         this.gameMode.render(this.renderGameMode());
-        //this.backButtonEventsListener(this.logicAuth);
+
     }
 
     userLogin(login, password, callback1 = null, callback2 = null) {
@@ -202,8 +202,8 @@ export default class Manage {
     menuEventsListener(logicAuth) {
         if (logicAuth) {
             document.getElementById('menuStartAuth').addEventListener("click", function () {
-                //this.showGameMode();
-                location.href = 'game/index.html';
+                this.showGameMode();
+                //location.href = 'game/index.html';
             }.bind(this));
             document.getElementById('menuLogout').addEventListener("click", function () {
                 this.userLogout();
