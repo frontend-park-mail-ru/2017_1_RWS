@@ -415,25 +415,13 @@ class Manage {
         this.backButtonEventsListener();
     }
 
-    sound() {
-        let s = document.getElementById("soundButton");
-
-        if (!this.myAudio.paused) {
-            s.src = "./../resources/soundOff.png";
-            this.myAudio.pause();
-        } else {
-            s.src = "./../resources/soundOn.png";
-            this.myAudio.play();
-        }
-    }
-
     showRating() {
         this.loadPage.hidden = false;
         this.indPage.hidden = true;
         this.ratPage.hidden = true;
         this.aboutPage.hidden = true;
         this.modePage.hidden = true;
-        //this.backButton.hidden = false;
+        this.backButton.style.visibility = "visible";
         this.loginPage.hidden = true;
 
         this.siteService.makeRating().then(response => {
@@ -445,15 +433,10 @@ class Manage {
                 this.rating.render(this.renderRating({ 'players': playerNames }));
                 this.loadPage.hidden = true;
                 this.ratPage.hidden = false;
-                //this.backButtonEventsListener(this.logicAuth);
             }.bind(this));
         }).catch(err => {
             console.log('fetch error: ', err);
         });
-        //this.backButtonEventsListener(this.logicAuth);
-
-        // this.loadPage.hidden = true;
-        // this.ratPage.hidden = false;
     }
 
     showLogin() {
@@ -462,7 +445,7 @@ class Manage {
         this.modePage.hidden = true;
         this.ratPage.hidden = true;
         this.aboutPage.hidden = true;
-        //this.backButton.hidden = false;
+        this.backButton.style.visibility = "visible";
         this.loadPage.hidden = true;
 
         this.login.render(this.renderLogin());
@@ -478,8 +461,6 @@ class Manage {
             }
             this.showInd();
         });
-
-        //this.backButtonEventsListener(this.logicAuth);
     }
 
     showAbout() {
@@ -490,9 +471,9 @@ class Manage {
         this.loadPage.hidden = true;
         this.ratPage.hidden = true;
         this.loginPage.hidden = true;
+        this.backButton.style.visibility = "visible";
 
         this.about.render(this.renderAbout());
-        //this.backButtonEventsListener(this.logicAuth);
     }
 
     showInd() {
@@ -502,7 +483,7 @@ class Manage {
         this.loginPage.hidden = true;
         this.aboutPage.hidden = true;
         this.modePage.hidden = true;
-        //this.backButton.style.visibility = hidden;
+        this.backButton.style.visibility = "hidden";
 
         this.siteService.checkAuth().then(response => {
             response.json().then(function (data) {
@@ -520,7 +501,6 @@ class Manage {
         }).catch(err => {
             console.log('fetch error: ', err);
         });
-        //this.backButton.hidden = true;
     }
 
     showGameMode() {
@@ -530,6 +510,8 @@ class Manage {
         this.loginPage.hidden = true;
         this.aboutPage.hidden = true;
         this.backButton.hidden = false;
+        this.backButton.style.visibility = "visible";
+
         //this.showLogin();
         this.gameMode.render(this.renderGameMode());
         //this.backButtonEventsListener(this.logicAuth);
@@ -570,10 +552,6 @@ class Manage {
             console.log('fetch error: ', err);
         });
         this.showInd();
-    }
-
-    makeRating() {
-        this.siteService.makeRating();
     }
 
     menuEventsListener(logicAuth) {
