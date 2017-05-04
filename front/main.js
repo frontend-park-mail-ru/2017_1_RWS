@@ -5,7 +5,7 @@ import {Router} from './services/router'
 
     let manage = new Manage();
 
-    manage.sound();
+    //manage.sound();
     manage.showInd();
 
 })();

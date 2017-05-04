@@ -15,6 +15,7 @@ export default class Manage {
         this.modePage = document.getElementById("mode");
         this.backButton = document.getElementById("backButton");
         this.loadPage = document.getElementById("load");
+        //this.soundButton = document.getElementById("soundButton");
 
         this.siteService = new SiteService();
 
@@ -30,6 +31,7 @@ export default class Manage {
         }, false);
         this.myAudio.play();
         this.logicAuth = false;
+        this.soundButtonEventsListener();
 
         this.renderMenu = require("./../componentTemplates/menuTemplate.pug");
         this.renderRating = require("./../componentTemplates/ratingTemplate.pug");
@@ -53,19 +55,6 @@ export default class Manage {
         this.backButtonEventsListener();
     }
 
-
-    sound() {
-        let s = document.getElementById("sBut");
-        if (!this.myAudio.paused) {
-            s.src = "./../resources/soundOff.png";
-            this.myAudio.pause();
-        }
-        else {
-            s.src = "./../resources/soundOn.png";
-            this.myAudio.play();
-        }
-    }
-
     showRating() {
         this.loadPage.hidden = false;
         this.indPage.hidden = true;
@@ -84,15 +73,10 @@ export default class Manage {
                 this.rating.render(this.renderRating({'players': playerNames}));
                 this.loadPage.hidden = true;
                 this.ratPage.hidden = false;
-                //this.backButtonEventsListener(this.logicAuth);
             }.bind(this));
         }).catch(err => {
             console.log('fetch error: ', err);
         });
-        //this.backButtonEventsListener(this.logicAuth);
-
-        // this.loadPage.hidden = true;
-        // this.ratPage.hidden = false;
     }
 
     showLogin() {
@@ -120,8 +104,6 @@ export default class Manage {
             }
             this.showInd();
         });
-
-        //this.backButtonEventsListener(this.logicAuth);
     }
 
     showAbout() {
@@ -134,7 +116,7 @@ export default class Manage {
         this.loginPage.hidden = true;
 
         this.about.render(this.renderAbout());
-        //this.backButtonEventsListener(this.logicAuth);
+
     }
 
     showInd() {
@@ -162,7 +144,7 @@ export default class Manage {
         }).catch(err => {
             console.log('fetch error: ', err);
         });
-        //this.backButton.hidden = true;
+
     }
 
     showGameMode() {
@@ -214,10 +196,6 @@ export default class Manage {
         this.showInd();
     }
 
-    makeRating() {
-        this.siteService.makeRating();
-    }
-
     menuEventsListener(logicAuth) {
         if (logicAuth) {
             document.getElementById('menuStartAuth').addEventListener("click", function () {
@@ -252,6 +230,21 @@ export default class Manage {
             //Router.nav('/');
             this.showInd();
             console.log("backButtonEventListenet");
+        }.bind(this));
+    }
+
+    soundButtonEventsListener(){
+        document.getElementById('soundButton').addEventListener("click", function () {
+            let s = document.getElementById("soundButton");
+
+            if (!this.myAudio.paused) {
+                s.src = "./../resources/soundOff.png";
+                this.myAudio.pause();
+            }
+            else {
+                s.src = "./../resources/soundOn.png";
+                this.myAudio.play();
+            }
         }.bind(this));
     }
 }

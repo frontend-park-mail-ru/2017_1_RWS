@@ -375,6 +375,7 @@ class Manage {
         this.modePage = document.getElementById("mode");
         this.backButton = document.getElementById("backButton");
         this.loadPage = document.getElementById("load");
+        //this.soundButton = document.getElementById("soundButton");
 
         this.siteService = new __WEBPACK_IMPORTED_MODULE_0__siteService__["a" /* default */]();
 
@@ -390,6 +391,7 @@ class Manage {
         }, false);
         this.myAudio.play();
         this.logicAuth = false;
+        this.soundButtonEventsListener();
 
         this.renderMenu = __webpack_require__(15);
         this.renderRating = __webpack_require__(16);
@@ -414,7 +416,8 @@ class Manage {
     }
 
     sound() {
-        let s = document.getElementById("sBut");
+        let s = document.getElementById("soundButton");
+
         if (!this.myAudio.paused) {
             s.src = "./../resources/soundOff.png";
             this.myAudio.pause();
@@ -608,6 +611,20 @@ class Manage {
             console.log("backButtonEventListenet");
         }.bind(this));
     }
+
+    soundButtonEventsListener() {
+        document.getElementById('soundButton').addEventListener("click", function () {
+            let s = document.getElementById("soundButton");
+
+            if (!this.myAudio.paused) {
+                s.src = "./../resources/soundOff.png";
+                this.myAudio.pause();
+            } else {
+                s.src = "./../resources/soundOn.png";
+                this.myAudio.play();
+            }
+        }.bind(this));
+    }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Manage;
 
@@ -706,7 +723,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     let manage = new __WEBPACK_IMPORTED_MODULE_0__services_manage__["a" /* default */]();
 
-    manage.sound();
+    //manage.sound();
     manage.showInd();
 })();
 
