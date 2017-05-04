@@ -49,6 +49,8 @@ export default class Manage {
         this.aboutPage.hidden = true;
         this.modePage.hidden = true;
         this.backButton.hidden = true;
+
+        this.backButtonEventsListener();
     }
 
 
@@ -70,7 +72,7 @@ export default class Manage {
         this.ratPage.hidden = true;
         this.aboutPage.hidden = true;
         this.modePage.hidden = true;
-        this.backButton.hidden = false;
+        //this.backButton.hidden = false;
         this.loginPage.hidden = true;
 
         this.siteService.makeRating().then(response => {
@@ -82,15 +84,15 @@ export default class Manage {
                 this.rating.render(this.renderRating({'players': playerNames}));
                 this.loadPage.hidden = true;
                 this.ratPage.hidden = false;
-                this.backButtonEventsListener(this.logicAuth);
+                //this.backButtonEventsListener(this.logicAuth);
             }.bind(this));
         }).catch(err => {
             console.log('fetch error: ', err);
         });
-        this.backButtonEventsListener(this.logicAuth);
+        //this.backButtonEventsListener(this.logicAuth);
 
-        this.loadPage.hidden = false;
-        this.ratPage.hidden = false;
+        // this.loadPage.hidden = true;
+        // this.ratPage.hidden = false;
     }
 
     showLogin() {
@@ -99,7 +101,7 @@ export default class Manage {
         this.modePage.hidden = true;
         this.ratPage.hidden = true;
         this.aboutPage.hidden = true;
-        this.backButton.hidden = false;
+        //this.backButton.hidden = false;
         this.loadPage.hidden = true;
 
         this.login.render(this.renderLogin());
@@ -119,7 +121,7 @@ export default class Manage {
             this.showInd();
         });
 
-        this.backButtonEventsListener(this.logicAuth);
+        //this.backButtonEventsListener(this.logicAuth);
     }
 
     showAbout() {
@@ -132,7 +134,7 @@ export default class Manage {
         this.loginPage.hidden = true;
 
         this.about.render(this.renderAbout());
-        this.backButtonEventsListener(this.logicAuth);
+        //this.backButtonEventsListener(this.logicAuth);
     }
 
     showInd() {
@@ -142,7 +144,7 @@ export default class Manage {
         this.loginPage.hidden = true;
         this.aboutPage.hidden = true;
         this.modePage.hidden = true;
-        this.backButton.hidden = false;
+        //this.backButton.style.visibility = hidden;
 
         this.siteService.checkAuth().then(response => {
             response.json().then(function (data) {
@@ -172,7 +174,7 @@ export default class Manage {
         this.backButton.hidden = false;
         //this.showLogin();
         this.gameMode.render(this.renderGameMode());
-        this.backButtonEventsListener(this.logicAuth);
+        //this.backButtonEventsListener(this.logicAuth);
     }
 
     userLogin(login, password, callback1 = null, callback2 = null) {
@@ -236,7 +238,7 @@ export default class Manage {
         document.getElementById('menuRating').addEventListener("click", function () {
             this.showRating();
             //Router.nav('/rating');
-            this.makeRating();
+            //this.makeRating();
             //rating.render(renderRating({'players': playerNames}));
         }.bind(this));
         document.getElementById('menuAbout').addEventListener("click", function () {
@@ -245,11 +247,11 @@ export default class Manage {
         }.bind(this));
     }
 
-    backButtonEventsListener(logicAuth){
+    backButtonEventsListener(){
         document.getElementById('backButton').addEventListener("click", function () {
             //Router.nav('/');
             this.showInd();
-            this.menuEventsListener(logicAuth);
+            console.log("backButtonEventListenet");
         }.bind(this));
     }
 }
