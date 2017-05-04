@@ -68,8 +68,11 @@ export default class Manage {
         this.loadPage.hidden = false;
         this.indPage.hidden = true;
         this.ratPage.hidden = true;
+        this.aboutPage.hidden = true;
         this.modePage.hidden = true;
         this.backButton.hidden = false;
+        this.loginPage.hidden = true;
+
         this.siteService.makeRating().then(response => {
             response.json().then(function (data) {
                 let playerNames = [];
@@ -97,6 +100,8 @@ export default class Manage {
         this.ratPage.hidden = true;
         this.aboutPage.hidden = true;
         this.backButton.hidden = false;
+        this.loadPage.hidden = true;
+
         this.login.render(this.renderLogin());
         this.login.on("submit", (event) => {
             if (document.getElementById("usernamesignup").value !== "") {
@@ -122,6 +127,10 @@ export default class Manage {
         this.aboutPage.hidden = false;
         this.modePage.hidden = true;
         this.backButton.hidden = false;
+        this.loadPage.hidden = true;
+        this.ratPage.hidden = true;
+        this.loginPage.hidden = true;
+
         this.about.render(this.renderAbout());
         this.backButtonEventsListener(this.logicAuth);
     }
@@ -133,6 +142,8 @@ export default class Manage {
         this.loginPage.hidden = true;
         this.aboutPage.hidden = true;
         this.modePage.hidden = true;
+        this.backButton.hidden = false;
+
         this.siteService.checkAuth().then(response => {
             response.json().then(function (data) {
                 console.log(data);
@@ -149,7 +160,7 @@ export default class Manage {
         }).catch(err => {
             console.log('fetch error: ', err);
         });
-        this.backButton.hidden = true;
+        //this.backButton.hidden = true;
     }
 
     showGameMode() {
