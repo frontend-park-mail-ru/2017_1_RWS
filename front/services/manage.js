@@ -14,7 +14,10 @@ export default class Manage {
         this.aboutPage = document.getElementById("about");
         this.modePage = document.getElementById("mode");
         this.backButton = document.getElementById("backButton");
+        this.loadPage = document.getElementById("load");
+
         this.siteService = new SiteService();
+
         this.menu = new Menu();
         this.rating = new Rating();
         this.about = new About();
@@ -40,6 +43,7 @@ export default class Manage {
         this.aboutPage.appendChild(this.about.content);
         this.modePage.appendChild(this.gameMode.content);
 
+        this.loadPage.hidden = false;
         this.ratPage.hidden = true;
         this.loginPage.hidden = true;
         this.aboutPage.hidden = true;
@@ -61,8 +65,9 @@ export default class Manage {
     }
 
     showRating() {
+        this.loadPage.hidden = false;
         this.indPage.hidden = true;
-        this.ratPage.hidden = false;
+        this.ratPage.hidden = true;
         this.modePage.hidden = true;
         this.backButton.hidden = false;
         this.siteService.makeRating().then(response => {
@@ -72,12 +77,17 @@ export default class Manage {
                     playerNames.push(data[i].login);
                 }
                 this.rating.render(this.renderRating({'players': playerNames}));
+                this.loadPage.hidden = true;
+                this.ratPage.hidden = false;
                 this.backButtonEventsListener(this.logicAuth);
             }.bind(this));
         }).catch(err => {
             console.log('fetch error: ', err);
         });
         this.backButtonEventsListener(this.logicAuth);
+
+        this.loadPage.hidden = false;
+        this.ratPage.hidden = false;
     }
 
     showLogin() {
@@ -117,7 +127,8 @@ export default class Manage {
     }
 
     showInd() {
-        this.indPage.hidden = false;
+        this.loadPage.hidden = false;
+        this.indPage.hidden = true;
         this.ratPage.hidden = true;
         this.loginPage.hidden = true;
         this.aboutPage.hidden = true;
@@ -133,6 +144,8 @@ export default class Manage {
                 this.menu.render(this.renderMenu({'logicAuth': this.logicAuth}));
             }
             this.menuEventsListener(this.logicAuth);
+            this.loadPage.hidden = true;
+            this.indPage.hidden = false;
         }).catch(err => {
             console.log('fetch error: ', err);
         });
