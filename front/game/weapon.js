@@ -47,7 +47,7 @@
 		};
 		
 		fire() {
-			if (mouse.isDown("LEFT") && player.fireCheck) {
+			if ((mouse.isDown("LEFT") || (shootJoystick.deltaX() != 0 || shootJoystick.deltaY() != 0)) && player.fireCheck) {
 				player.fireCheck = false;
 				
 				switch (player.wNum % 5) {
@@ -115,9 +115,12 @@
 		moveWeapon() {
 			OOP.forArr(items.weapons, function (el) {
 				el.move(point(player.dx, player.dy));
-				el.rotate(mouse.getPosition());
-
-			});
+				//el.rotate(mouse.getPosition());
+                if(shootJoystick.deltaX() == 0 && shootJoystick.deltaY() == 0)
+                    el.rotate(mouse.getPosition());
+                else
+                    el.rotate(point(oPos.x+shootJoystick.deltaX(), oPos.y+shootJoystick.deltaY()));
+            });
 			if (player.addSpec) {
 				player.addSpec.move(point(player.dx, player.dy));
 			}
