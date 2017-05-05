@@ -202,8 +202,8 @@ export default class Manage {
     menuEventsListener(logicAuth) {
         if (logicAuth) {
             document.getElementById('menuStartAuth').addEventListener("click", function () {
-                this.showGameMode();
-                //location.href = 'game/index.html';
+                //this.showGameMode();
+                location.href = 'game/index.html';
             }.bind(this));
             document.getElementById('menuLogout').addEventListener("click", function () {
                 this.userLogout();

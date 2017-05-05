@@ -4,7 +4,7 @@
 
 @font-face {
     font-family: pixel;
-    src: url(/fonts/joystix.otf);
+    src: url(../fonts/joystix.otf);
 }
 
 .row {
