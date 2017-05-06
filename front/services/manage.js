@@ -102,7 +102,6 @@ export default class Manage {
                 this.userLogin(document.getElementById("username").value, document.getElementById("password").value, null, null);
 
             }
-            this.showInd();
         });
     }
 
@@ -131,6 +130,7 @@ export default class Manage {
 
         this.siteService.checkAuth().then(response => {
             response.json().then(function (data) {
+                console.log('into ind');
                 console.log(data);
             });
             if (response.status === 200) {
@@ -163,14 +163,18 @@ export default class Manage {
     }
 
     userLogin(login, password, callback1 = null, callback2 = null) {
+        console.log("into login");
         this.siteService.login(login, password, callback1 = null, callback2 = null).then(response => {
             if (response.status === 200) {
                 this.logicAuth = true;
+                console.log("into login-200");
             }
+            console.log("into login-200");
+            this.showInd();
         }).catch(err => {
             console.log('fetch error: ', err);
         });
-        this.showInd();
+        //this.showInd();
     }
 
     userRegister(login, email, password, callback1 = null, callback2 = null) {
@@ -181,22 +185,25 @@ export default class Manage {
             if (response.status === 200) {
                 this.logicAuth = true;
             }
+            this.showInd();
         }).catch(err => {
             console.log('fetch error: ', err);
         });
-        this.showInd();
+        //this.showInd();
     }
 
     userLogout() {
+        console.log("start logout");
         this.siteService.logout().then(response => {
-            console.log("start logout");
+            this.showInd();
+
             if (response.status === 200) {
                 this.logicAuth = false;
             }
         }).catch(err => {
             console.log('fetch error: ', err);
         });
-        this.showInd();
+
     }
 
     menuEventsListener(logicAuth) {
@@ -232,7 +239,7 @@ export default class Manage {
         document.getElementById('backButton').addEventListener("click", function () {
             //Router.nav('/');
             this.showInd();
-            console.log("backButtonEventListenet");
+            console.log("backButtonEventListener");
         }.bind(this));
     }
 

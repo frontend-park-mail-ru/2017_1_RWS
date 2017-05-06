@@ -459,7 +459,6 @@ class Manage {
 
                 this.userLogin(document.getElementById("username").value, document.getElementById("password").value, null, null);
             }
-            this.showInd();
         });
     }
 
@@ -487,6 +486,7 @@ class Manage {
 
         this.siteService.checkAuth().then(response => {
             response.json().then(function (data) {
+                console.log('into ind');
                 console.log(data);
             });
             if (response.status === 200) {
@@ -516,14 +516,18 @@ class Manage {
     }
 
     userLogin(login, password, callback1 = null, callback2 = null) {
+        console.log("into login");
         this.siteService.login(login, password, callback1 = null, callback2 = null).then(response => {
             if (response.status === 200) {
                 this.logicAuth = true;
+                console.log("into login-200");
             }
+            console.log("into login-200");
+            this.showInd();
         }).catch(err => {
             console.log('fetch error: ', err);
         });
-        this.showInd();
+        //this.showInd();
     }
 
     userRegister(login, email, password, callback1 = null, callback2 = null) {
@@ -534,22 +538,24 @@ class Manage {
             if (response.status === 200) {
                 this.logicAuth = true;
             }
+            this.showInd();
         }).catch(err => {
             console.log('fetch error: ', err);
         });
-        this.showInd();
+        //this.showInd();
     }
 
     userLogout() {
+        console.log("start logout");
         this.siteService.logout().then(response => {
-            console.log("start logout");
+            this.showInd();
+
             if (response.status === 200) {
                 this.logicAuth = false;
             }
         }).catch(err => {
             console.log('fetch error: ', err);
         });
-        this.showInd();
     }
 
     menuEventsListener(logicAuth) {
@@ -584,7 +590,7 @@ class Manage {
         document.getElementById('backButton').addEventListener("click", function () {
             //Router.nav('/');
             this.showInd();
-            console.log("backButtonEventListenet");
+            console.log("backButtonEventListener");
         }.bind(this));
     }
 
@@ -731,59 +737,6 @@ class HTTP {
         return fetch(address, req);
     }
 
-    /*set BaseURL(value) {
-        this._baseURL = value;
-    }
-      get BaseURL() {
-        return this._baseURL;
-    }
-      get(address, callback = null) {
-        const xhr = new XMLHttpRequest();
-          xhr.withCredentials = true;
-        let url = '${this._baseURL}${address}';
-        xhr.open('GET', address, true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState !== 4) {
-                return;
-            }
-            if (typeof callback === 'function') {
-                callback(xhr);
-            }
-        };
-        xhr.send(null);
-    }
-      delete(address, callback = null) {
-        const xhr = new XMLHttpRequest();
-          xhr.withCredentials = true;
-        let url = '${this._baseURL}${address}';
-        xhr.open('DELETE', address, true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState !== 4) {
-                return;
-            }
-            if (typeof callback === 'function') {
-                callback(xhr);
-            }
-        }
-        xhr.send(null);
-    }
-      post(address, body, callback = null) {
-        const xhr = new XMLHttpRequest();
-        let url = '${this._baseURL}${address}';
-        xhr.open('POST', address, true);
-        xhr.withCredentials = true;
-          xhr.setRequestHeader('Content-Type', 'application/json');
-          xhr.onreadystatechange = function () {
-            if (xhr.readyState !== 4) {
-                return;
-            }
-            if (typeof callback === 'function') {
-                callback(xhr);
-            }
-        }
-        console.log(JSON.stringify(body));
-        xhr.send(JSON.stringify(body));
-      }*/
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = HTTP;
 
@@ -872,99 +825,16 @@ class GameMode extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* defau
 
 
 class Login extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default */] {
-  render(renderTemplate) {
-    this.content.innerHTML = renderTemplate;
-  }
+    render(renderTemplate) {
+        this.content.innerHTML = renderTemplate;
+    }
 
-  on(type, callback) {
-    this.content.addEventListener(type, callback);
-  }
+    on(type, callback) {
+        this.content.addEventListener(type, callback);
+    }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Login;
 
-/* class Login {
- constructor(options = {data: {}}) {
- this.data = options.data;
- this.el = options.el;
-
- this.render();
- }
-
- render() {
- this._updateHtml()
- }
-
- /*_getLogFields() {
- let {logfields = []} = this.data;
-
- return logfields.map(field => {
- return `
- <div class = "form-group" >
- <input type = "${field.input}"	name = "${field.name}" id = "${field.name}" tabindex = "${field.tabindex}" class = "form-control" placeholder = "${field.placeholder}">
- </div>
- `
- }).join(' ');
- }*/
-
-/*_getRegFields() {
- let {regfields = []} = this.data;
-
- /*return regfields.map(field => {
- return `
- <div class = "form-group" >
- <input type = "${field.input}"	name = "${field.name}" id = "${field.name}" tabindex = "${field.tabindex}" class = "form-control" placeholder = "${field.placeholder}">
- </div>
- `
- }).join(' ');
- }*/
-
-/* _updateHtml() {
- this.el.innerHTML = `
- <div class="mainmenu">
- <h1>Game Title</h1> </div>
- <div class="mainmenu">
- <a class="hiddenanchor" id="toregister"></a>
- <a class="hiddenanchor" id="tologin"></a>
- <div id="wrapper">
- <div id="login" class="animate form">
- <form action="" autocomplete="on">
- <h4><a href="#tologin" class="to_register" >Log In </a><a href="#toregister" class="to_register" style="text-align: right">Sign Up</a></h4>
- <p>
- <input id="username" name="username" required="required" type="text" placeholder="Username" /> </p>
- <p>
- <input id="password" name="password" required="required" type="password" placeholder="Password" /> </p>
- <p class="keeplogin">
- <input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" />
- <label for="loginkeeping">Keep me logged in</label>
- </p>
- <p class="login button">
- <input type="submit" value="Login" /> </p>
- </form>
- </div>
- <div id="register" class="animate form">
- <form action="" autocomplete="on">
- <h4><a href="#tologin" class="to_register">Log In </a><a href="#toregister" class="to_register" style="text-align: right">Sign Up</a></h4>
- <p>
- <input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="Username" /> </p>
- <p>
- <input id="emailsignup" name="emailsignup" required="required" type="email" placeholder="Email" /> </p>
- <p>
- <input id="passwordsignup" name="passwordsignup" required="required" type="password" placeholder="Password" /> </p>
- <p>
- <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="Repeat password" /> </p>
- <p class="signin button">
- <input type="submit" value="Sign up" /> </p>
- </form>
- </div>
- </div>
- </div>
- `;
- }*/
-
-/*on(type, callback) {
- this.el.addEventListener(type, callback);
- }
- }*/
 
 /***/ }),
 /* 10 */
