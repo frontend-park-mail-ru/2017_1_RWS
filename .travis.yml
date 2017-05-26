@@ -1,0 +1,18 @@
+dist: trusty
+sudo: required
+services:
+  - docker
+
+language: node_js
+node_js:
+# [- Your NodeJS version]
+- '7'
+
+branches:
+  only:
+  # - Your branch name
+    - rk3
+
+
+script:
+- ./build.sh
