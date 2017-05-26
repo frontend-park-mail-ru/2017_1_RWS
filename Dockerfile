@@ -1,9 +1,11 @@
+export REGISTRY=registry.heroku.com
+
 FROM nginx:1.13.0-alpine
 
 RUN apk add --update bash
 
 COPY ./nginx.conf /etc/nginx
-COPY ./front /usr/share/nginx/site/html
+COPY ./front/html /usr/share/nginx/site/html
 COPY ./front/game /usr/share/nginx/site/game
 COPY ./front/services /usr/share/nginx/site/services
 COPY ./front/static/ /usr/share/nginx/site/static
