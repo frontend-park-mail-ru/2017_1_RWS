@@ -6,8 +6,8 @@ export default class Transport {
         Transport._instance = this;
 
 
-        const address = ['https', 'https:'].includes(location.protocol) ? `wss://${location.host}/ws`
-            : `ws://${location.host}/ws`;
+        const address = ['https', 'https:'].includes(location.protocol) ? `wss://${location.host}/game`
+            : `ws://${location.host}/game`;
 
         this.ws = new WebSocket(address);
         this.ws.onopen = function (event) {

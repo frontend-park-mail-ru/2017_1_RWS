@@ -1,13 +1,24 @@
 import SiteService from './siteService'
-import Menu from './../static/components/menu'
-import Rating from './../static/components/rating'
-import About from './../static/components/about'
-import Login from './../static/components/login'
-import Gamemode from './../static/components/gameMode'
-//import {Router} from './router'
+import Menu from '../static/components/menu'
+import Rating from '../static/components/rating'
+import About from '../static/components/about'
+import Login from '../static/components/login'
+import Gamemode from '../static/components/gameMode'
+//import Router from './router'
 
 export default class Manage {
     constructor() {
+        this.router = window.router;
+        window.onpopstate = function(e){
+            e.preventDefault();
+            let l = getLocation(document.location.href);
+            this.router.nav(l.pathname);
+        };
+
+        let str = getLocation(document.location.href).pathname;
+        alert(str.substring(0, str.length - 1));
+        this.router.nav(str.substring(0, str.length - 1));
+
         this.indPage = document.getElementById("ind");
         this.loginPage = document.getElementById("log");
         this.ratPage = document.getElementById("rat");
@@ -29,15 +40,17 @@ export default class Manage {
             this.currentTime = 0;
             this.play();
         }, false);
-        this.myAudio.play();
+        //this.myAudio.play();
         this.logicAuth = false;
         this.soundButtonEventsListener();
 
-        this.renderMenu = require("./../componentTemplates/menuTemplate.pug");
-        this.renderRating = require("./../componentTemplates/ratingTemplate.pug");
-        this.renderAbout = require("./../componentTemplates/aboutTemplate.pug");
-        this.renderLogin = require("./../componentTemplates/loginTemplate.pug");
-        this.renderGameMode = require("./../componentTemplates/gameModeTemplate.pug");
+
+
+        this.renderMenu = require("./../static/components/menu/menuTemplate.pug");
+        this.renderRating = require("./../static/components/rating/ratingTemplate.pug");
+        this.renderAbout = require("./../static/components/about/aboutTemplate.pug");
+        this.renderLogin = require("./../static/components/login/loginTemplate.pug");
+        this.renderGameMode = require("./../static/components/gameMode/gameModeTemplate.pug");
 
         this.indPage.appendChild(this.menu.content);
         this.ratPage.appendChild(this.rating.content);
@@ -80,6 +93,7 @@ export default class Manage {
     }
 
     showLogin() {
+        document.getElementById("PointJS-canvas_0").hidden = true;
         this.indPage.hidden = true;
         this.loginPage.hidden = false;
         this.modePage.hidden = true;
@@ -130,8 +144,8 @@ export default class Manage {
 
         this.siteService.checkAuth().then(response => {
             response.json().then(function (data) {
-                console.log('into ind');
-                console.log(data);
+                //console.log('into ind');
+                //console.log(data);
             });
             if (response.status === 200) {
                 this.logicAuth = true;
@@ -162,7 +176,14 @@ export default class Manage {
 
     }
 
+    showGame() {
+        game.startLoop("l1");
+        document.getElementById("PointJS-canvas_0").classList.remove("game-canvas-not");
+        document.getElementById("PointJS-canvas_0").classList.add("game-canvas-active");
+    }
+
     userLogin(login, password, callback1 = null, callback2 = null) {
+
         console.log("into login");
         this.siteService.login(login, password, callback1 = null, callback2 = null).then(response => {
             if (response.status === 200) {
@@ -170,32 +191,35 @@ export default class Manage {
                 console.log("into login-200");
             }
             console.log("into login-200");
-            this.showInd();
+            //this.showInd();
+            game.startLoop("l1");
         }).catch(err => {
             console.log('fetch error: ', err);
         });
-        //this.showInd();
+
     }
 
     userRegister(login, email, password, callback1 = null, callback2 = null) {
+        console.log("into userRegister");
         this.siteService.register(login, email, password, callback1 = null, callback2 = null).then(response => {
             response.json().then(function (data) {
                 console.log(data);
             });
             if (response.status === 200) {
                 this.logicAuth = true;
+                location.href = 'game/index.html';
             }
-            this.showInd();
+
+
         }).catch(err => {
             console.log('fetch error: ', err);
         });
-        //this.showInd();
     }
 
     userLogout() {
         console.log("start logout");
         this.siteService.logout().then(response => {
-            this.showInd();
+            this.router.nav('/');
 
             if (response.status === 200) {
                 this.logicAuth = false;
@@ -210,36 +234,45 @@ export default class Manage {
         if (logicAuth) {
             document.getElementById('menuStartAuth').addEventListener("click", function () {
                 //this.showGameMode();
-                location.href = 'game/index.html';
+                //location.href = 'game/index.html';
+                // game.startLoop("l1");
+                // document.getElementById("PointJS-canvas_0").classList.remove("game-canvas-not");
+                // document.getElementById("PointJS-canvas_0").classList.add("game-canvas-active");
+                //let startGame = new StartGame();
+                this.router.nav('/game');
             }.bind(this));
             document.getElementById('menuLogout').addEventListener("click", function () {
                 this.userLogout();
-                //Router.nav('/login');
+                this.router.nav('/');
             }.bind(this));
         } else {
             document.getElementById('menuStartNotAuth').addEventListener("click", function () {
-                this.showLogin();
+                // game.startLoop("l1");
+                // document.getElementById("PointJS-canvas_0").classList.remove("game-canvas-not");
+                // document.getElementById("PointJS-canvas_0").classList.add("game-canvas-active"); //TODO: fix login
+                //this.showLogin();
+                this.router.nav('/game');
                 //Router.nav('/login');
             }.bind(this));
 
         }
         document.getElementById('menuRating').addEventListener("click", function () {
-            this.showRating();
-            //Router.nav('/rating');
+            //window.showRating();
+            this.router.nav('/rating');
             //this.makeRating();
             //rating.render(renderRating({'players': playerNames}));
         }.bind(this));
         document.getElementById('menuAbout').addEventListener("click", function () {
-            this.showAbout();
-            //Router.nav('/about');
+            //this.showAbout();
+            this.router.nav('/about');
         }.bind(this));
     }
 
     backButtonEventsListener(){
         document.getElementById('backButton').addEventListener("click", function () {
-            //Router.nav('/');
-            this.showInd();
-            console.log("backButtonEventListener");
+            this.router.nav('/');
+            // this.showInd();
+            // console.log("backButtonEventListener");
         }.bind(this));
     }
 
@@ -258,3 +291,7 @@ export default class Manage {
         }.bind(this));
     }
 }
+
+window.Manage = Manage;
+
+//var manage = new Manage();

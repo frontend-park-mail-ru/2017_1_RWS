@@ -191,7 +191,7 @@ shootJoystick.addEventListener('touchStartValidation', function (event) {
 
 //var img = pjs.tiles.newImage("assets/p2.png");
 
-var player = new Person("assets/p2.png");
+var player = new Person("game/assets/p2.png");
 player.init();
 
 
