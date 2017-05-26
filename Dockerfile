@@ -1,5 +1,3 @@
-export REGISTRY=registry.heroku.com
-
 FROM nginx:1.13.0-alpine
 
 RUN apk add --update bash
