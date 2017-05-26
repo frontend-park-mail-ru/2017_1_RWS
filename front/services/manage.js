@@ -207,7 +207,8 @@ export default class Manage {
             });
             if (response.status === 200) {
                 this.logicAuth = true;
-                location.href = 'game/index.html';
+                //location.href = 'game/index.html';
+                this.router.nav('/game');
             }
 
 
