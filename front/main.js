@@ -1,5 +1,5 @@
-import Manage  from './services/manage'
-import Router from './services/router'
+import Manage  from './static/services/manage'
+import Router from './static/services/router'
 
 (function () {
 

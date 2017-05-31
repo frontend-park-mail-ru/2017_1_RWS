@@ -352,12 +352,12 @@ function pug_rethrow(err, filename, lineno, str){
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__siteService__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__static_components_menu__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__static_components_rating__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__static_components_about__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__static_components_login__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__static_components_gameMode__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__siteService__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_menu__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_rating__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_about__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_login__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_gameMode__ = __webpack_require__(7);
 
 
 
@@ -376,7 +376,6 @@ class Manage {
         };
 
         let str = getLocation(document.location.href).pathname;
-        alert(str.substring(0, str.length - 1));
         this.router.nav(str.substring(0, str.length - 1));
 
         this.indPage = document.getElementById("ind");
@@ -390,11 +389,11 @@ class Manage {
 
         this.siteService = new __WEBPACK_IMPORTED_MODULE_0__siteService__["a" /* default */]();
 
-        this.menu = new __WEBPACK_IMPORTED_MODULE_1__static_components_menu__["a" /* default */]();
-        this.rating = new __WEBPACK_IMPORTED_MODULE_2__static_components_rating__["a" /* default */]();
-        this.about = new __WEBPACK_IMPORTED_MODULE_3__static_components_about__["a" /* default */]();
-        this.login = new __WEBPACK_IMPORTED_MODULE_4__static_components_login__["a" /* default */]();
-        this.gameMode = new __WEBPACK_IMPORTED_MODULE_5__static_components_gameMode__["a" /* default */]();
+        this.menu = new __WEBPACK_IMPORTED_MODULE_1__components_menu__["a" /* default */]();
+        this.rating = new __WEBPACK_IMPORTED_MODULE_2__components_rating__["a" /* default */]();
+        this.about = new __WEBPACK_IMPORTED_MODULE_3__components_about__["a" /* default */]();
+        this.login = new __WEBPACK_IMPORTED_MODULE_4__components_login__["a" /* default */]();
+        this.gameMode = new __WEBPACK_IMPORTED_MODULE_5__components_gameMode__["a" /* default */]();
         this.myAudio = new Audio("game/assets/main_theme.mp3");
         this.myAudio.addEventListener('ended', function () {
             this.currentTime = 0;
@@ -451,7 +450,7 @@ class Manage {
     }
 
     showLogin() {
-        document.getElementById("PointJS-canvas_0").hidden = true;
+        //document.getElementById("PointJS-canvas_0").hidden = true;
         this.indPage.hidden = true;
         this.loginPage.hidden = false;
         this.modePage.hidden = true;
@@ -528,9 +527,15 @@ class Manage {
     }
 
     showGame() {
-        game.startLoop("l1");
-        document.getElementById("PointJS-canvas_0").classList.remove("game-canvas-not");
-        document.getElementById("PointJS-canvas_0").classList.add("game-canvas-active");
+        var startGame = new StartGame();
+        startGame.init();
+        console.log("manage: before startLoop");
+        startGame.game.setLoop("l1");
+        startGame.game.start();
+        console.log("manage: after startLoop");
+
+        // document.getElementById("PointJS-canvas_0").classList.remove("game-canvas-not");
+        // document.getElementById("PointJS-canvas_0").classList.add("game-canvas-active");
     }
 
     userLogin(login, password, callback1 = null, callback2 = null) {
@@ -542,8 +547,8 @@ class Manage {
                 console.log("into login-200");
             }
             console.log("into login-200");
-            //this.showInd();
-            game.startLoop("l1");
+            this.showInd();
+            //game.startLoop("l1");
         }).catch(err => {
             console.log('fetch error: ', err);
         });
@@ -557,7 +562,8 @@ class Manage {
             });
             if (response.status === 200) {
                 this.logicAuth = true;
-                location.href = 'game/index.html';
+                //location.href = 'game/index.html';
+                this.router.nav('/game');
             }
         }).catch(err => {
             console.log('fetch error: ', err);
@@ -585,6 +591,7 @@ class Manage {
                 // game.startLoop("l1");
                 // document.getElementById("PointJS-canvas_0").classList.remove("game-canvas-not");
                 // document.getElementById("PointJS-canvas_0").classList.add("game-canvas-active");
+
                 //let startGame = new StartGame();
                 this.router.nav('/game');
             }.bind(this));
@@ -597,9 +604,10 @@ class Manage {
                 // game.startLoop("l1");
                 // document.getElementById("PointJS-canvas_0").classList.remove("game-canvas-not");
                 // document.getElementById("PointJS-canvas_0").classList.add("game-canvas-active"); //TODO: fix login
-                //this.showLogin();
-                this.router.nav('/game');
-                //Router.nav('/login');
+                this.showLogin();
+
+                //this.router.nav('/game');
+                Router.nav('/login');
             }.bind(this));
         }
         document.getElementById('menuRating').addEventListener("click", function () {
@@ -680,10 +688,10 @@ var Router = {
 
     indexPage: function () {
         history.pushState(null, null, "/");
-        game.clear();
-        game.stop();
-        document.getElementById("PointJS-canvas_0").classList.remove("game-canvas-active");
-        document.getElementById("PointJS-canvas_0").classList.add("game-canvas-not");
+        // startGame.game.clear();
+        // startGame.game.stop();
+        // document.getElementById("PointJS-canvas_0").classList.remove("game-canvas-active");
+        // document.getElementById("PointJS-canvas_0").classList.add("game-canvas-not");
         manage = window.manage;
         manage.showInd();
     },
@@ -709,6 +717,7 @@ var Router = {
         history.pushState(null, null, "/game");
         manage = window.manage;
         manage.showGame();
+        console.log("in router");
     }
 };
 
@@ -739,15 +748,15 @@ Router.nav(str.substring(0, str.length - 1));
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_manage__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_router__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__services_router__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__static_services_manage__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__static_services_router__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__static_services_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__static_services_router__);
 
 
 
 (function () {
 
-    let manage = new __WEBPACK_IMPORTED_MODULE_0__services_manage__["a" /* default */]();
+    let manage = new __WEBPACK_IMPORTED_MODULE_0__static_services_manage__["a" /* default */]();
     window.manage = manage;
     //console.log(window.manage);
 
@@ -797,6 +806,90 @@ class HTTP {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(0);
+
+
+class About extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default */] {
+    render(renderTemplate) {
+        this.content.innerHTML = renderTemplate;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = About;
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(0);
+
+
+class GameMode extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default */] {
+    render(renderTemplate) {
+        this.content.innerHTML = renderTemplate;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = GameMode;
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(0);
+
+
+class Login extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default */] {
+    render(renderTemplate) {
+        this.content.innerHTML = renderTemplate;
+    }
+
+    on(type, callback) {
+        this.content.addEventListener(type, callback);
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Login;
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(0);
+
+
+class Menu extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default */] {
+    render(renderTemplate) {
+        this.content.innerHTML = renderTemplate;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Menu;
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(0);
+
+
+class Rating extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default */] {
+    render(renderTemplate) {
+        this.content.innerHTML = renderTemplate;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Rating;
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modules_http__ = __webpack_require__(5);
 
 
@@ -833,90 +926,6 @@ class SiteService {
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = SiteService;
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(0);
-
-
-class About extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default */] {
-    render(renderTemplate) {
-        this.content.innerHTML = renderTemplate;
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = About;
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(0);
-
-
-class GameMode extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default */] {
-    render(renderTemplate) {
-        this.content.innerHTML = renderTemplate;
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = GameMode;
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(0);
-
-
-class Login extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default */] {
-    render(renderTemplate) {
-        this.content.innerHTML = renderTemplate;
-    }
-
-    on(type, callback) {
-        this.content.addEventListener(type, callback);
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Login;
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(0);
-
-
-class Menu extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default */] {
-    render(renderTemplate) {
-        this.content.innerHTML = renderTemplate;
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Menu;
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseComponent__ = __webpack_require__(0);
-
-
-class Rating extends __WEBPACK_IMPORTED_MODULE_0__baseComponent__["a" /* default */] {
-    render(renderTemplate) {
-        this.content.innerHTML = renderTemplate;
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Rating;
 
 
 /***/ }),
