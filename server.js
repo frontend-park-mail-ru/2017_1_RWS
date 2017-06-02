@@ -9,15 +9,17 @@ ws(app);
 
 module.exports = pug;
 
-
 app.use('/', express.static('front'));
+app.use('/', express.static('front/html'));
 app.use('/', express.static('front/static'));
-app.use('/about', express.static('front'));
+app.use('/about', express.static('front/html'));
 app.use('/about', express.static('front/static'));
-app.use('/rating', express.static('front'));
+app.use('/rating', express.static('front/html'));
 app.use('/rating', express.static('front/static'));
-app.use('/login', express.static('front'));
+app.use('/login', express.static('front/html'));
 app.use('/login', express.static('front/static'));
+app.use('/game', express.static('front/html'));
+app.use('/game', express.static('front/static'));
 
 app.set('views', './front/components');
 app.set('view engine', 'pug');

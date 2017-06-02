@@ -1,6 +1,5 @@
 (function () {
 
-
     class StartGame {
         constructor() {
             this.pjs = new PointJS('2d', 600, 600, {backgroundColor: "#DDDDDD"});
@@ -17,12 +16,69 @@
             this.audio = this.pjs.audio;
             this.oPos;
 
+            moveJoystick = new VirtualJoystick({
+                container: document.body,
+                strokeStyle: 'cyan',
+                limitStickTravel: true,
+                stickRadius: 120
+            });
+
+
+            shootJoystick = new VirtualJoystick({
+                container: document.body,
+                strokeStyle: 'orange',
+                limitStickTravel: true,
+                stickRadius: 120
+            });
+
+            moveJoystick.addEventListener('touchStartValidation', function (event) {
+                var touch = event.changedTouches[0];
+                if (touch.pageX > window.innerWidth / 2)    return false;
+                return true
+            });
+
+            shootJoystick.addEventListener('touchStartValidation', function (event) {
+                var touch = event.changedTouches[0];
+                if (touch.pageX < window.innerWidth / 2)    return false;
+                return true
+            });
+
             this.key.initKeyControl();
             this.mouse.initMouseControl();
             // this.game.startLoop("l1");
         }
 
         init() {
+
+
+
+
+
+
+            var moveJoystick = new VirtualJoystick({
+                container: document.body,
+                strokeStyle: 'cyan',
+                limitStickTravel: true,
+                stickRadius: 120
+            });
+            moveJoystick.addEventListener('touchStartValidation', function (event) {
+                var touch = event.changedTouches[0];
+                if (touch.pageX > window.innerWidth / 2)    return false;
+                return true
+            });
+
+            var shootJoystick = new VirtualJoystick({
+                container: document.body,
+                strokeStyle: 'orange',
+                limitStickTravel: true,
+                stickRadius: 120
+            });
+            shootJoystick.addEventListener('touchStartValidation', function (event) {
+                var touch = event.changedTouches[0];
+                if (touch.pageX < window.innerWidth / 2)    return false;
+                return true
+            });
+
 
 
             var items = new Items();
